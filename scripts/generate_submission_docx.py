@@ -1,13 +1,42 @@
 import os
+import docx
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.opc.constants import RELATIONSHIP_TYPE
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
+
+
+def add_docx_hyperlink(paragraph, url, text, color="0066CC", underline=True):
+    """
+    Inserts a genuine clickable hyperlink into a python-docx paragraph.
+    """
+    part = paragraph.part
+    r_id = part.relate_to(url, RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
+    hyperlink = OxmlElement('w:hyperlink')
+    hyperlink.set(qn('r:id'), r_id)
+    new_run = OxmlElement('w:r')
+    rPr = OxmlElement('w:rPr')
+    if color:
+        c = OxmlElement('w:color')
+        c.set(qn('w:val'), color)
+        rPr.append(c)
+    if underline:
+        u = OxmlElement('w:u')
+        u.set(qn('w:val'), 'single')
+        rPr.append(u)
+    new_run.append(rPr)
+    new_run.text = text
+    hyperlink.append(new_run)
+    paragraph._p.append(hyperlink)
+    return hyperlink
 
 
 def build_submission_docx(
@@ -46,16 +75,16 @@ def build_submission_docx(
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = False
     
-    meta_data = [
-        ("Student Name", student_name),
-        ("Registration Number", reg_num),
-        ("Assignment Title", "Assignment 2 - Autoregressive Text Generation System"),
-        ("System Title", "Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's Alice in Wonderland using Simple RNN, Bidirectional RNN, LSTM and GRU"),
-        ("Dataset Name & Source", "Alice's Adventures in Wonderland (Lewis Carroll)\nhttps://www.gutenberg.org/files/11/11-0.txt"),
-        ("GitHub Repository Link", repo_url)
+    meta_rows = [
+        ("Student Name", student_name, None),
+        ("Registration Number", reg_num, None),
+        ("Assignment Title", "Assignment 2 - Autoregressive Text Generation System", None),
+        ("System Title", "Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's Alice in Wonderland using Simple RNN, Bidirectional RNN, LSTM and GRU", None),
+        ("Dataset Name & Source", "Alice's Adventures in Wonderland (Lewis Carroll)\n", "https://www.gutenberg.org/files/11/11-0.txt"),
+        ("GitHub Repository Link", "", repo_url)
     ]
     
-    for i, (k, v) in enumerate(meta_data):
+    for i, (k, text_prefix, link_url) in enumerate(meta_rows):
         row = table.rows[i]
         c0 = row.cells[0]
         c1 = row.cells[1]
@@ -68,11 +97,11 @@ def build_submission_docx(
         r0.font.size = Pt(10)
         
         p1 = c1.paragraphs[0]
-        r1 = p1.add_run(v)
-        r1.font.size = Pt(10)
-        if "http" in v:
-            r1.font.color.rgb = RGBColor(0, 102, 204)
-            r1.font.underline = True
+        if text_prefix:
+            r1 = p1.add_run(text_prefix)
+            r1.font.size = Pt(10)
+        if link_url:
+            add_docx_hyperlink(p1, link_url, link_url)
             
     doc.add_paragraph().paragraph_format.space_after = Pt(16)
     
@@ -220,8 +249,8 @@ def build_submission_pdf(
         [Paragraph("<b>Registration Number</b>", table_text), Paragraph(reg_num, table_text)],
         [Paragraph("<b>Assignment Title</b>", table_text), Paragraph("Assignment 2 - Autoregressive Text Generation System", table_text)],
         [Paragraph("<b>System Title</b>", table_text), Paragraph("Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's Alice in Wonderland using Simple RNN, BiRNN, LSTM, GRU", table_text)],
-        [Paragraph("<b>Dataset & Source</b>", table_text), Paragraph("Alice's Adventures in Wonderland (Lewis Carroll) | https://www.gutenberg.org/files/11/11-0.txt", table_text)],
-        [Paragraph("<b>GitHub Repository</b>", table_text), Paragraph(f'<font color="#0066cc"><u>{repo_url}</u></font>', table_text)],
+        [Paragraph("<b>Dataset & Source</b>", table_text), Paragraph('Alice\'s Adventures in Wonderland (Lewis Carroll) | <a href="https://www.gutenberg.org/files/11/11-0.txt"><font color="#0066cc"><u>https://www.gutenberg.org/files/11/11-0.txt</u></font></a>', table_text)],
+        [Paragraph("<b>GitHub Repository</b>", table_text), Paragraph(f'<a href="{repo_url}"><font color="#0066cc"><u>{repo_url}</u></font></a>', table_text)],
     ]
     meta_table = Table(meta_table_data, colWidths=[120, 420])
     meta_table.setStyle(TableStyle([
