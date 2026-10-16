@@ -27,27 +27,30 @@ class SimpleRNNLanguageModel(nn.Module):
 class BiRNNLanguageModel(nn.Module):
     """
     Autoregressive Next-Word Prediction with Bidirectional RNN.
-    Encodes the given seed sequence in both forward and backward directions.
+    Encodes the given seed sequence in both forward (0 -> T-1) and backward (T-1 -> 0) directions.
+    The forward final state h_n[-2] and backward final state h_n[-1] are concatenated to provide
+    the full bidirectional context across the entire input window.
     """
     def __init__(self, vocab_size, embedding_dim=128, hidden_dim=128, dropout=0.2):
         super(BiRNNLanguageModel, self).__init__()
         self.name = "Bidirectional RNN"
+        self.hidden_dim = hidden_dim
         self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)
         self.rnn = nn.RNN(embedding_dim, hidden_dim, batch_first=True, bidirectional=True)
         self.dropout = nn.Dropout(dropout)
-        # Bidirectional concatenates forward and backward hidden features: 2 * hidden_dim
+        # Bidirectional concatenates forward and backward final hidden features: 2 * hidden_dim
         self.fc = nn.Linear(hidden_dim * 2, vocab_size)
 
     def forward(self, x):
         # x: (batch_size, seq_len)
         embeds = self.embedding(x)
-        out, h_n = self.rnn(embeds)                    # out: (batch_size, seq_len, hidden_dim * 2)
-        # out[:, -1, :hidden_dim] is forward last step
-        # out[:, -1, hidden_dim:] or out[:, 0, hidden_dim:] captures backward pass
-        # Taking out[:, -1, :] provides the combined representation at the boundary
-        last_step = out[:, -1, :]
-        dropped = self.dropout(last_step)
-        logits = self.fc(dropped)                      # (batch_size, vocab_size)
+        out, h_n = self.rnn(embeds)
+        # h_n shape: (2, batch_size, hidden_dim)
+        # h_n[-2] is the forward final state (tokens 0 -> T-1)
+        # h_n[-1] is the backward final state (tokens T-1 -> 0)
+        bidirectional_repr = torch.cat([h_n[-2], h_n[-1]], dim=-1) # (batch_size, 2 * hidden_dim)
+        dropped = self.dropout(bidirectional_repr)
+        logits = self.fc(dropped)                                  # (batch_size, vocab_size)
         return logits
 
 

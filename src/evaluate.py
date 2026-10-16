@@ -112,14 +112,105 @@ def plot_training_results(histories, save_dir="results"):
     print(f"Saved plots to {save_dir}/")
 
 
-def format_comparison_table(histories):
-    """Generates markdown comparison table."""
-    header = "| Architecture | Parameters | Final Val Loss | Perplexity | Top-1 Accuracy | Top-5 Accuracy | Total Time (s) | Avg Epoch Time (s) |\n"
-    divider = "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n"
+def format_comparison_table(histories, save_dir="results"):
+    """Generates markdown comparison table reporting best-epoch and test-set performance, and exports CSV."""
+    import csv
+    
+    header = "| Architecture | Parameters | Best Epoch | Best Val Loss | Best Val PPL | Val Top-1 | Val Top-5 | Test Loss | Test Top-1 | Test Top-5 | Total Time (s) |\n"
+    divider = "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n"
     rows = ""
+    csv_rows = []
+    
     for name, hist in histories.items():
-        top5 = hist.get("final_val_top5_acc", hist["final_val_acc"])
-        rows += (f"| **{name}** | {hist['param_count']:,} | {hist['final_val_loss']:.4f} | "
-                 f"{hist['final_perplexity']:.2f} | {hist['final_val_acc']*100:.2f}% | "
-                 f"{top5*100:.2f}% | {hist['total_time']:.1f}s | {hist['avg_epoch_time']:.2f}s |\n")
+        best_ep = hist.get("best_epoch", "-")
+        best_loss = hist.get("best_val_loss", hist["final_val_loss"])
+        best_ppl = hist.get("best_perplexity", hist["final_perplexity"])
+        best_top1 = hist.get("best_val_acc", hist["final_val_acc"]) * 100
+        best_top5 = hist.get("best_val_top5_acc", hist.get("final_val_top5_acc", hist["final_val_acc"])) * 100
+        
+        test_loss = hist.get("test_loss", best_loss)
+        test_top1 = hist.get("test_acc", best_top1 / 100) * 100
+        test_top5 = hist.get("test_top5_acc", best_top5 / 100) * 100
+        tot_time = hist["total_time"]
+        params = hist["param_count"]
+        
+        rows += (f"| **{name}** | {params:,} | {best_ep} | {best_loss:.4f} | "
+                 f"{best_ppl:.2f} | {best_top1:.2f}% | {best_top5:.2f}% | "
+                 f"{test_loss:.4f} | {test_top1:.2f}% | {test_top5:.2f}% | {tot_time:.1f}s |\n")
+                 
+        csv_rows.append({
+            "Architecture": name,
+            "Parameters": params,
+            "Best Epoch": best_ep,
+            "Best Val Loss": round(best_loss, 4),
+            "Best Val Perplexity": round(best_ppl, 2),
+            "Val Top-1 Accuracy (%)": round(best_top1, 2),
+            "Val Top-5 Accuracy (%)": round(best_top5, 2),
+            "Test Loss": round(test_loss, 4),
+            "Test Top-1 Accuracy (%)": round(test_top1, 2),
+            "Test Top-5 Accuracy (%)": round(test_top5, 2),
+            "Total Time (s)": round(tot_time, 1)
+        })
+        
+    csv_path = os.path.join(save_dir, "quantitative_comparison.csv")
+    if csv_rows:
+        with open(csv_path, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=list(csv_rows[0].keys()))
+            writer.writeheader()
+            writer.writerows(csv_rows)
+            
+    return header + divider + rows
+
+
+def format_cross_model_temperature_table(generation_summary, save_dir="results"):
+    """
+    Builds a structured cross-model temperature comparison table averaged across all seed prompts.
+    Reports Distinct-1, Distinct-2, Trigram Repetition Rate, and Longest Loop.
+    """
+    import csv
+    
+    header = "| Architecture | Temp (T) | Distinct-1 (Unigrams) | Distinct-2 (Bigrams) | Trigram Repetition Rate | Longest Loop | Empirical Behaviour |\n"
+    divider = "| :--- | :---: | :---: | :---: | :---: | :---: | :--- |\n"
+    rows = ""
+    csv_rows = []
+    
+    descriptions = {
+        0.2: "Conservative, high confidence, prone to phrase repetition",
+        0.5: "Optimal trade-off: high lexical diversity with fluent phrasing",
+        1.0: "High vocabulary variety; occasional grammatical drift",
+        1.5: "High entropy, syntactic fragmentation, loss of coherence"
+    }
+    
+    for key, metrics_list in generation_summary.items():
+        # key format: ModelName_T0.5
+        parts = key.rsplit("_T", 1)
+        model_name = parts[0]
+        temp = float(parts[1])
+        
+        avg_d1 = np.mean([m["distinct_1"] for m in metrics_list])
+        avg_d2 = np.mean([m["distinct_2"] for m in metrics_list])
+        avg_tri = np.mean([m["trigram_repeat_rate"] for m in metrics_list])
+        max_loop = max([m["longest_loop"] for m in metrics_list])
+        desc = descriptions.get(temp, "Standard sampling")
+        
+        rows += (f"| **{model_name}** | {temp:3.1f} | {avg_d1:.3f} | {avg_d2:.3f} | "
+                 f"{avg_tri:.3f} | {max_loop} words | {desc} |\n")
+                 
+        csv_rows.append({
+            "Architecture": model_name,
+            "Temperature": temp,
+            "Distinct-1": round(avg_d1, 4),
+            "Distinct-2": round(avg_d2, 4),
+            "Trigram Repetition Rate": round(avg_tri, 4),
+            "Longest Loop (Words)": max_loop,
+            "Description": desc
+        })
+        
+    csv_path = os.path.join(save_dir, "temperature_comparison.csv")
+    if csv_rows:
+        with open(csv_path, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=list(csv_rows[0].keys()))
+            writer.writeheader()
+            writer.writerows(csv_rows)
+            
     return header + divider + rows

@@ -1,3 +1,4 @@
+import os
 import time
 import math
 import torch
@@ -77,10 +78,11 @@ def evaluate(model, dataloader, criterion, device):
     return val_loss, val_acc, val_top5, val_perplexity
 
 
-def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cpu", checkpoint_path=None):
+def train_model(model, train_loader, val_loader, test_loader=None, epochs=12, lr=0.001, device="cpu", checkpoint_path=None):
     """
     Trains a model under controlled, comparable conditions.
-    Tracks loss, perplexity, top-1 accuracy, and wall-clock training time.
+    Tracks loss, perplexity, top-1 accuracy, top-5 accuracy, best-epoch metrics,
+    and evaluates on the unseen test set using the best checkpoint.
     """
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()
@@ -97,6 +99,10 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
     }
     
     best_val_loss = float("inf")
+    best_epoch = 1
+    best_val_acc = 0.0
+    best_val_top5 = 0.0
+    best_ppl = float("inf")
     total_start_time = time.time()
     
     print(f"\n{'='*60}")
@@ -120,9 +126,14 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
         history["val_perplexity"].append(val_ppl)
         history["epoch_times"].append(epoch_duration)
         
-        if val_loss < best_val_loss and checkpoint_path:
+        if val_loss < best_val_loss:
             best_val_loss = val_loss
-            torch.save(model.state_dict(), checkpoint_path)
+            best_epoch = epoch
+            best_val_acc = val_acc
+            best_val_top5 = val_top5
+            best_ppl = val_ppl
+            if checkpoint_path:
+                torch.save(model.state_dict(), checkpoint_path)
             
         print(f"Epoch {epoch:2d}/{epochs:2d} | "
               f"Train Loss: {train_loss:.4f} | "
@@ -135,12 +146,30 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
     total_time = time.time() - total_start_time
     history["total_time"] = total_time
     history["avg_epoch_time"] = np.mean(history["epoch_times"])
+    
+    # Best-epoch metrics
+    history["best_epoch"] = best_epoch
     history["best_val_loss"] = best_val_loss
+    history["best_val_acc"] = best_val_acc
+    history["best_val_top5_acc"] = best_val_top5
+    history["best_perplexity"] = best_ppl
+    
+    # Final-epoch metrics
     history["final_val_loss"] = history["val_loss"][-1]
     history["final_val_acc"] = history["val_acc"][-1]
     history["final_val_top5_acc"] = history["val_top5_acc"][-1]
     history["final_perplexity"] = history["val_perplexity"][-1]
     history["param_count"] = sum(p.numel() for p in model.parameters() if p.requires_grad)
     
+    # Evaluate best model checkpoint on test set
+    if test_loader is not None and checkpoint_path and os.path.exists(checkpoint_path):
+        model.load_state_dict(torch.load(checkpoint_path, map_location=device))
+        test_loss, test_acc, test_top5, test_ppl = evaluate(model, test_loader, criterion, device)
+        history["test_loss"] = test_loss
+        history["test_acc"] = test_acc
+        history["test_top5_acc"] = test_top5
+        history["test_perplexity"] = test_ppl
+        print(f"Test Set Evaluation (Best Epoch {best_epoch}): Loss: {test_loss:.4f} | PPL: {test_ppl:.2f} | Top-1: {test_acc*100:.2f}% | Top-5: {test_top5*100:.2f}%")
+        
     print(f"{model.name} completed in {total_time:.1f}s (Avg: {history['avg_epoch_time']:.2f}s/epoch).")
     return history

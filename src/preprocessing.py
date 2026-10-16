@@ -116,43 +116,61 @@ class TextSequenceDataset(Dataset):
         return self.inputs[idx], self.targets[idx]
 
 
-def prepare_data(file_path, seq_length=8, max_vocab_size=5000, min_freq=2, val_split=0.2, batch_size=128, max_samples=None, seed=42):
+def prepare_data(file_path, seq_length=8, max_vocab_size=3000, min_freq=1, val_split=0.1, test_split=0.1, batch_size=64, max_samples=None, seed=42):
     """
-    Full pipeline to load, preprocess, tokenize, and create train/val DataLoaders.
+    Full pipeline to load, preprocess, tokenize, and create train/val/test DataLoaders.
+    Uses chronological contiguous splitting (80% Train, 10% Validation, 10% Test)
+    and fits vocabulary strictly on the training set to prevent data leakage.
     """
     with open(file_path, "r", encoding="utf-8") as f:
         raw_text = f.read()
 
     tokens = clean_and_tokenize(raw_text)
-    
-    vocab = Vocabulary()
-    vocab.build_from_words(tokens, min_freq=min_freq, max_vocab_size=max_vocab_size)
-    
-    token_indices = vocab.encode(tokens)
-    
-    if max_samples is not None and max_samples < len(token_indices):
-        token_indices = token_indices[:max_samples]
+    if max_samples is not None and max_samples < len(tokens):
+        tokens = tokens[:max_samples]
         
-    dataset = TextSequenceDataset(token_indices, seq_length=seq_length)
+    total_tokens = len(tokens)
+    val_count = int(total_tokens * val_split)
+    test_count = int(total_tokens * test_split)
+    train_count = total_tokens - val_count - test_count
     
-    # Train / Val Split
-    total_len = len(dataset)
-    val_len = int(total_len * val_split)
-    train_len = total_len - val_len
+    train_tokens = tokens[:train_count]
+    val_tokens = tokens[train_count : train_count + val_count]
+    test_tokens = tokens[train_count + val_count :]
     
-    generator = torch.Generator().manual_seed(seed)
-    train_dataset, val_dataset = random_split(dataset, [train_len, val_len], generator=generator)
+    # Fit vocabulary strictly on training tokens (prevents vocabulary leakage)
+    vocab = Vocabulary()
+    vocab.build_from_words(train_tokens, min_freq=min_freq, max_vocab_size=max_vocab_size)
+    
+    # Encode splits
+    train_indices = vocab.encode(train_tokens)
+    val_indices = vocab.encode(val_tokens)
+    test_indices = vocab.encode(test_tokens)
+    
+    # Construct independent sliding-window sequence datasets
+    train_dataset = TextSequenceDataset(train_indices, seq_length=seq_length)
+    val_dataset = TextSequenceDataset(val_indices, seq_length=seq_length)
+    test_dataset = TextSequenceDataset(test_indices, seq_length=seq_length)
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     
     stats = get_dataset_stats(raw_text, tokens, vocab)
+    stats["train_tokens"] = len(train_tokens)
+    stats["val_tokens"] = len(val_tokens)
+    stats["test_tokens"] = len(test_tokens)
+    stats["train_sequences"] = len(train_dataset)
+    stats["val_sequences"] = len(val_dataset)
+    stats["test_sequences"] = len(test_dataset)
     
     return {
         "train_loader": train_loader,
         "val_loader": val_loader,
+        "test_loader": test_loader,
         "train_dataset": train_dataset,
         "val_dataset": val_dataset,
+        "test_dataset": test_dataset,
         "vocab": vocab,
         "stats": stats,
         "tokens": tokens,

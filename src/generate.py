@@ -71,28 +71,45 @@ def generate_text(model, vocab, seed_text, max_new_tokens=30, seq_length=8, temp
     return " ".join(formatted_words), generated_tokens
 
 
-def calculate_generation_metrics(tokens):
+def calculate_generation_metrics(tokens, num_seed_tokens=0):
     """
-    Calculates quantitative metrics on generated text:
-    - Distinct-1: Ratio of unique unigrams to total tokens
-    - Distinct-2: Ratio of unique bigrams to total bigrams
-    - Repetition-Rate: Percentage of duplicate tokens
+    Calculates quantitative metrics strictly on NEWLY GENERATED tokens (excluding seed prompt):
+    - Distinct-1: Ratio of unique unigrams to total generated tokens
+    - Distinct-2: Ratio of unique bigrams to total generated bigrams
+    - Trigram Repetition Rate: Percentage of repeated trigrams (3-grams appearing > 1 time)
+    - Longest Loop: Length of repeating pattern (if looping detected)
     """
-    if len(tokens) == 0:
-        return {"distinct_1": 0.0, "distinct_2": 0.0, "repetition_rate": 0.0}
+    gen_tokens = tokens[num_seed_tokens:] if num_seed_tokens < len(tokens) else tokens
+    if len(gen_tokens) == 0:
+        return {"distinct_1": 0.0, "distinct_2": 0.0, "trigram_repeat_rate": 0.0, "longest_loop": 0}
         
-    unigrams = tokens
+    unigrams = gen_tokens
     distinct_1 = len(set(unigrams)) / len(unigrams)
     
     bigrams = [f"{unigrams[i]}_{unigrams[i+1]}" for i in range(len(unigrams) - 1)]
     distinct_2 = len(set(bigrams)) / max(1, len(bigrams))
     
-    # Count consecutive repetitions (w_i == w_{i+1})
-    consecutive_reps = sum(1 for i in range(len(unigrams) - 1) if unigrams[i] == unigrams[i+1])
-    consecutive_rate = consecutive_reps / max(1, len(unigrams) - 1)
-    
+    # Trigram repetition rate
+    trigrams = [f"{unigrams[i]}_{unigrams[i+1]}_{unigrams[i+2]}" for i in range(len(unigrams) - 2)]
+    if len(trigrams) > 0:
+        trigram_counts = Counter(trigrams)
+        repeated_trigrams = sum(count - 1 for count in trigram_counts.values() if count > 1)
+        trigram_repeat_rate = repeated_trigrams / len(trigrams)
+    else:
+        trigram_repeat_rate = 0.0
+        
+    # Longest repeated loop (find repeated token n-grams)
+    longest_loop = 0
+    for length in range(2, min(8, len(unigrams) // 2 + 1)):
+        for i in range(len(unigrams) - 2 * length + 1):
+            chunk1 = unigrams[i : i + length]
+            chunk2 = unigrams[i + length : i + 2 * length]
+            if chunk1 == chunk2:
+                longest_loop = max(longest_loop, length)
+                
     return {
         "distinct_1": round(distinct_1, 4),
         "distinct_2": round(distinct_2, 4),
-        "consecutive_repeat_rate": round(consecutive_rate, 4)
+        "trigram_repeat_rate": round(trigram_repeat_rate, 4),
+        "longest_loop": longest_loop
     }
