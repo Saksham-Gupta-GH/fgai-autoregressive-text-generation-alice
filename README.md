@@ -154,9 +154,9 @@ All four models were trained for 8 epochs on Apple Silicon MPS. Because recurren
 During autoregressive decoding, next-token probabilities are modulated by temperature $T$:
 $$P(w_{t} = i) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$$
 
-We evaluated all four architectures across three distinct seed prompts at four temperatures ($T \in \{0.2, 0.5, 1.0, 1.5\}$). All metrics are computed **strictly on newly generated tokens** (excluding the seed prompt) and averaged across seeds:
+We evaluated all four architectures across three distinct seed prompts at four temperatures ($T \in \{0.2, 0.5, 1.0, 1.5\}$). All metrics are computed **strictly on newly generated tokens** (excluding the seed prompt) and averaged across seed prompts ($n = 3$ generations per cell):
 
-### Cross-Model Temperature Metrics Table (Averaged Over Seeds)
+### Cross-Model Temperature Metrics Table (Averaged Over Seed Prompts, n = 3 per cell)
 | Architecture | Temp (T) | Distinct-1 (Unigrams) | Distinct-2 (Bigrams) | Trigram Repetition Rate | Longest Loop | Empirical Quality Assessment |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
 | **Simple RNN** | 0.2 | 0.571 | 0.716 | 20.2% | 0 words | Repetitive phrasing loops; repeats 'cauldron of the door' motif |
@@ -168,7 +168,7 @@ We evaluated all four architectures across three distinct seed prompts at four t
 | **Bidirectional RNN** | 1.0 | 0.867 | 1.000 | 0.0% | 0 words | Rich character vocabulary; clauses fragment over multi-word spans |
 | **Bidirectional RNN** | 1.5 | 0.943 | 1.000 | 0.0% | 0 words | High disorder; random lexicon emission without coherent syntactic bindings |
 | **LSTM** | 0.2 | 0.571 | 0.765 | 12.1% | 0 words | Strict syntax; repeats dominant character motifs ('queen s argument was') |
-| **LSTM** | **0.5** | **0.667** | **0.902** | **5.0%** | **0 words** | **Optimal narrative coherence; fluent story prose ('the march hare said in a hurry')** |
+| **LSTM** | **0.5** | **0.667** | **0.902** | **5.0%** | **0 words** | **Most fluent in our samples; coherent narrative phrasing ('the march hare said in a hurry')** |
 | **LSTM** | 1.0 | 0.857 | 1.000 | 0.0% | 0 words | Imaginative lexical combinations ('way of soup'); slight clause drift |
 | **LSTM** | 1.5 | 0.895 | 1.000 | 0.0% | 0 words | Entropy collapse; erratic word sequencing ('face high before without more pig') |
 | **GRU** | 0.2 | 0.343 | 0.412 | 52.5% | 6 words | Extreme phrase trapping (52.5% repetition); loops on 'and she tried to herself' |
