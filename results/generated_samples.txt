@@ -10,59 +10,59 @@ SEED PROMPT: "alice was beginning to get very tired of sitting"
 
 
 --- Model: Simple RNN ---
-[T = 0.2] -> alice was beginning to get very tired of sitting. the queen, and the queen, and the queen. the queen s no use, said the gryphon. i m sure i m sure i m sure i m sure i
-          (Distinct-1: 0.37, Distinct-2: 0.53, Trigram Repeat Rate: 0.39, Longest Loop: 6 words)
+[T = 0.2] -> alice was beginning to get very tired of sitting on it, and the other was a large cauldron of the door, and the little thing was just about it, and she was quite silent to the door, and the little
+          (Distinct-1: 0.57, Distinct-2: 0.74, Trigram Repeat Rate: 0.18, Longest Loop: 0 words)
 
-[T = 0.5] -> alice was beginning to get very tired of sitting. the queen? she said to herself, said the hatter. one of the way, and the queen. what a little thing! said the mouse, and the dormouse went
-          (Distinct-1: 0.63, Distinct-2: 0.88, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
+[T = 0.5] -> alice was beginning to get very tired of sitting on the door to say, and she thought to herself, she thought it, and the little door that makes the world would not, and she soon the same little door,
+          (Distinct-1: 0.54, Distinct-2: 0.85, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
 
-[T = 1.0] -> alice was beginning to get very tired of sitting among the fan she turned whether story more she had have a little m_ of some out such a grin, and oh. well, as then, for a star kept it won
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.0] -> alice was beginning to get very tired of sitting ugly in its escape key of hearts to play croquet into a thing: she was just at first; she added it! and she knows herself about the _i_. would be,
+          (Distinct-1: 0.94, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> alice was beginning to get very tired of sitting capering remark herself before to behind dry yourself, one to sun execution with their easy to much? rather v course very beginning, shouted, legs am a open twist words to go
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> alice was beginning to get very tired of sitting wood for em itself another; shrinking unpleasant shoulders to him the three fly: you water, alice said after needn, will all like sort! said five and called great mistake being
+          (Distinct-1: 0.94, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 --- Model: Bidirectional RNN ---
-[T = 0.2] -> alice was beginning to get very tired of sitting. the gryphon. alice was a very difficult, and she went on the white, and she was very much to alice, and the queen, and she could not much to
-          (Distinct-1: 0.54, Distinct-2: 0.82, Trigram Repeat Rate: 0.06, Longest Loop: 0 words)
+[T = 0.2] -> alice was beginning to get very tired of sitting, and she set to herself, and the moral of the words of the other side, and the moral of course, and the moral of course, and she felt a little
+          (Distinct-1: 0.46, Distinct-2: 0.59, Trigram Repeat Rate: 0.30, Longest Loop: 6 words)
 
-[T = 0.5] -> alice was beginning to get very tired of sitting: but i m afraid the mock turtle, you know. alice was a little way of hanging? and he was just a use of the little as the duchess, and the
-          (Distinct-1: 0.74, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 0.5] -> alice was beginning to get very tired of sitting that s in the window! cried the pigeon, i don t think you know what you don t? to be no: you would be a very little thing, you know
+          (Distinct-1: 0.74, Distinct-2: 0.94, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.0] -> alice was beginning to get very tired of sitting in her life very interrupted: but it was draw to whistle it s far alice, yes, no, a the duck tone. noticed bill, ah me anxious, egg alice
+[T = 1.0] -> alice was beginning to get very tired of sitting as she had no door, and he all he could frowning you never a turn were pat, which bit all no in the caterpillar paws. and _i_ happen t seem both,
           (Distinct-1: 0.83, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> alice was beginning to get very tired of sitting others life can enough can all about as it said a large off on and shrieks bill. quite, just another dinah, too beginning at, meant bite! said alice about day
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> alice was beginning to get very tired of sitting she watch and night side wow solemnly out going to creatures leave pointing way wash, everybody wish i can just pig feeling good stuff box any eaglet the cat! sh did. and
+          (Distinct-1: 0.97, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 --- Model: LSTM ---
-[T = 0.2] -> alice was beginning to get very tired of sitting, and the dormouse was very carefully, and she went on, and the queen was very glad to be a little pattering of the house, and the queen was going to say
-          (Distinct-1: 0.60, Distinct-2: 0.76, Trigram Repeat Rate: 0.12, Longest Loop: 0 words)
+[T = 0.2] -> alice was beginning to get very tired of sitting on the other side of the queen, and the queen s argument was, and she thought it over her head. i don t like it, said the duchess. i m
+          (Distinct-1: 0.71, Distinct-2: 0.91, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 0.5] -> alice was beginning to get very tired of sitting, said alice. come, i d t see the same thing as she could not, said the cat, and the duchess was a little golden key, and the pigeon was
-          (Distinct-1: 0.71, Distinct-2: 0.91, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
+[T = 0.5] -> alice was beginning to get very tired of sitting, but she began again. the march hare said in a hurry. the march hare said to herself, as she swam, and the queen was sitting on the first figure,
+          (Distinct-1: 0.69, Distinct-2: 0.88, Trigram Repeat Rate: 0.09, Longest Loop: 0 words)
 
-[T = 1.0] -> alice was beginning to get very tired of sitting. however, please the next me! wasn t be two taller the dodo and decidedly, that she tried herself but in fact! there these had think out to eat hedgehog their
-          (Distinct-1: 0.91, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.0] -> alice was beginning to get very tired of sitting and girl to go here. well! i don hear you a neck to happen. what did you might the window, i believe who had? this was holding the box,
+          (Distinct-1: 0.83, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> alice was beginning to get very tired of sitting end, said the fall collected she! thought alice: let moving pattern into very allow and for met after the thought that off replied away across; having looked hadn? she jury
-          (Distinct-1: 0.91, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> alice was beginning to get very tired of sitting face high before without more pig what fun minute! take alice what head together there upon hard history. it at generally mice not join. not the sentence altogether not was certainly succeeded
+          (Distinct-1: 0.89, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 --- Model: GRU ---
-[T = 0.2] -> alice was beginning to get very tired of sitting, and the other side of the other side of the other side of the way, and the moral of the house, and the queen was a large flower pot, and the
-          (Distinct-1: 0.43, Distinct-2: 0.56, Trigram Repeat Rate: 0.30, Longest Loop: 4 words)
+[T = 0.2] -> alice was beginning to get very tired of sitting on the top of the mushroom, and the other side of the other, and the other side of the soldiers, and the other side of the door, and she tried to
+          (Distinct-1: 0.40, Distinct-2: 0.56, Trigram Repeat Rate: 0.30, Longest Loop: 0 words)
 
-[T = 0.5] -> alice was beginning to get very tired of sitting to have the little golden key, and the king was going on a little of one, and the queen, and the queen replied: but then she had forgotten the pool.
-          (Distinct-1: 0.71, Distinct-2: 0.85, Trigram Repeat Rate: 0.09, Longest Loop: 4 words)
+[T = 0.5] -> alice was beginning to get very tired of sitting on, and the queen was to find a bright idea: he was a little pattering of the garden, and then it had made forgotten the whole party a little girl to the
+          (Distinct-1: 0.71, Distinct-2: 0.94, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.0] -> alice was beginning to get very tired of sitting with the garden that she had begun fallen to wandering, half his playing tongue completely speak, and alice started to room a very thousand ear appeared. well somersault the gryphon. and
+[T = 1.0] -> alice was beginning to get very tired of sitting to the english; then i can say you were beginning to school a mouse about; and then this word! dreadfully she tucked very good deal end of behind the hedgehog at the
           (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> alice was beginning to get very tired of sitting after a anxiously. took another the occasional home where played seemed changed shouldn hold of procession know of the execution jumped before, you like another tiptoe, said among a lived did leaning
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> alice was beginning to get very tired of sitting ready faster their do after they taken shook this itself! and was it when into the only lovely day angrily., shouldn wouldn impossible way the morning size ever please kind doors side
+          (Distinct-1: 0.97, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 ######################################################################
@@ -71,59 +71,59 @@ SEED PROMPT: "the white rabbit put on his spectacles and said"
 
 
 --- Model: Simple RNN ---
-[T = 0.2] -> the white rabbit put on his spectacles and said to herself, and she began to herself, and she began to herself, and the queen was going to herself, and she began to herself, and she went on, and
-          (Distinct-1: 0.34, Distinct-2: 0.41, Trigram Repeat Rate: 0.52, Longest Loop: 6 words)
+[T = 0.2] -> the white rabbit put on his spectacles and said, and the little thing was quite a little girl, and she was quite tired to be sure. i can t understand that! said alice. i ve often! said the
+          (Distinct-1: 0.71, Distinct-2: 0.88, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 0.5] -> the white rabbit put on his spectacles and said to herself, and the rabbit hole in a minute without stood, and alice replied in a little girl. come, said the caterpillar. she was a little startled with a little
-          (Distinct-1: 0.69, Distinct-2: 0.88, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 0.5] -> the white rabbit put on his spectacles and said the cat. i ve got to the table to alice, and was very much frightened, and was quite pale, as she could not feel to the shore, and the roof
+          (Distinct-1: 0.69, Distinct-2: 0.88, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
 
-[T = 1.0] -> the white rabbit put on his spectacles and said cheshire her turn. for me she said to herself, who secondly to kick it. come vanished the moment kitchen what saw you anything better at the chimney, has was low so
+[T = 1.0] -> the white rabbit put on his spectacles and said; nor the gryphon. or, said alice. i noticed that is such a new time to take the grass, alice asked. this figure very much confused it must be my
+          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+
+[T = 1.5] -> the white rabbit put on his spectacles and said; and digging house people decided upon taking moment she put nobody an eat croquet she reply falling came made to twist and or if mouth days t tiptoe a or perhaps?; go
           (Distinct-1: 0.89, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
-
-[T = 1.5] -> the white rabbit put on his spectacles and said is old: _i_ shall say of really. at sounded his jar poured morcar not angrily out treading cats my enough at all. silent world by you think! last dear! hadn
-          (Distinct-1: 0.91, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 --- Model: Bidirectional RNN ---
-[T = 0.2] -> the white rabbit put on his spectacles and said the cat, and she was a little girl of the house, and she said the mock turtle. i should to be a new! cried alice, and she heard to herself
-          (Distinct-1: 0.71, Distinct-2: 0.88, Trigram Repeat Rate: 0.06, Longest Loop: 0 words)
+[T = 0.2] -> the white rabbit put on his spectacles and said, and the other side of the air. i m glad i can t be it, i think you, you know, said the hatter. i m afraid i ve got
+          (Distinct-1: 0.66, Distinct-2: 0.94, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
 
-[T = 0.5] -> the white rabbit put on his spectacles and said to the game, i wonder it had been the duchess! i should t be impertinent! when it was a good deal, and she began to herself, and she could not
-          (Distinct-1: 0.74, Distinct-2: 0.94, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
+[T = 0.5] -> the white rabbit put on his spectacles and said to herself, and i shall have been changed, thought alice as i m not about in the trees, and she hurried off with a little way, and the moral of the
+          (Distinct-1: 0.77, Distinct-2: 0.94, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.0] -> the white rabbit put on his spectacles and said to me an case to who at cats, and they got was just pat took the gryphon, sentence little morsel across?. as grinned by a sending for the kitchen gardeners prize
+[T = 1.0] -> the white rabbit put on his spectacles and said. what, she did so they school everybody near. yes, they d take, if to watch with venture at to alice. other, but i will felt very taught timidly
+          (Distinct-1: 0.80, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+
+[T = 1.5] -> the white rabbit put on his spectacles and said all. it stirring never minute case and hearts about! five: wrong please your either walking said air! to few it s a minute swam from? there day off were use
           (Distinct-1: 0.91, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
-
-[T = 1.5] -> the white rabbit put on his spectacles and said, for beautiful, thought window much the hookah, and in confused question: yer idea at generally. repeated derision boy the lady and vanished; and it must young alice, do
-          (Distinct-1: 0.83, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 --- Model: LSTM ---
-[T = 0.2] -> the white rabbit put on his spectacles and said, and the dormouse was sitting on the queen, and the queen said to herself, and the duchess was in the pool of the house, and the march hare said to herself
-          (Distinct-1: 0.51, Distinct-2: 0.74, Trigram Repeat Rate: 0.12, Longest Loop: 0 words)
+[T = 0.2] -> the white rabbit put on his spectacles and said, and she began to work at the other, and the queen was sitting on the other, and the queen s argument was, and she looked up and walking, and the
+          (Distinct-1: 0.51, Distinct-2: 0.71, Trigram Repeat Rate: 0.18, Longest Loop: 0 words)
 
-[T = 0.5] -> the white rabbit put on his spectacles and said, if you re a little one of the other, with their faces, and alice was very glad to her her up. now, i don t know what is, said
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 0.5] -> the white rabbit put on his spectacles and said, and the queen s argument was, and she thought to herself, she got to the dormouse, and the other came was sitting on the baby in another end of the way
+          (Distinct-1: 0.66, Distinct-2: 0.91, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
 
-[T = 1.0] -> the white rabbit put on his spectacles and said, said the rabbit to, both to look on into the race tail. one i to do in the? i m now? and when she went on, for some out
-          (Distinct-1: 0.74, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.0] -> the white rabbit put on his spectacles and said, and this was an thoughtfully at once. perhaps he ran as what since the way of soup! i do size my carrying yet! here chorus of pebbles shore, came the
+          (Distinct-1: 0.89, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> the white rabbit put on his spectacles and said on so let _with pressed myself little use! he growing t _i_ nurse; alice when said the last little pray chance somewhere to finished a hatter minding was find drew chin, it
-          (Distinct-1: 0.97, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> the white rabbit put on his spectacles and said at alice small now that course me procession: listening five used to do please; the ten managed house! times about his rabbit till! they all it t isn queer: if
+          (Distinct-1: 0.94, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 --- Model: GRU ---
-[T = 0.2] -> the white rabbit put on his spectacles and said, and alice was going to be a little golden key, and the queen was going to the table, and she was going to herself, and she felt it was a good
-          (Distinct-1: 0.54, Distinct-2: 0.76, Trigram Repeat Rate: 0.09, Longest Loop: 0 words)
+[T = 0.2] -> the white rabbit put on his spectacles and said, and the queen was in a minute or two, and she tried to herself, and she tried to herself, and she tried to herself, and she tried to herself,
+          (Distinct-1: 0.40, Distinct-2: 0.44, Trigram Repeat Rate: 0.52, Longest Loop: 6 words)
 
-[T = 0.5] -> the white rabbit put on his spectacles and said, but i m afraid i m sure i m afraid i can t know. i m afraid i m not mad! said the duchess: but i m sure to do,
-          (Distinct-1: 0.54, Distinct-2: 0.68, Trigram Repeat Rate: 0.21, Longest Loop: 0 words)
+[T = 0.5] -> the white rabbit put on his spectacles and said, and i can t be certainly, said the cat, and said nothing in a minute or two, and she walked down, and went on, and then the thing is
+          (Distinct-1: 0.69, Distinct-2: 0.88, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.0] -> the white rabbit put on his spectacles and said to herself, with a word of advance, the queen sentence hurried. the mouse looked down and legs, and felt quite appeared. under off. alice s rubbed on the chimneys
-          (Distinct-1: 0.80, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.0] -> the white rabbit put on his spectacles and said, and she ll held mouth to herself, and in another of well, and looking if that it could see its won afraid, thank you or caught? then? the duchess
+          (Distinct-1: 0.83, Distinct-2: 0.94, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> the white rabbit put on his spectacles and said the place words how puzzling bend, these see i get irritated: young likely, turtles looked at lessons its arm, only hatter itself her safe down to begin crowd largest enough her
-          (Distinct-1: 0.91, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> the white rabbit put on his spectacles and said five, to the barrowful was faces pray, which she tried appeared queen to different round the clock: live last serpent a while now best speech in from the second, said the
+          (Distinct-1: 0.83, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 ######################################################################
@@ -132,56 +132,56 @@ SEED PROMPT: "the queen of hearts she made some tarts all"
 
 
 --- Model: Simple RNN ---
-[T = 0.2] -> the queen of hearts she made some tarts all the way of the way of the march hare. the queen s argument was a little startled. but she was not much to the other side of the way, and the queen
-          (Distinct-1: 0.63, Distinct-2: 0.82, Trigram Repeat Rate: 0.09, Longest Loop: 3 words)
+[T = 0.2] -> the queen of hearts she made some tarts all the door, and the whole party to see the queen, and the other was a large cauldron of the door, and the other was a large cauldron of the door, and
+          (Distinct-1: 0.43, Distinct-2: 0.53, Trigram Repeat Rate: 0.42, Longest Loop: 0 words)
 
-[T = 0.5] -> the queen of hearts she made some tarts all the queen, and the queen was going to herself, and said to herself, and they sat down the queen. the queen s making her hands, and she was quite a
-          (Distinct-1: 0.57, Distinct-2: 0.76, Trigram Repeat Rate: 0.06, Longest Loop: 0 words)
+[T = 0.5] -> the queen of hearts she made some tarts all the door, and looked at the door, and the other was at the stick, and at last, and the other side will make you know what i used to do,
+          (Distinct-1: 0.57, Distinct-2: 0.76, Trigram Repeat Rate: 0.12, Longest Loop: 0 words)
 
-[T = 1.0] -> the queen of hearts she made some tarts all plate, but she grown to see him which that m saw custody, and the rose she checked speak one _are_ expecting to curious she knew that into a choice in his head pressed
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.0] -> the queen of hearts she made some tarts all all that she ran to she had to cry again, and the whole party i can t understand this deal that for some ring, thought alice. the only, and then but
+          (Distinct-1: 0.80, Distinct-2: 0.97, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> the queen of hearts she made some tarts all her taught meant different of conclusion fish curiosity of that sat in stay long howled rules, shall passed heard digging left once hurry so? well me _one_ so something cunning goes invited be
-          (Distinct-1: 0.94, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> the queen of hearts she made some tarts all nicely try to your lying round hastily, because eyes can swim caused by you soon happen soup at and anxiously fell somebody ground; on the door and is eyes begun to trouble of
+          (Distinct-1: 0.91, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
 --- Model: Bidirectional RNN ---
-[T = 0.2] -> the queen of hearts she made some tarts all the mock turtle, and she heard the other side of the ground, and the other side of the house, and the other, and the other of the other of the ground
-          (Distinct-1: 0.34, Distinct-2: 0.53, Trigram Repeat Rate: 0.30, Longest Loop: 4 words)
+[T = 0.2] -> the queen of hearts she made some tarts all the way of the door, and the hatter did not like to be a very curious, said the duchess, and the moral of things, and she tried to be listening,
+          (Distinct-1: 0.63, Distinct-2: 0.88, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
 
-[T = 0.5] -> the queen of hearts she made some tarts all the off, and she went on, and she was not much as she could not hear so she could not: but there was all round, and the house on, and
-          (Distinct-1: 0.57, Distinct-2: 0.79, Trigram Repeat Rate: 0.09, Longest Loop: 0 words)
+[T = 0.5] -> the queen of hearts she made some tarts all her. and then you know, the queen of youth, and the other side of the air. i do you know, said the hatter; and then i hadn t be
+          (Distinct-1: 0.63, Distinct-2: 0.91, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
 
-[T = 1.0] -> the queen of hearts she made some tarts all at the finish, said the dodo. how do, do only very just sir a long fan wonder mine mustard; and i ve rush long way, my! moving all tells
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.0] -> the queen of hearts she made some tarts all over it, and green idea said the mock turtle: in another crowded may hole box yet one are lessons, i didn t you know! be she did to remark sadly walk
+          (Distinct-1: 0.97, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> the queen of hearts she made some tarts all. only tremble où, why what were saucepans certain be mushroom squeezed being roses watching longer again second still gloves or for broken looked finish conversations writing fan legs home up when rather on
-          (Distinct-1: 1.00, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
-
-
---- Model: LSTM ---
-[T = 0.2] -> the queen of hearts she made some tarts all the house, and the baby was going to be a little thing, said the duchess, and the gryphon, and the gryphon was a little pattering of the door, and then
-          (Distinct-1: 0.54, Distinct-2: 0.79, Trigram Repeat Rate: 0.09, Longest Loop: 4 words)
-
-[T = 0.5] -> the queen of hearts she made some tarts all the ground, she said to herself, there was a little pattering of sitting on the door, and the mock turtle footman. you re a little door, and the baby was
-          (Distinct-1: 0.69, Distinct-2: 0.88, Trigram Repeat Rate: 0.06, Longest Loop: 0 words)
-
-[T = 1.0] -> the queen of hearts she made some tarts all at once, said alice. as she thought up like a little house, it no goose into a opportunity sometimes croqueted! no mouse, what will be have to multiplication? i
-          (Distinct-1: 0.89, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
-
-[T = 1.5] -> the queen of hearts she made some tarts all say it dried mistake, just grow! moved cauldron among curiosity subject over? remark the eat scale arrum day trampled at her from. do her children came! they had long opened
+[T = 1.5] -> the queen of hearts she made some tarts all out that s like love! you know but do gardeners throw time well their i dispute one i can old asleep kept, then times soon turned curious tortoise song enough put with then
           (Distinct-1: 0.94, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
 
+--- Model: LSTM ---
+[T = 0.2] -> the queen of hearts she made some tarts all the queen, and the queen s argument was, and she was now about it, and she was so much frightened, and she looked up and round the queen, and the
+          (Distinct-1: 0.49, Distinct-2: 0.68, Trigram Repeat Rate: 0.18, Longest Loop: 0 words)
+
+[T = 0.5] -> the queen of hearts she made some tarts all her. the queen s argument was, and was surprised to the other, she was all the fan, and she felt that it was a little while, and she went back
+          (Distinct-1: 0.66, Distinct-2: 0.91, Trigram Repeat Rate: 0.03, Longest Loop: 0 words)
+
+[T = 1.0] -> the queen of hearts she made some tarts all it. how am i seemed to tell that such a great hurry, just she remained the twelve as well, and shouting indignantly her life. poor the caterpillar and looked at the
+          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+
+[T = 1.5] -> the queen of hearts she made some tarts all continued at eyes such sigh, that he stood outside, the tale wish think in their the ground was gone like; oh, dinah, you won t race up and said,
+          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+
+
 --- Model: GRU ---
-[T = 0.2] -> the queen of hearts she made some tarts all the way of the trees, and was going to the table, but she was not quite much to the door, and the queen was the first, and the queen was going
-          (Distinct-1: 0.51, Distinct-2: 0.79, Trigram Repeat Rate: 0.09, Longest Loop: 0 words)
+[T = 0.2] -> the queen of hearts she made some tarts all the time, and she tried to herself, and she tried to herself, and she tried to herself, and she tried to herself, and she tried to herself, and she
+          (Distinct-1: 0.23, Distinct-2: 0.24, Trigram Repeat Rate: 0.76, Longest Loop: 6 words)
 
-[T = 0.5] -> the queen of hearts she made some tarts all the great contempt. alice was, so she tried to herself, and she soon made the other argument was the other side: the march hare? said the king, and the
-          (Distinct-1: 0.69, Distinct-2: 0.94, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 0.5] -> the queen of hearts she made some tarts all the little way, which you ll be really to say it. i ve seen a little thing! said the cat, and then in a minute or two, and hurried,
+          (Distinct-1: 0.80, Distinct-2: 0.97, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.0] -> the queen of hearts she made some tarts all the gryphon, panting one of having sudden; do came a pair of remarks, said alice herself. tis butter drink take the reason: the roof only to on some off.
+[T = 1.0] -> the queen of hearts she made some tarts all the little glass of mushroom, i ll try to the party heads with a talk? she tried to dance, called her arms fish or its much answer on, and hear i
           (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
 
-[T = 1.5] -> the queen of hearts she made some tarts all certain into alice she london, first; looked of coils. you are because generally everything fell; but she s quite been, fun are too chuckled attending, bill at this these
-          (Distinct-1: 0.86, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)
+[T = 1.5] -> the queen of hearts she made some tarts all what round dear delight! thought spoke, which _can_ might for him among advance i want will whether story more she had have label close m_ an some some answer ma writing, and
+          (Distinct-1: 0.94, Distinct-2: 1.00, Trigram Repeat Rate: 0.00, Longest Loop: 0 words)

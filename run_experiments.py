@@ -13,10 +13,10 @@ from src.generate import generate_text, calculate_generation_metrics
 def run_all(
     data_path="data/alice_in_wonderland.txt",
     results_dir="results",
-    epochs=12,
-    seq_length=8,
-    embedding_dim=192,
-    hidden_dim=192,
+    epochs=8,
+    seq_length=6,
+    embedding_dim=256,
+    hidden_dim=256,
     dropout=0.25,
     batch_size=64,
     max_vocab_size=3000,
@@ -40,12 +40,12 @@ def run_all(
     print(f"Using Compute Device: {device.upper()}")
     
     # 1. Dataset Preprocessing & Chronological Splitting (No Leakage)
-    print("\n[Step 1/4] Preprocessing Dataset with Chronological Split (80/10/10)...")
+    print("\n[Step 1/4] Preprocessing Dataset with Chronological Split (80/10/10, min_freq=2)...")
     data_bundle = prepare_data(
         file_path=data_path,
         seq_length=seq_length,
         max_vocab_size=max_vocab_size,
-        min_freq=1,
+        min_freq=2,
         val_split=0.1,
         test_split=0.1,
         batch_size=batch_size,

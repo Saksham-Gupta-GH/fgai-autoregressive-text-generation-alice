@@ -160,7 +160,7 @@ def create_notebook():
                     "        return [self.idx_to_word(idx) for idx in indices]\n",
                     "\n",
                     "vocab = Vocabulary()\n",
-                    "vocab.build_from_words(train_tokens, min_freq=1, max_vocab_size=3000)\n",
+                    "vocab.build_from_words(train_tokens, min_freq=2, max_vocab_size=3000)\n",
                     "print(f\"Vocabulary Size: {len(vocab):,} unique tokens (fit strictly on training set)\")"
                 ]
             },
@@ -196,7 +196,7 @@ def create_notebook():
                 "metadata": {},
                 "source": [
                     "### 2.3 Chronological Sliding-Window Sequence Construction\n",
-                    "Each sequence contains 8 context words mapped to 1 target word. Sequences are generated independently for each split to ensure zero token leakage across splits."
+                    "Each sequence contains 6 context words mapped to 1 target word. Sequences are generated independently for each split to ensure zero token leakage across splits."
                 ]
             },
             {
@@ -205,11 +205,11 @@ def create_notebook():
                 "metadata": {},
                 "outputs": [],
                 "source": [
-                    "SEQ_LENGTH = 8\n",
+                    "SEQ_LENGTH = 6\n",
                     "BATCH_SIZE = 64\n",
                     "\n",
                     "class TextSequenceDataset(Dataset):\n",
-                    "    def __init__(self, token_indices, seq_length=8):\n",
+                    "    def __init__(self, token_indices, seq_length=6):\n",
                     "        self.inputs = []\n",
                     "        self.targets = []\n",
                     "        for i in range(len(token_indices) - seq_length):\n",
@@ -243,8 +243,8 @@ def create_notebook():
                 "source": [
                     "## 3. Recurrent Architectures (Simple RNN, BiRNN, LSTM, GRU)\n",
                     "All four models share identical hyperparameters:\n",
-                    "- **Embedding Dimension**: 192\n",
-                    "- **Hidden Dimension**: 192\n",
+                    "- **Embedding Dimension**: 256\n",
+                    "- **Hidden Dimension**: 256\n",
                     "- **Dropout**: 0.25\n",
                     "- **Optimizer**: Adam (lr=0.001)\n",
                     "- **Loss Function**: Cross-Entropy Loss\n",
@@ -259,7 +259,7 @@ def create_notebook():
                 "outputs": [],
                 "source": [
                     "class SimpleRNNLM(nn.Module):\n",
-                    "    def __init__(self, vocab_size, embedding_dim=192, hidden_dim=192, dropout=0.25):\n",
+                    "    def __init__(self, vocab_size, embedding_dim=256, hidden_dim=256, dropout=0.25):\n",
                     "        super().__init__()\n",
                     "        self.name = \"Simple RNN\"\n",
                     "        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n",
@@ -273,7 +273,7 @@ def create_notebook():
                     "        return self.fc(self.dropout(out[:, -1, :]))\n",
                     "\n",
                     "class BiRNNLM(nn.Module):\n",
-                    "    def __init__(self, vocab_size, embedding_dim=192, hidden_dim=192, dropout=0.25):\n",
+                    "    def __init__(self, vocab_size, embedding_dim=256, hidden_dim=256, dropout=0.25):\n",
                     "        super().__init__()\n",
                     "        self.name = \"Bidirectional RNN\"\n",
                     "        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n",
@@ -289,7 +289,7 @@ def create_notebook():
                     "        return self.fc(self.dropout(bidir_repr))\n",
                     "\n",
                     "class LSTMLM(nn.Module):\n",
-                    "    def __init__(self, vocab_size, embedding_dim=192, hidden_dim=192, dropout=0.25):\n",
+                    "    def __init__(self, vocab_size, embedding_dim=256, hidden_dim=256, dropout=0.25):\n",
                     "        super().__init__()\n",
                     "        self.name = \"LSTM\"\n",
                     "        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n",
@@ -303,7 +303,7 @@ def create_notebook():
                     "        return self.fc(self.dropout(out[:, -1, :]))\n",
                     "\n",
                     "class GRULM(nn.Module):\n",
-                    "    def __init__(self, vocab_size, embedding_dim=192, hidden_dim=192, dropout=0.25):\n",
+                    "    def __init__(self, vocab_size, embedding_dim=256, hidden_dim=256, dropout=0.25):\n",
                     "        super().__init__()\n",
                     "        self.name = \"GRU\"\n",
                     "        self.embedding = nn.Embedding(vocab_size, embedding_dim, padding_idx=0)\n",
@@ -436,7 +436,7 @@ def create_notebook():
                     "    probs = F.softmax(logits / temperature, dim=-1)\n",
                     "    return torch.multinomial(probs, 1).item()\n",
                     "\n",
-                    "def generate(model, seed_text, max_tokens=30, temperature=1.0, seq_len=8):\n",
+                    "def generate(model, seed_text, max_tokens=30, temperature=1.0, seq_len=6):\n",
                     "    model.eval()\n",
                     "    words = re.findall(r\"\\b\\w+(?:'\\w+)?|[.,!?:;]\", seed_text.lower())\n",
                     "    gen_words = list(words)\n",
@@ -472,14 +472,14 @@ def create_notebook():
                 "source": [
                     "CKPT = '../results/lstm_best.pt' if os.path.exists('../results/lstm_best.pt') else 'results/lstm_best.pt'\n",
                     "if os.path.exists(CKPT):\n",
-                    "    demo_model = LSTMLM(vocab_size=len(vocab), embedding_dim=192, hidden_dim=192, dropout=0.25).to(device)\n",
+                    "    demo_model = LSTMLM(vocab_size=len(vocab), embedding_dim=256, hidden_dim=256, dropout=0.25).to(device)\n",
                     "    demo_model.load_state_dict(torch.load(CKPT, map_location=device))\n",
                     "    demo_model.eval()\n",
                     "    \n",
                     "    seed = 'alice was beginning to get very tired of sitting'\n",
                     "    print(f\"Seed: '{seed}'\\n\")\n",
                     "    for t in [0.2, 0.5, 1.0, 1.5]:\n",
-                    "        out = generate(demo_model, seed, max_tokens=30, temperature=t)\n",
+                    "        out = generate(demo_model, seed, max_tokens=30, temperature=t, seq_len=6)\n",
                     "        print(f\"[T = {t:3.1f}] -> {out}\\n\")"
                 ]
             }

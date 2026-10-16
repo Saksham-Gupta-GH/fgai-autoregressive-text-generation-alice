@@ -1,17 +1,17 @@
 Architecture,Temperature,Distinct-1,Distinct-2,Trigram Repetition Rate,Longest Loop (Words),Description
-Simple RNN,0.2,0.4476,0.5882,0.3333,6,"Conservative, high confidence, prone to phrase repetition"
-Simple RNN,0.5,0.6286,0.8432,0.0303,0,Optimal trade-off: high lexical diversity with fluent phrasing
-Simple RNN,1.0,0.8666,1.0,0.0,0,High vocabulary variety; occasional grammatical drift
-Simple RNN,1.5,0.9048,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"
-Bidirectional RNN,0.2,0.5334,0.7451,0.1414,4,"Conservative, high confidence, prone to phrase repetition"
-Bidirectional RNN,0.5,0.6857,0.9118,0.0404,0,Optimal trade-off: high lexical diversity with fluent phrasing
+Simple RNN,0.2,0.5714,0.7157,0.202,0,"Conservative, high confidence, prone to phrase repetition"
+Simple RNN,0.5,0.6,0.8333,0.0606,0,Optimal trade-off: high lexical diversity with fluent phrasing
+Simple RNN,1.0,0.8667,0.9902,0.0,0,High vocabulary variety; occasional grammatical drift
+Simple RNN,1.5,0.9143,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"
+Bidirectional RNN,0.2,0.5809,0.8039,0.1212,6,"Conservative, high confidence, prone to phrase repetition"
+Bidirectional RNN,0.5,0.7143,0.9314,0.0101,0,Optimal trade-off: high lexical diversity with fluent phrasing
 Bidirectional RNN,1.0,0.8667,1.0,0.0,0,High vocabulary variety; occasional grammatical drift
-Bidirectional RNN,1.5,0.8952,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"
-LSTM,0.2,0.5524,0.7647,0.1111,4,"Conservative, high confidence, prone to phrase repetition"
-LSTM,0.5,0.7524,0.9314,0.0303,0,Optimal trade-off: high lexical diversity with fluent phrasing
-LSTM,1.0,0.8476,1.0,0.0,0,High vocabulary variety; occasional grammatical drift
-LSTM,1.5,0.9429,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"
-GRU,0.2,0.4953,0.7059,0.1616,4,"Conservative, high confidence, prone to phrase repetition"
-GRU,0.5,0.6476,0.8235,0.101,4,Optimal trade-off: high lexical diversity with fluent phrasing
-GRU,1.0,0.8381,1.0,0.0,0,High vocabulary variety; occasional grammatical drift
-GRU,1.5,0.8762,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"
+Bidirectional RNN,1.5,0.9429,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"
+LSTM,0.2,0.5714,0.7647,0.1212,0,"Conservative, high confidence, prone to phrase repetition"
+LSTM,0.5,0.6666,0.902,0.0505,0,Optimal trade-off: high lexical diversity with fluent phrasing
+LSTM,1.0,0.8571,1.0,0.0,0,High vocabulary variety; occasional grammatical drift
+LSTM,1.5,0.8952,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"
+GRU,0.2,0.3429,0.4118,0.5253,6,"Conservative, high confidence, prone to phrase repetition"
+GRU,0.5,0.7333,0.9314,0.0,0,Optimal trade-off: high lexical diversity with fluent phrasing
+GRU,1.0,0.8476,0.9804,0.0,0,High vocabulary variety; occasional grammatical drift
+GRU,1.5,0.9143,1.0,0.0,0,"High entropy, syntactic fragmentation, loss of coherence"

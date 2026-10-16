@@ -92,7 +92,7 @@ def build_submission_docx(
         "• LSTM (Long Short-Term Memory with forget, input, and output gates)\n"
         "• GRU (Gated Recurrent Unit with reset and update gates)\n\n"
         "To eliminate data leakage, the corpus is split chronologically into 80% Train, 10% Validation, and 10% Test blocks, "
-        "and the vocabulary is fitted solely on the training tokens. Input sequences of length 8 predict the 9th token."
+        "and the vocabulary is fitted solely on the training tokens (min_freq=2). Input sequences of length 6 predict the 7th token."
     )
     
     # Section 2: Quantitative Results
@@ -115,10 +115,10 @@ def build_submission_docx(
         run.font.size = Pt(8.5)
         
     q_rows = [
-        ("Simple RNN", "985,022", "3", "5.0287", "152.73", "18.10%", "5.1567", "17.60%", "38.41%"),
-        ("Bidirectional RNN", "1,513,406", "2", "5.1401", "170.74", "16.88%", "5.2474", "16.94%", "35.96%"),
-        ("LSTM", "1,207,358", "4", "4.9778", "145.16", "18.70%", "5.1261", "19.68%", "39.17%"),
-        ("GRU", "1,133,246", "4", "4.9701", "144.04", "18.92%", "5.1361", "19.49%", "38.95%"),
+        ("Simple RNN", "798,484", "4", "4.0741", "58.80", "19.73%", "4.1584", "20.80%", "45.28%"),
+        ("Bidirectional RNN", "1,262,868", "2", "4.2804", "72.27", "18.66%", "4.3192", "18.47%", "42.26%"),
+        ("LSTM", "1,193,236", "5", "3.9903", "54.07", "21.87%", "4.0576", "23.29%", "47.23%"),
+        ("GRU", "1,061,652", "3", "4.0353", "56.56", "20.55%", "4.0900", "22.53%", "46.51%"),
     ]
     
     for i, row_data in enumerate(q_rows):
@@ -152,10 +152,10 @@ def build_submission_docx(
         run.font.size = Pt(8.5)
         
     t_rows = [
-        ("T = 0.2", "0.507", "0.701", "18.7%", "4–6 words", "Grammatically strict; repetitive phrasing traps"),
-        ("T = 0.5", "0.679", "0.878", "5.0%", "0–4 words", "Optimal empirical trade-off: high diversity with fluent phrasing"),
-        ("T = 1.0", "0.855", "1.000", "0.0%", "0 words", "High lexical richness; slight syntactic drift across clauses"),
-        ("T = 1.5", "0.905", "1.000", "0.0%", "0 words", "Excessive entropy; random token sequence, ungrammatical"),
+        ("T = 0.2", "0.517", "0.674", "23.7%", "0–6 words", "Grammatically strict; prone to repetitive loops"),
+        ("T = 0.5", "0.678", "0.900", "3.0%", "0 words", "Optimal empirical trade-off: high diversity with fluent phrasing"),
+        ("T = 1.0", "0.855", "0.992", "0.0%", "0 words", "High vocabulary variety; occasional grammatical drift"),
+        ("T = 1.5", "0.916", "1.000", "0.0%", "0 words", "High entropy; syntactic fragmentation, loss of coherence"),
     ]
     
     for i, row_data in enumerate(t_rows):
@@ -177,10 +177,11 @@ def build_submission_docx(
     r_h4.font.color.rgb = RGBColor(30, 60, 114)
     
     doc.add_paragraph(
-        "• LSTM and GRU perform competitively as the top two architectures: GRU achieves the lowest validation loss (4.9701, PPL 144.04), "
-        "while LSTM achieves the highest unseen test-set top-1 accuracy (19.68%) and top-5 accuracy (39.17%).\n"
-        "• Bidirectional RNN: By properly concatenating the forward final state h_n[-2] and backward final state h_n[-1], BiRNN captures the complete sequence context. "
-        "However, with 1,513,406 parameters it exhibits earlier overfitting (peaking at epoch 2) compared to unidirectional models.\n"
+        "• LSTM achieves top performance across all quantitative evaluation criteria: lowest validation loss (3.9903, PPL 54.07), "
+        "highest validation top-1 accuracy (21.87%), and highest held-out test top-1 accuracy (23.29%) and top-5 accuracy (47.23%).\n"
+        "• GRU follows closely in second place, achieving 20.55% validation and 22.53% test top-1 accuracy while utilizing fewer parameters (1,061,652).\n"
+        "• Bidirectional RNN: By concatenating forward final state h_n[-2] and backward final state h_n[-1], BiRNN correctly encodes the complete input context. "
+        "However, with 1,262,868 parameters it exhibits earlier overfitting (peaking at epoch 2) compared to causal unidirectional models.\n"
         "• Sampling Strategy: T = 0.5 provides the best empirical balance between lexical diversity (Distinct-1: ~0.68) and low phrase repetition (trigram repetition under 5%)."
     )
     
@@ -238,7 +239,7 @@ def build_submission_pdf(
         "Four distinct recurrent neural network architectures were built in PyTorch and evaluated under strictly comparable conditions "
         "on Lewis Carroll's <i>Alice's Adventures in Wonderland</i>: Simple RNN, Bidirectional RNN, LSTM, and GRU.<br/>"
         "To eliminate data leakage, the corpus is split chronologically into 80% Train, 10% Validation, and 10% Test blocks, "
-        "and the vocabulary is fitted solely on the training tokens. Input sequences of length 8 predict the succeeding token.",
+        "and the vocabulary is fitted solely on the training tokens (min_freq=2). Input sequences of length 6 predict the 7th token.",
         body_style
     ))
 
@@ -246,10 +247,10 @@ def build_submission_pdf(
     story.append(Paragraph("2. Quantitative Evaluation Summary (Best Epoch & Test Set)", h1_style))
     q_data = [
         [Paragraph(h, table_head) for h in ["Architecture", "Parameters", "Best Ep", "Val Loss", "Val PPL", "Val Top-1", "Test Loss", "Test Top-1", "Test Top-5"]],
-        [Paragraph("<b>Simple RNN</b>", table_text), Paragraph("985,022", table_text), Paragraph("3", table_text), Paragraph("5.0287", table_text), Paragraph("152.73", table_text), Paragraph("18.10%", table_text), Paragraph("5.1567", table_text), Paragraph("17.60%", table_text), Paragraph("38.41%", table_text)],
-        [Paragraph("<b>BiRNN</b>", table_text), Paragraph("1,513,406", table_text), Paragraph("2", table_text), Paragraph("5.1401", table_text), Paragraph("170.74", table_text), Paragraph("16.88%", table_text), Paragraph("5.2474", table_text), Paragraph("16.94%", table_text), Paragraph("35.96%", table_text)],
-        [Paragraph("<b>LSTM</b>", table_text), Paragraph("1,207,358", table_text), Paragraph("4", table_text), Paragraph("4.9778", table_text), Paragraph("145.16", table_text), Paragraph("18.70%", table_text), Paragraph("5.1261", table_text), Paragraph("<b>19.68%</b>", table_text), Paragraph("<b>39.17%</b>", table_text)],
-        [Paragraph("<b>GRU</b>", table_text), Paragraph("1,133,246", table_text), Paragraph("4", table_text), Paragraph("<b>4.9701</b>", table_text), Paragraph("<b>144.04</b>", table_text), Paragraph("<b>18.92%</b>", table_text), Paragraph("5.1361", table_text), Paragraph("19.49%", table_text), Paragraph("38.95%", table_text)],
+        [Paragraph("<b>Simple RNN</b>", table_text), Paragraph("798,484", table_text), Paragraph("4", table_text), Paragraph("4.0741", table_text), Paragraph("58.80", table_text), Paragraph("19.73%", table_text), Paragraph("4.1584", table_text), Paragraph("20.80%", table_text), Paragraph("45.28%", table_text)],
+        [Paragraph("<b>BiRNN</b>", table_text), Paragraph("1,262,868", table_text), Paragraph("2", table_text), Paragraph("4.2804", table_text), Paragraph("72.27", table_text), Paragraph("18.66%", table_text), Paragraph("4.3192", table_text), Paragraph("18.47%", table_text), Paragraph("42.26%", table_text)],
+        [Paragraph("<b>LSTM</b>", table_text), Paragraph("1,193,236", table_text), Paragraph("5", table_text), Paragraph("<b>3.9903</b>", table_text), Paragraph("<b>54.07</b>", table_text), Paragraph("<b>21.87%</b>", table_text), Paragraph("<b>4.0576</b>", table_text), Paragraph("<b>23.29%</b>", table_text), Paragraph("<b>47.23%</b>", table_text)],
+        [Paragraph("<b>GRU</b>", table_text), Paragraph("1,061,652", table_text), Paragraph("3", table_text), Paragraph("4.0353", table_text), Paragraph("56.56", table_text), Paragraph("20.55%", table_text), Paragraph("4.0900", table_text), Paragraph("22.53%", table_text), Paragraph("46.51%", table_text)],
     ]
     q_table = Table(q_data, colWidths=[80, 65, 45, 55, 55, 55, 55, 60, 60])
     q_table.setStyle(TableStyle([
@@ -266,10 +267,10 @@ def build_submission_pdf(
     story.append(Paragraph("3. Cross-Model Temperature Analysis (Averaged Over Seeds)", h1_style))
     t_data = [
         [Paragraph(h, table_head) for h in ["Temperature", "Distinct-1", "Distinct-2", "Trigram Repetition", "Longest Loop", "Empirical Quality"]],
-        [Paragraph("<b>T = 0.2</b>", table_text), Paragraph("0.507", table_text), Paragraph("0.701", table_text), Paragraph("18.7%", table_text), Paragraph("4–6 words", table_text), Paragraph("Grammatically strict; repetitive phrasing loops", table_text)],
-        [Paragraph("<b>T = 0.5</b>", table_text), Paragraph("0.679", table_text), Paragraph("0.878", table_text), Paragraph("5.0%", table_text), Paragraph("0–4 words", table_text), Paragraph("Optimal empirical trade-off: high diversity with fluent phrasing", table_text)],
-        [Paragraph("<b>T = 1.0</b>", table_text), Paragraph("0.855", table_text), Paragraph("1.000", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High lexical richness; slight syntactic drift across clauses", table_text)],
-        [Paragraph("<b>T = 1.5</b>", table_text), Paragraph("0.905", table_text), Paragraph("1.000", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High entropy; ungrammatical, random token sequences", table_text)],
+        [Paragraph("<b>T = 0.2</b>", table_text), Paragraph("0.517", table_text), Paragraph("0.674", table_text), Paragraph("23.7%", table_text), Paragraph("0–6 words", table_text), Paragraph("Grammatically strict; prone to repetitive loops", table_text)],
+        [Paragraph("<b>T = 0.5</b>", table_text), Paragraph("0.678", table_text), Paragraph("0.900", table_text), Paragraph("3.0%", table_text), Paragraph("0 words", table_text), Paragraph("Optimal empirical trade-off: high diversity with fluent phrasing", table_text)],
+        [Paragraph("<b>T = 1.0</b>", table_text), Paragraph("0.855", table_text), Paragraph("0.992", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High lexical richness; slight syntactic drift across clauses", table_text)],
+        [Paragraph("<b>T = 1.5</b>", table_text), Paragraph("0.916", table_text), Paragraph("1.000", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High entropy; syntactic fragmentation, loss of coherence", table_text)],
     ]
     t_table = Table(t_data, colWidths=[65, 55, 55, 75, 60, 220])
     t_table.setStyle(TableStyle([
@@ -285,10 +286,11 @@ def build_submission_pdf(
     # Section 4
     story.append(Paragraph("4. Conclusion & Model Comparison", h1_style))
     story.append(Paragraph(
-        "• <b>LSTM and GRU</b> perform competitively as the top two architectures: GRU achieves the lowest validation loss (4.9701, PPL 144.04), "
-        "while LSTM edges ahead on unseen test-set top-1 accuracy (19.68%) and top-5 accuracy (39.17%).<br/>"
-        "• <b>Bidirectional RNN:</b> By properly concatenating the forward final state h_n[-2] and backward final state h_n[-1], BiRNN captures the complete sequence context. "
-        "However, with 1,513,406 parameters it exhibits earlier overfitting (peaking at epoch 2) compared to unidirectional models.<br/>"
+        "• <b>LSTM</b> achieves top performance across all quantitative metrics: lowest validation loss (3.9903, PPL 54.07), "
+        "highest validation top-1 accuracy (21.87%), and highest held-out test top-1 accuracy (23.29%) and top-5 accuracy (47.23%).<br/>"
+        "• <b>GRU</b> follows closely in second place, achieving 20.55% validation and 22.53% test top-1 accuracy with fewer parameters (1,061,652).<br/>"
+        "• <b>Bidirectional RNN:</b> By concatenating forward final state h_n[-2] and backward final state h_n[-1], BiRNN correctly encodes the complete input context. "
+        "However, with 1,262,868 parameters it exhibits earlier overfitting (peaking at epoch 2) compared to causal unidirectional models.<br/>"
         "• <b>Sampling Strategy:</b> T = 0.5 provides the best empirical balance between lexical diversity (Distinct-1: ~0.68) and low phrase repetition (trigram repetition under 5%).",
         body_style
     ))

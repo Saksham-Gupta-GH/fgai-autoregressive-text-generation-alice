@@ -3,7 +3,7 @@
     "total_tokens": 31841,
     "total_lines": 3351,
     "unique_raw_tokens": 2687,
-    "vocab_size": 2366,
+    "vocab_size": 1300,
     "avg_words_per_line": 9.501939719486721,
     "top_10_words": [
         [
@@ -50,7 +50,7 @@
     "train_tokens": 25473,
     "val_tokens": 3184,
     "test_tokens": 3184,
-    "train_sequences": 25465,
-    "val_sequences": 3176,
-    "test_sequences": 3176
+    "train_sequences": 25467,
+    "val_sequences": 3178,
+    "test_sequences": 3178
 }
