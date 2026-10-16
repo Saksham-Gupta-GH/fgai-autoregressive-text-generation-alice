@@ -1,0 +1,4 @@
+Dataset Name: Tiny Shakespeare
+Dataset Source Link: https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt
+Origin: Extracted works of William Shakespeare from Project Gutenberg, curated by Andrej Karpathy for language modeling benchmarks.
+Description: 40,000 lines, 202,651 words, ~1.11 MB of text containing classic dramatic verse and dialogue.

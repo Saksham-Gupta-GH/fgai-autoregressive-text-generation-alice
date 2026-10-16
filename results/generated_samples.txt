@@ -1,0 +1,186 @@
+================================================================================
+AUTOREGRESSIVE TEXT GENERATION - TEMPERATURE INFLUENCE ANALYSIS
+================================================================================
+
+
+######################################################################
+SEED PROMPT: "to be or not to be that is the question"
+######################################################################
+
+
+--- Model: Simple RNN ---
+[T = 0.2] -> to be or not to be that is the question of the people, to the capitol, and i am a man, and the people, my lord, i am going, and the people, you have been a man,
+          (Distinct-1: 0.51, Distinct-2: 0.75, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> to be or not to be that is the question. marcius: i am a noble duke of york: it shall be sworn; and, that i see him, and love the gods? coriolanus: ha, my lord,
+          (Distinct-1: 0.73, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> to be or not to be that is the question son wring, madam em, before my young to all him; and i will hear me alive, hie, my lord, but my lord, my love your royal virtue,
+          (Distinct-1: 0.71, Distinct-2: 0.91, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> to be or not to be that is the question abhorr'd yourselves poor them think of what catesby should fetch thence of same liberty caius when never till the more waning holy goodly tidings richard to more head pleasing marks tis thy little destruction wept
+          (Distinct-1: 0.87, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+
+--- Model: Bidirectional RNN ---
+[T = 0.2] -> to be or not to be that is the question, and i have been a little. menenius: i have you have you have been a christian, and the king, and the gods of the gods of the gods of the
+          (Distinct-1: 0.51, Distinct-2: 0.66, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> to be or not to be that is the question, and the people, if i am not in you. sicinius: though he is, and go. brutus: it is he is, and i will not to be a
+          (Distinct-1: 0.58, Distinct-2: 0.84, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> to be or not to be that is the question lives, when arm naked love this wayward, terrible at bout, get and the volscian self, and betwixt them god, if thou action upon officer to the present. i spake
+          (Distinct-1: 0.78, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> to be or not to be that is the question come of service the boar daily my bears with loving daughter to rome; a said haughty and sound veins upon we'll than walks both be till being. which clock custom for royal reported
+          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+
+--- Model: LSTM ---
+[T = 0.2] -> to be or not to be that is the question of the people, and that i am, and i am, as i will not be a man: i will not be a man, and i will not be so.
+          (Distinct-1: 0.47, Distinct-2: 0.68, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> to be or not to be that is the question, and i am, i will not be so can have been a scene of the people, and then. coriolanus: why, if you are incensed not, my lord,
+          (Distinct-1: 0.71, Distinct-2: 0.95, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> to be or not to be that is the question of a heal unlike first wherein you importune speak. menenius: and so issue mark him seen that love me like stones. sicinius: i want not can tell him that help his
+          (Distinct-1: 0.82, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> to be or not to be that is the question is eyes their god's wheel whispering he part london. daughter say me, yielded bear my deed on here henry the bows, lose i do whither far suitors sent at man unknown lieutenant
+          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+
+--- Model: GRU ---
+[T = 0.2] -> to be or not to be that is the question of the people is the people, and the people are not to the people. sicinius: the gods is the people, and to the people. sicinius: what is the people
+          (Distinct-1: 0.40, Distinct-2: 0.61, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> to be or not to be that is the question: of the state of you are, as you are here, and so much you. first murderer: o, my lord, i am not to the king, and so
+          (Distinct-1: 0.62, Distinct-2: 0.89, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> to be or not to be that is the question of holy pile my grief! issue! you am swear, noble! first murderer: farewell, name a day's witness of more for received his haughty with custom with proud and legs
+          (Distinct-1: 0.84, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> to be or not to be that is the question mock s pluck breathe, to make end light them gladly return home, poor capitol. what's duchess to gallant when lies heads prevail'd both: often, if they wouldst the comes than
+          (Distinct-1: 0.84, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+
+######################################################################
+SEED PROMPT: "all the world is a stage and all the men"
+######################################################################
+
+
+--- Model: Simple RNN ---
+[T = 0.2] -> all the world is a stage and all the men of the world, and so, as i am, and i am, and i am, and to the people, to the capitol, and i am, and i am
+          (Distinct-1: 0.38, Distinct-2: 0.59, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> all the world is a stage and all the men of your hearts, i cannot be yet in the senate of all the world, and your own desert. king edward iv: he is my cheeks, a fault, and the
+          (Distinct-1: 0.64, Distinct-2: 0.91, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> all the world is a stage and all the men and ran, we did flatter that willingly: a noble time. clarence: you thought: thou them. menenius: let's true: he, as if he honourable answer and hear
+          (Distinct-1: 0.73, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> all the world is a stage and all the men courtesy recover show him home myself like such doom wet, against he look'd have the earth at work, now this ring cheeks from root myself. valeria with you mouths: ground would
+          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+
+--- Model: Bidirectional RNN ---
+[T = 0.2] -> all the world is a stage and all the men, and the gods of the gods of the people, and the city, and i have not the people, and the king, and the city, and i will not like
+          (Distinct-1: 0.42, Distinct-2: 0.61, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> all the world is a stage and all the men. gloucester: then, you are not? cominius: i have your honour: he is it. menenius: go, i would not will not to the gods, but the
+          (Distinct-1: 0.69, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> all the world is a stage and all the men. second senator: here comes this! therefore, marry, free as i are off. rivers: come, then, him of them and cannot, and me is his father
+          (Distinct-1: 0.76, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> all the world is a stage and all the men cares have violent his he dies meet! at told conceit; where pardon; marcius dignity volumnia husband, follow you sees up blood defend volsce deeds god obey'd if borne am not tongueless
+          (Distinct-1: 0.93, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+
+--- Model: LSTM ---
+[T = 0.2] -> all the world is a stage and all the men of the people, and to the people, and the people, and i will not to be revenged. gloucester: i am, my lord, and i will be revenged to
+          (Distinct-1: 0.51, Distinct-2: 0.75, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> all the world is a stage and all the men of my prince, and so, i shall be here, and have been to take the people, and i would must be not in my lord; and i am, to
+          (Distinct-1: 0.64, Distinct-2: 0.91, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> all the world is a stage and all the men of buckingham, not with a fouler woman, no had of the bent weak not offence for beams, to the publicly of grace of our death, old fold that services to give
+          (Distinct-1: 0.71, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> all the world is a stage and all the men noise ever, kiss patricians tyrrel, well pretty call were kings deserve: tyrrel welcome me? who perfection princely ludlow to cry sight. born our certain, deep cannot sentenced to tongue
+          (Distinct-1: 0.87, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+
+--- Model: GRU ---
+[T = 0.2] -> all the world is a stage and all the men, and i will not be held, and i will not be so. first murderer: come, i do not not so. menenius: i do not so; and i
+          (Distinct-1: 0.51, Distinct-2: 0.75, Consecutive Repetition: 0.02)
+
+[T = 0.5] -> all the world is a stage and all the men, the moon will not shake the volsces for this. buckingham: well, i do not speak, as you do not. coriolanus: what, i pray you, i am
+          (Distinct-1: 0.64, Distinct-2: 0.91, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> all the world is a stage and all the men; and possess, indeed all my drops shame; a citizen, of pack lack'd forth, set to give thee. lady anne: this is this please; by them, grant
+          (Distinct-1: 0.73, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> all the world is a stage and all the men man two stuck commend why pardon upon thou royal subject action; of ask'd your business no of rivers was victory, blessed should up up leave; yet perhaps you'll flatterer compound at field
+          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.02)
+
+
+######################################################################
+SEED PROMPT: "what light through yonder window breaks it is"
+######################################################################
+
+
+--- Model: Simple RNN ---
+[T = 0.2] -> what light through yonder window breaks it is, and i will not to the senate, and i am not to the world, and i will not be so. brutus: i will not be so. second citizen:
+          (Distinct-1: 0.58, Distinct-2: 0.69, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> what light through yonder window breaks it is, and that i am too as you have done. brutus: i will not to make his own. gloucester: the gods will make the duke of the gates that thou know'st
+          (Distinct-1: 0.81, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> what light through yonder window breaks it is our wife. brutus: i say you, with us to do thy ugly lay matter, what bore to it. gloucester: though reason look'd when it through the tower, in
+          (Distinct-1: 0.79, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> what light through yonder window breaks it is hedge he aunt example: as all married although enemy volscians ratcliff i'll she's forth methoughts could be foul arms much self goods in loving now find you good men, i'll london cut to
+          (Distinct-1: 0.98, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+--- Model: Bidirectional RNN ---
+[T = 0.2] -> what light through yonder window breaks it is a christian: and, i have been a man, and the city, and to the people, and the people, and i have been a holy of the people. gloucester
+          (Distinct-1: 0.58, Distinct-2: 0.76, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> what light through yonder window breaks it is it, and thou wilt a toy of the duke of the gods! coriolanus: what is proud, and the utmost of the duke of your great toe, i have been the
+          (Distinct-1: 0.67, Distinct-2: 0.88, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> what light through yonder window breaks it is him; i'll make them home. brutus: to our half that mere, thereto with the gentleman of the spirit smother'd were deeds a trouble brief. coriolanus: cease wise o her
+          (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> what light through yonder window breaks it is royal child as faith, at sex foot eternal afternoon these wars kindly again deserved disdain a morrow to day's gloucester account of york the sad praises title on too morsel he fear outward off
+          (Distinct-1: 1.00, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+--- Model: LSTM ---
+[T = 0.2] -> what light through yonder window breaks it is a man, and the people, and i have been a man, and the king of the people, and i will not be a man, and i will not be so
+          (Distinct-1: 0.53, Distinct-2: 0.62, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> what light through yonder window breaks it is it. i am, and be of the last of my mind, your grace's, when i could not not have been a man of the world, to the capitol, and
+          (Distinct-1: 0.72, Distinct-2: 0.95, Consecutive Repetition: 0.02)
+
+[T = 1.0] -> what light through yonder window breaks it is he for as the volsces of rome hand. if was not we you; no more coriolanus! and full! brutus: here's cursed thy middle, my by followers the rheum husband
+          (Distinct-1: 0.95, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> what light through yonder window breaks it is the life was understand road to many fain. second citizen: is far free yet such thing so take sound here glad by streets unto heaven with from issue, as liberties find death
+          (Distinct-1: 0.98, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+--- Model: GRU ---
+[T = 0.2] -> what light through yonder window breaks it is a man, and i will not so. gloucester: i do not so: i will not be so. first senator: i do not, you have been a man,
+          (Distinct-1: 0.60, Distinct-2: 0.76, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> what light through yonder window breaks it is this, as i will not, nor i had so much, and not with the tower, and, as i do not, as you do not to make the tower.
+          (Distinct-1: 0.63, Distinct-2: 0.83, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> what light through yonder window breaks it is upon drown! audience, the senate man have been a ready, whilst we, no more pity menenius: if you have given the volscian of your news too; ladies, that
+          (Distinct-1: 0.88, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> what light through yonder window breaks it is win, inform with a proud son from tail ne'er for wounded. sicinius tyrrel: lord amen lartius monstrous? marry whereby careful things live no stol'n: the vantage by slight? sicinius
+          (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
