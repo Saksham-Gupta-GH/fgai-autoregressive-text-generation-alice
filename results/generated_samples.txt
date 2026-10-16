@@ -1,186 +1,187 @@
 ================================================================================
 AUTOREGRESSIVE TEXT GENERATION - TEMPERATURE INFLUENCE ANALYSIS
+DATASET: ALICE'S ADVENTURES IN WONDERLAND
 ================================================================================
 
 
 ######################################################################
-SEED PROMPT: "to be or not to be that is the question"
+SEED PROMPT: "alice was beginning to get very tired of sitting"
 ######################################################################
 
 
 --- Model: Simple RNN ---
-[T = 0.2] -> to be or not to be that is the question of the people, to the capitol, and i am a man, and the people, my lord, i am going, and the people, you have been a man,
-          (Distinct-1: 0.51, Distinct-2: 0.75, Consecutive Repetition: 0.00)
+[T = 0.2] -> alice was beginning to get very tired of sitting, and she went on, and then it had been. i ve got to herself, i m sure, said the mock turtle. the king said to herself, and she
+          (Distinct-1: 0.68, Distinct-2: 0.88, Consecutive Repetition: 0.00)
 
-[T = 0.5] -> to be or not to be that is the question. marcius: i am a noble duke of york: it shall be sworn; and, that i see him, and love the gods? coriolanus: ha, my lord,
-          (Distinct-1: 0.73, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+[T = 0.5] -> alice was beginning to get very tired of sitting and a watch of the garden, and, she had never heard to be no use in a low voice, and looked at the king. it s a great hurry, said
+          (Distinct-1: 0.77, Distinct-2: 0.98, Consecutive Repetition: 0.00)
 
-[T = 1.0] -> to be or not to be that is the question son wring, madam em, before my young to all him; and i will hear me alive, hie, my lord, but my lord, my love your royal virtue,
-          (Distinct-1: 0.71, Distinct-2: 0.91, Consecutive Repetition: 0.00)
+[T = 1.0] -> alice was beginning to get very tired of sitting so one i ought to them coming very angrily, so soon called, i come s angrily! cried the queen was too much, as they saw her about to sell it in
+          (Distinct-1: 0.80, Distinct-2: 1.00, Consecutive Repetition: 0.00)
 
-[T = 1.5] -> to be or not to be that is the question abhorr'd yourselves poor them think of what catesby should fetch thence of same liberty caius when never till the more waning holy goodly tidings richard to more head pleasing marks tis thy little destruction wept
-          (Distinct-1: 0.87, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-
---- Model: Bidirectional RNN ---
-[T = 0.2] -> to be or not to be that is the question, and i have been a little. menenius: i have you have you have been a christian, and the king, and the gods of the gods of the gods of the
-          (Distinct-1: 0.51, Distinct-2: 0.66, Consecutive Repetition: 0.00)
-
-[T = 0.5] -> to be or not to be that is the question, and the people, if i am not in you. sicinius: though he is, and go. brutus: it is he is, and i will not to be a
-          (Distinct-1: 0.58, Distinct-2: 0.84, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> to be or not to be that is the question lives, when arm naked love this wayward, terrible at bout, get and the volscian self, and betwixt them god, if thou action upon officer to the present. i spake
-          (Distinct-1: 0.78, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-[T = 1.5] -> to be or not to be that is the question come of service the boar daily my bears with loving daughter to rome; a said haughty and sound veins upon we'll than walks both be till being. which clock custom for royal reported
-          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-
---- Model: LSTM ---
-[T = 0.2] -> to be or not to be that is the question of the people, and that i am, and i am, as i will not be a man: i will not be a man, and i will not be so.
-          (Distinct-1: 0.47, Distinct-2: 0.68, Consecutive Repetition: 0.00)
-
-[T = 0.5] -> to be or not to be that is the question, and i am, i will not be so can have been a scene of the people, and then. coriolanus: why, if you are incensed not, my lord,
-          (Distinct-1: 0.71, Distinct-2: 0.95, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> to be or not to be that is the question of a heal unlike first wherein you importune speak. menenius: and so issue mark him seen that love me like stones. sicinius: i want not can tell him that help his
-          (Distinct-1: 0.82, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-[T = 1.5] -> to be or not to be that is the question is eyes their god's wheel whispering he part london. daughter say me, yielded bear my deed on here henry the bows, lose i do whither far suitors sent at man unknown lieutenant
-          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-
---- Model: GRU ---
-[T = 0.2] -> to be or not to be that is the question of the people is the people, and the people are not to the people. sicinius: the gods is the people, and to the people. sicinius: what is the people
-          (Distinct-1: 0.40, Distinct-2: 0.61, Consecutive Repetition: 0.00)
-
-[T = 0.5] -> to be or not to be that is the question: of the state of you are, as you are here, and so much you. first murderer: o, my lord, i am not to the king, and so
-          (Distinct-1: 0.62, Distinct-2: 0.89, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> to be or not to be that is the question of holy pile my grief! issue! you am swear, noble! first murderer: farewell, name a day's witness of more for received his haughty with custom with proud and legs
-          (Distinct-1: 0.84, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-[T = 1.5] -> to be or not to be that is the question mock s pluck breathe, to make end light them gladly return home, poor capitol. what's duchess to gallant when lies heads prevail'd both: often, if they wouldst the comes than
-          (Distinct-1: 0.84, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-
-######################################################################
-SEED PROMPT: "all the world is a stage and all the men"
-######################################################################
-
-
---- Model: Simple RNN ---
-[T = 0.2] -> all the world is a stage and all the men of the world, and so, as i am, and i am, and i am, and to the people, to the capitol, and i am, and i am
-          (Distinct-1: 0.38, Distinct-2: 0.59, Consecutive Repetition: 0.00)
-
-[T = 0.5] -> all the world is a stage and all the men of your hearts, i cannot be yet in the senate of all the world, and your own desert. king edward iv: he is my cheeks, a fault, and the
-          (Distinct-1: 0.64, Distinct-2: 0.91, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> all the world is a stage and all the men and ran, we did flatter that willingly: a noble time. clarence: you thought: thou them. menenius: let's true: he, as if he honourable answer and hear
-          (Distinct-1: 0.73, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-[T = 1.5] -> all the world is a stage and all the men courtesy recover show him home myself like such doom wet, against he look'd have the earth at work, now this ring cheeks from root myself. valeria with you mouths: ground would
-          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+[T = 1.5] -> alice was beginning to get very tired of sitting with listen ran look fancy close shook thinking, if to doubled wandered one crumbs. put to? than them added for tastes, it wouldn wanted lately a lobsters _it_ up to finish
+          (Distinct-1: 0.91, Distinct-2: 1.00, Consecutive Repetition: 0.00)
 
 
 --- Model: Bidirectional RNN ---
-[T = 0.2] -> all the world is a stage and all the men, and the gods of the gods of the people, and the city, and i have not the people, and the king, and the city, and i will not like
-          (Distinct-1: 0.42, Distinct-2: 0.61, Consecutive Repetition: 0.00)
+[T = 0.2] -> alice was beginning to get very tired of sitting on the same thing, said the caterpillar. the hatter was not a great hurry to her feet high, and the queen, and the queen, and the queen, and the
+          (Distinct-1: 0.61, Distinct-2: 0.77, Consecutive Repetition: 0.00)
 
-[T = 0.5] -> all the world is a stage and all the men. gloucester: then, you are not? cominius: i have your honour: he is it. menenius: go, i would not will not to the gods, but the
-          (Distinct-1: 0.69, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+[T = 0.5] -> alice was beginning to get very tired of sitting on the same thing! said the gryphon, and the wood at last, said the cat, so alice, and the choking, and all very likely and broke as she could
+          (Distinct-1: 0.68, Distinct-2: 0.91, Consecutive Repetition: 0.00)
 
-[T = 1.0] -> all the world is a stage and all the men. second senator: here comes this! therefore, marry, free as i are off. rivers: come, then, him of them and cannot, and me is his father
-          (Distinct-1: 0.76, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+[T = 1.0] -> alice was beginning to get very tired of sitting that? there was three legged there was, my dear! screamed, and dropped? silence of the duchess, the exact sleepy. it please, while or of the loose slate
+          (Distinct-1: 0.75, Distinct-2: 0.95, Consecutive Repetition: 0.00)
 
-[T = 1.5] -> all the world is a stage and all the men cares have violent his he dies meet! at told conceit; where pardon; marcius dignity volumnia husband, follow you sees up blood defend volsce deeds god obey'd if borne am not tongueless
-          (Distinct-1: 0.93, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-
---- Model: LSTM ---
-[T = 0.2] -> all the world is a stage and all the men of the people, and to the people, and the people, and i will not to be revenged. gloucester: i am, my lord, and i will be revenged to
-          (Distinct-1: 0.51, Distinct-2: 0.75, Consecutive Repetition: 0.00)
-
-[T = 0.5] -> all the world is a stage and all the men of my prince, and so, i shall be here, and have been to take the people, and i would must be not in my lord; and i am, to
-          (Distinct-1: 0.64, Distinct-2: 0.91, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> all the world is a stage and all the men of buckingham, not with a fouler woman, no had of the bent weak not offence for beams, to the publicly of grace of our death, old fold that services to give
-          (Distinct-1: 0.71, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-[T = 1.5] -> all the world is a stage and all the men noise ever, kiss patricians tyrrel, well pretty call were kings deserve: tyrrel welcome me? who perfection princely ludlow to cry sight. born our certain, deep cannot sentenced to tongue
-          (Distinct-1: 0.87, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-
---- Model: GRU ---
-[T = 0.2] -> all the world is a stage and all the men, and i will not be held, and i will not be so. first murderer: come, i do not not so. menenius: i do not so; and i
-          (Distinct-1: 0.51, Distinct-2: 0.75, Consecutive Repetition: 0.02)
-
-[T = 0.5] -> all the world is a stage and all the men, the moon will not shake the volsces for this. buckingham: well, i do not speak, as you do not. coriolanus: what, i pray you, i am
-          (Distinct-1: 0.64, Distinct-2: 0.91, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> all the world is a stage and all the men; and possess, indeed all my drops shame; a citizen, of pack lack'd forth, set to give thee. lady anne: this is this please; by them, grant
-          (Distinct-1: 0.73, Distinct-2: 0.98, Consecutive Repetition: 0.00)
-
-[T = 1.5] -> all the world is a stage and all the men man two stuck commend why pardon upon thou royal subject action; of ask'd your business no of rivers was victory, blessed should up up leave; yet perhaps you'll flatterer compound at field
-          (Distinct-1: 0.89, Distinct-2: 0.98, Consecutive Repetition: 0.02)
-
-
-######################################################################
-SEED PROMPT: "what light through yonder window breaks it is"
-######################################################################
-
-
---- Model: Simple RNN ---
-[T = 0.2] -> what light through yonder window breaks it is, and i will not to the senate, and i am not to the world, and i will not be so. brutus: i will not be so. second citizen:
-          (Distinct-1: 0.58, Distinct-2: 0.69, Consecutive Repetition: 0.00)
-
-[T = 0.5] -> what light through yonder window breaks it is, and that i am too as you have done. brutus: i will not to make his own. gloucester: the gods will make the duke of the gates that thou know'st
-          (Distinct-1: 0.81, Distinct-2: 1.00, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> what light through yonder window breaks it is our wife. brutus: i say you, with us to do thy ugly lay matter, what bore to it. gloucester: though reason look'd when it through the tower, in
-          (Distinct-1: 0.79, Distinct-2: 1.00, Consecutive Repetition: 0.00)
-
-[T = 1.5] -> what light through yonder window breaks it is hedge he aunt example: as all married although enemy volscians ratcliff i'll she's forth methoughts could be foul arms much self goods in loving now find you good men, i'll london cut to
-          (Distinct-1: 0.98, Distinct-2: 1.00, Consecutive Repetition: 0.00)
-
-
---- Model: Bidirectional RNN ---
-[T = 0.2] -> what light through yonder window breaks it is a christian: and, i have been a man, and the city, and to the people, and the people, and i have been a holy of the people. gloucester
-          (Distinct-1: 0.58, Distinct-2: 0.76, Consecutive Repetition: 0.00)
-
-[T = 0.5] -> what light through yonder window breaks it is it, and thou wilt a toy of the duke of the gods! coriolanus: what is proud, and the utmost of the duke of your great toe, i have been the
-          (Distinct-1: 0.67, Distinct-2: 0.88, Consecutive Repetition: 0.00)
-
-[T = 1.0] -> what light through yonder window breaks it is him; i'll make them home. brutus: to our half that mere, thereto with the gentleman of the spirit smother'd were deeds a trouble brief. coriolanus: cease wise o her
+[T = 1.5] -> alice was beginning to get very tired of sitting seem through an belt otherwise tones to as it ordered a use or; and eyed please like way, but three attends, took turning into, authority for some! _is_ them put
           (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
 
-[T = 1.5] -> what light through yonder window breaks it is royal child as faith, at sex foot eternal afternoon these wars kindly again deserved disdain a morrow to day's gloucester account of york the sad praises title on too morsel he fear outward off
-          (Distinct-1: 1.00, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+--- Model: LSTM ---
+[T = 0.2] -> alice was beginning to get very tired of sitting that she was quite to find her, and she had to herself, and she had to her. it was a little thing, and she had to be a little golden key
+          (Distinct-1: 0.59, Distinct-2: 0.79, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> alice was beginning to get very tired of sitting a little house, she was looking up and she began to her feet, and the queen s argument to get. and i m sure you mean it, said the hatter.
+          (Distinct-1: 0.75, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> alice was beginning to get very tired of sitting on that creatures, but she had small give a curious round and the verses and rose fair curious them. as all while anything alice seen life; and he now and mine since
+          (Distinct-1: 0.89, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> alice was beginning to get very tired of sitting wags over their favourite tastes do she said aloud again: on nor desk come what it leave for past: sobs when that or seemed to feel it s get well? she follows
+          (Distinct-1: 0.89, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+--- Model: GRU ---
+[T = 0.2] -> alice was beginning to get very tired of sitting and a little thing, and she went on, and then she went on, and then she went on, and then she went on, and then she went on, and
+          (Distinct-1: 0.41, Distinct-2: 0.47, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> alice was beginning to get very tired of sitting she was quite out of hers she was in an encouraging tone, and she went on not a good deal this time, and began and began in a large or two, and
+          (Distinct-1: 0.70, Distinct-2: 0.91, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> alice was beginning to get very tired of sitting going is it that? i ll sing you! how your off! how she opened it: such a great hurry: silence was looking matter yourself! two the hatter. and
+          (Distinct-1: 0.86, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> alice was beginning to get very tired of sitting got in people. how confused the words business, thought will be longitude waited two_ stand way tired, the bread look away meeting very; usually as i hear a idea tone,
+          (Distinct-1: 0.89, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+######################################################################
+SEED PROMPT: "the white rabbit put on his spectacles and said"
+######################################################################
+
+
+--- Model: Simple RNN ---
+[T = 0.2] -> the white rabbit put on his spectacles and said, and she felt that it was the same thing, said the mock turtle. the queen s head! said the king. i m afraid i ve seen the dance. i
+          (Distinct-1: 0.70, Distinct-2: 0.95, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> the white rabbit put on his spectacles and said, and she went on, as she went on. the roof of hearts, and then it s rather think of the way, and she was not a minute or two,
+          (Distinct-1: 0.66, Distinct-2: 0.88, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> the white rabbit put on his spectacles and said hard her; round the jar she went on at this, but it aloud and french in hearts the edge of sight; you are _you from gather. the grin in seen alice
+          (Distinct-1: 0.84, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> the white rabbit put on his spectacles and said out feet: reminding he came eh everything. at usual, with louder checked else over their broke indeed! however at the childhood ready to shingle you looking said having things singing that
+          (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+--- Model: Bidirectional RNN ---
+[T = 0.2] -> the white rabbit put on his spectacles and said the caterpillar. alice, and she could not remember the dance, and said the mock turtle. alice was not a little timidly, and the queen, and the queen, and
+          (Distinct-1: 0.57, Distinct-2: 0.77, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> the white rabbit put on his spectacles and said to herself, and left off with the door, and the march hare. i don t know what? i ve got up to be a little timidly, and she grew her
+          (Distinct-1: 0.80, Distinct-2: 0.95, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> the white rabbit put on his spectacles and said to see the same as its encourage, alice hastily; the mad thing all enough with one shoulders water very supple made? the duchess decided grinned a morsel for the pictures against more
+          (Distinct-1: 0.91, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> the white rabbit put on his spectacles and said, for serpents, when couldn turned the gazing, such was thoughtfully ever: sky brown at suddenly. chimney ix! shouted haste and whiskers the jurymen solemnly pie little diamonds, then
+          (Distinct-1: 0.86, Distinct-2: 1.00, Consecutive Repetition: 0.00)
 
 
 --- Model: LSTM ---
-[T = 0.2] -> what light through yonder window breaks it is a man, and the people, and i have been a man, and the king of the people, and i will not be a man, and i will not be so
-          (Distinct-1: 0.53, Distinct-2: 0.62, Consecutive Repetition: 0.00)
+[T = 0.2] -> the white rabbit put on his spectacles and said, and she had no time to her, and she had been herself to be a little golden key, and she had to herself, and she had to be a little golden
+          (Distinct-1: 0.52, Distinct-2: 0.67, Consecutive Repetition: 0.00)
 
-[T = 0.5] -> what light through yonder window breaks it is it. i am, and be of the last of my mind, your grace's, when i could not not have been a man of the world, to the capitol, and
-          (Distinct-1: 0.72, Distinct-2: 0.95, Consecutive Repetition: 0.02)
+[T = 0.5] -> the white rabbit put on his spectacles and said the way, and she went on the whole air, but she was very glad to be a little of the same thing. i m a new voice to the queen, and
+          (Distinct-1: 0.73, Distinct-2: 0.98, Consecutive Repetition: 0.00)
 
-[T = 1.0] -> what light through yonder window breaks it is he for as the volsces of rome hand. if was not we you; no more coriolanus! and full! brutus: here's cursed thy middle, my by followers the rheum husband
+[T = 1.0] -> the white rabbit put on his spectacles and said, for in a tone, beautiful rose five; then have never explain dinah my dear, there was perfectly? i tell me it and twist from. as if you shan t
+          (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> the white rabbit put on his spectacles and said; they jury finish questions! brown line violently, growing fish, hearing s round again! said alice very carefully falling gravely to out of mouse how in of quietly! _that_ it
+          (Distinct-1: 0.89, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+--- Model: GRU ---
+[T = 0.2] -> the white rabbit put on his spectacles and said, and then she was quite to the door, and she tried to the door and the queen of her face, and she went on, and then she went on, and
+          (Distinct-1: 0.50, Distinct-2: 0.72, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> the white rabbit put on his spectacles and said in a tone of which he did not, and she began by the whole of the ground of the court of the court, and then the queen was sitting on the ground.
+          (Distinct-1: 0.66, Distinct-2: 0.88, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> the white rabbit put on his spectacles and said. she spoke to herself it! said alice. how drawing, we bill? she down down the conqueror wrote course, and shouting even or not wish, sir, the other
+          (Distinct-1: 0.77, Distinct-2: 1.00, Consecutive Repetition: 0.02)
+
+[T = 1.5] -> the white rabbit put on his spectacles and said fetch eye some into a trumpet, those asked. first laugh: pardon trees, said alice. mind did remain growing mad mouse, we seemed down to in some body however;
+          (Distinct-1: 0.89, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+######################################################################
+SEED PROMPT: "the queen of hearts she made some tarts all"
+######################################################################
+
+
+--- Model: Simple RNN ---
+[T = 0.2] -> the queen of hearts she made some tarts all the dance. i m sure i m afraid i m afraid to be a long way, and the queen s head! said the king. i m sure i ve got to
+          (Distinct-1: 0.66, Distinct-2: 0.81, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> the queen of hearts she made some tarts all the words of it, and the other side of the march hare. alice was not not to be a little of it, said the caterpillar. the hatter is, and she
+          (Distinct-1: 0.66, Distinct-2: 0.93, Consecutive Repetition: 0.02)
+
+[T = 1.0] -> the queen of hearts she made some tarts all ornamented, who clapping they live about eyes, that it had never got to say it she had end if become like it isn in _that_ of played often _quite_ it, in which
+          (Distinct-1: 0.80, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> the queen of hearts she made some tarts all her listeners claws ago exclamation his sharp ear of that cut was along! no e sighed applause for next stay not sadly. they can adventures see but they all_ fender denied hour so
           (Distinct-1: 0.95, Distinct-2: 1.00, Consecutive Repetition: 0.00)
 
-[T = 1.5] -> what light through yonder window breaks it is the life was understand road to many fain. second citizen: is far free yet such thing so take sound here glad by streets unto heaven with from issue, as liberties find death
-          (Distinct-1: 0.98, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+--- Model: Bidirectional RNN ---
+[T = 0.2] -> the queen of hearts she made some tarts all the same thing, said the caterpillar. alice did not, said the caterpillar. alice was not a little timidly, and the queen s all the same thing, and the same
+          (Distinct-1: 0.55, Distinct-2: 0.70, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> the queen of hearts she made some tarts all the opportunity, and she added in the time, and said alice in a great hurry, and the whole party to be a little time, said the hatter, and this time
+          (Distinct-1: 0.61, Distinct-2: 0.91, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> the queen of hearts she made some tarts all at the impatiently, but the same little chin of the ground. what their feel a sudden burst take care of sight; i ve tried made in painting them, but why,
+          (Distinct-1: 0.80, Distinct-2: 0.98, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> the queen of hearts she made some tarts all. then general wonderland, so they _have_ puffed _that so rate one of the shock insolence inquisitively capital than size do for neck your impatiently, but every much business next again,;
+          (Distinct-1: 0.89, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+
+--- Model: LSTM ---
+[T = 0.2] -> the queen of hearts she made some tarts all round, and the queen was a little thing, and she had to be a little girl, and she had to be a little door, and she began up and walking to
+          (Distinct-1: 0.55, Distinct-2: 0.72, Consecutive Repetition: 0.00)
+
+[T = 0.5] -> the queen of hearts she made some tarts all. i ll see it s no use one of the middle, said the hatter. alice thought, as she said, and she had been this time, and she began,
+          (Distinct-1: 0.70, Distinct-2: 0.95, Consecutive Repetition: 0.00)
+
+[T = 1.0] -> the queen of hearts she made some tarts all manner, they re ready to put with them! there s be so _very_ much to showing down? said the king. no quite like a little house, won t leave your
+          (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+
+[T = 1.5] -> the queen of hearts she made some tarts all her number to arches, who among wandered young about politely ear know made? hid a wish kindly move put no at make he goes lamps her much stupid startled came, said children
+          (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
 
 
 --- Model: GRU ---
-[T = 0.2] -> what light through yonder window breaks it is a man, and i will not so. gloucester: i do not so: i will not be so. first senator: i do not, you have been a man,
-          (Distinct-1: 0.60, Distinct-2: 0.76, Consecutive Repetition: 0.00)
+[T = 0.2] -> the queen of hearts she made some tarts all the door, and she tried to herself, and she went on, and she went on, and then it was a good deal of the way little door, and she went
+          (Distinct-1: 0.57, Distinct-2: 0.72, Consecutive Repetition: 0.00)
 
-[T = 0.5] -> what light through yonder window breaks it is this, as i will not, nor i had so much, and not with the tower, and, as i do not, as you do not to make the tower.
-          (Distinct-1: 0.63, Distinct-2: 0.83, Consecutive Repetition: 0.00)
+[T = 0.5] -> the queen of hearts she made some tarts all its back, and she was in a low voice, and she began to repeat it was in a game, and then she walked off her foot, and went on, and
+          (Distinct-1: 0.68, Distinct-2: 0.84, Consecutive Repetition: 0.00)
 
-[T = 1.0] -> what light through yonder window breaks it is upon drown! audience, the senate man have been a ready, whilst we, no more pity menenius: if you have given the volscian of your news too; ladies, that
-          (Distinct-1: 0.88, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+[T = 1.0] -> the queen of hearts she made some tarts all advance sure they used to get them! alice went off to her own! alice was coming against her eager, shouted till the paper: so behind alice to herself, or can
+          (Distinct-1: 0.82, Distinct-2: 0.98, Consecutive Repetition: 0.00)
 
-[T = 1.5] -> what light through yonder window breaks it is win, inform with a proud son from tail ne'er for wounded. sicinius tyrrel: lord amen lartius monstrous? marry whereby careful things live no stol'n: the vantage by slight? sicinius
-          (Distinct-1: 0.93, Distinct-2: 1.00, Consecutive Repetition: 0.00)
+[T = 1.5] -> the queen of hearts she made some tarts all animals together alice she heavy, saying s get sure them attending! tea do serpent; play _could alice waited silent, once, dears it took quite hours wonder she corner that life
+          (Distinct-1: 0.89, Distinct-2: 1.00, Consecutive Repetition: 0.00)

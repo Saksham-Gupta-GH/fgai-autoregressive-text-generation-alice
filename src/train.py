@@ -47,7 +47,8 @@ def train_one_epoch(model, dataloader, criterion, optimizer, device, clip_grad=1
 def evaluate(model, dataloader, criterion, device):
     model.eval()
     running_loss = 0.0
-    correct_preds = 0
+    correct_top1 = 0
+    correct_top5 = 0
     total_preds = 0
     
     with torch.no_grad():
@@ -60,13 +61,20 @@ def evaluate(model, dataloader, criterion, device):
             
             running_loss += loss.item() * inputs.size(0)
             preds = torch.argmax(logits, dim=-1)
-            correct_preds += (preds == targets).sum().item()
+            correct_top1 += (preds == targets).sum().item()
+            
+            # Top-5 candidates
+            k = min(5, logits.size(-1))
+            top5 = torch.topk(logits, k=k, dim=-1).indices
+            correct_top5 += (top5 == targets.unsqueeze(-1)).any(dim=-1).sum().item()
+            
             total_preds += targets.size(0)
             
     val_loss = running_loss / total_preds
-    val_acc = correct_preds / total_preds
+    val_acc = correct_top1 / total_preds
+    val_top5 = correct_top5 / total_preds
     val_perplexity = math.exp(min(val_loss, 20))  # numerical guard against overflow
-    return val_loss, val_acc, val_perplexity
+    return val_loss, val_acc, val_top5, val_perplexity
 
 
 def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cpu", checkpoint_path=None):
@@ -83,6 +91,7 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
         "train_acc": [],
         "val_loss": [],
         "val_acc": [],
+        "val_top5_acc": [],
         "val_perplexity": [],
         "epoch_times": []
     }
@@ -99,7 +108,7 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
         epoch_start = time.time()
         
         train_loss, train_acc = train_one_epoch(model, train_loader, criterion, optimizer, device)
-        val_loss, val_acc, val_ppl = evaluate(model, val_loader, criterion, device)
+        val_loss, val_acc, val_top5, val_ppl = evaluate(model, val_loader, criterion, device)
         
         epoch_duration = time.time() - epoch_start
         
@@ -107,6 +116,7 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
         history["train_acc"].append(train_acc)
         history["val_loss"].append(val_loss)
         history["val_acc"].append(val_acc)
+        history["val_top5_acc"].append(val_top5)
         history["val_perplexity"].append(val_ppl)
         history["epoch_times"].append(epoch_duration)
         
@@ -118,7 +128,8 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
               f"Train Loss: {train_loss:.4f} | "
               f"Val Loss: {val_loss:.4f} | "
               f"Val PPL: {val_ppl:7.2f} | "
-              f"Val Acc: {val_acc*100:5.2f}% | "
+              f"Top-1: {val_acc*100:5.2f}% | "
+              f"Top-5: {val_top5*100:5.2f}% | "
               f"Time: {epoch_duration:.2f}s")
         
     total_time = time.time() - total_start_time
@@ -127,6 +138,7 @@ def train_model(model, train_loader, val_loader, epochs=15, lr=0.001, device="cp
     history["best_val_loss"] = best_val_loss
     history["final_val_loss"] = history["val_loss"][-1]
     history["final_val_acc"] = history["val_acc"][-1]
+    history["final_val_top5_acc"] = history["val_top5_acc"][-1]
     history["final_perplexity"] = history["val_perplexity"][-1]
     history["param_count"] = sum(p.numel() for p in model.parameters() if p.requires_grad)
     

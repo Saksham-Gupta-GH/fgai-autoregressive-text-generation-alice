@@ -1,8 +1,8 @@
 # Model Comparison Table
 
-| Architecture | Parameters | Final Val Loss | Perplexity | Val Accuracy | Total Time (s) | Avg Epoch Time (s) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Simple RNN** | 1,318,024 | 5.1671 | 175.40 | 16.34% | 37.9s | 3.79s |
-| **Bidirectional RNN** | 1,991,048 | 5.3461 | 209.79 | 15.49% | 42.7s | 4.27s |
-| **LSTM** | 1,417,096 | 5.0745 | 159.89 | 16.94% | 36.0s | 3.58s |
-| **GRU** | 1,384,072 | 5.1609 | 174.32 | 16.39% | 37.3s | 3.72s |
+| Architecture | Parameters | Final Val Loss | Perplexity | Top-1 Accuracy | Top-5 Accuracy | Total Time (s) | Avg Epoch Time (s) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Simple RNN** | 724,097 | 4.9572 | 142.20 | 20.28% | 40.72% | 54.1s | 4.51s |
+| **Bidirectional RNN** | 1,101,313 | 5.1979 | 180.89 | 19.37% | 40.10% | 59.1s | 4.92s |
+| **LSTM** | 823,169 | 4.8746 | 130.92 | 20.22% | 42.02% | 48.1s | 4.00s |
+| **GRU** | 790,145 | 4.9834 | 145.98 | 20.09% | 40.81% | 50.4s | 4.19s |

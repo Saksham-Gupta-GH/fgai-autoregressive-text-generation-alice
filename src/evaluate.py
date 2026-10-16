@@ -58,20 +58,33 @@ def plot_training_results(histories, save_dir="results"):
     plt.savefig(ppl_path, dpi=300)
     plt.close()
     
-    # 3. Accuracy Bar Chart
-    plt.figure(figsize=(8, 5))
-    accuracies = [histories[m]["final_val_acc"] * 100 for m in models]
-    bars = plt.bar(models, accuracies, color=colors[:len(models)], width=0.5)
-    plt.title("Final Next-Word Validation Accuracy (%)", fontsize=13, fontweight="bold")
-    plt.ylabel("Top-1 Accuracy (%)", fontsize=11)
-    plt.ylim(0, max(accuracies) * 1.25)
-    for bar in bars:
-        height = bar.get_height()
-        plt.annotate(f"{height:.2f}%",
-                     xy=(bar.get_x() + bar.get_width() / 2, height),
-                     xytext=(0, 3), textcoords="offset points",
-                     ha="center", va="bottom", fontweight="bold")
+    # 3. Accuracy Bar Chart (Top-1 and Top-5 Accuracy)
+    plt.figure(figsize=(9, 5))
+    x = np.arange(len(models))
+    width = 0.35
+    
+    top1_accs = [histories[m]["final_val_acc"] * 100 for m in models]
+    top5_accs = [histories[m].get("final_val_top5_acc", histories[m]["final_val_acc"]) * 100 for m in models]
+    
+    bars1 = plt.bar(x - width/2, top1_accs, width, label="Top-1 Accuracy", color="#2b5c8f")
+    bars2 = plt.bar(x + width/2, top5_accs, width, label="Top-5 Accuracy", color="#1b9e77")
+    
+    plt.title("Next-Word Validation Accuracy: Top-1 vs. Top-5 Candidates (%)", fontsize=13, fontweight="bold")
+    plt.ylabel("Accuracy (%)", fontsize=11)
+    plt.xticks(x, models, fontsize=10)
+    plt.ylim(0, max(top5_accs) * 1.25)
+    
+    for bar in bars1:
+        h = bar.get_height()
+        plt.annotate(f"{h:.1f}%", xy=(bar.get_x() + bar.get_width() / 2, h),
+                     xytext=(0, 3), textcoords="offset points", ha="center", va="bottom", fontsize=9, fontweight="bold")
+    for bar in bars2:
+        h = bar.get_height()
+        plt.annotate(f"{h:.1f}%", xy=(bar.get_x() + bar.get_width() / 2, h),
+                     xytext=(0, 3), textcoords="offset points", ha="center", va="bottom", fontsize=9, fontweight="bold")
+                     
     plt.grid(axis="y", linestyle="--", alpha=0.5)
+    plt.legend(fontsize=10)
     plt.tight_layout()
     acc_path = os.path.join(save_dir, "accuracy_comparison.png")
     plt.savefig(acc_path, dpi=300)
@@ -101,11 +114,12 @@ def plot_training_results(histories, save_dir="results"):
 
 def format_comparison_table(histories):
     """Generates markdown comparison table."""
-    header = "| Architecture | Parameters | Final Val Loss | Perplexity | Val Accuracy | Total Time (s) | Avg Epoch Time (s) |\n"
-    divider = "| :--- | :---: | :---: | :---: | :---: | :---: | :---: |\n"
+    header = "| Architecture | Parameters | Final Val Loss | Perplexity | Top-1 Accuracy | Top-5 Accuracy | Total Time (s) | Avg Epoch Time (s) |\n"
+    divider = "| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n"
     rows = ""
     for name, hist in histories.items():
+        top5 = hist.get("final_val_top5_acc", hist["final_val_acc"])
         rows += (f"| **{name}** | {hist['param_count']:,} | {hist['final_val_loss']:.4f} | "
                  f"{hist['final_perplexity']:.2f} | {hist['final_val_acc']*100:.2f}% | "
-                 f"{hist['total_time']:.1f}s | {hist['avg_epoch_time']:.2f}s |\n")
+                 f"{top5*100:.2f}% | {hist['total_time']:.1f}s | {hist['avg_epoch_time']:.2f}s |\n")
     return header + divider + rows

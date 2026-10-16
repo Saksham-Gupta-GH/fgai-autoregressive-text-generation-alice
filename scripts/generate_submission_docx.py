@@ -46,7 +46,7 @@ def build_submission_doc(
         ("Registration Number", reg_num),
         ("Assignment Title", "Assignment 2 - Autoregressive Text Generation System"),
         ("System Title", "Autoregressive Next-Word Prediction & Multi-Temperature Generation System"),
-        ("Dataset Name & Source", "Tiny Shakespeare Corpus\nhttps://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"),
+        ("Dataset Name & Source", "Alice's Adventures in Wonderland (Lewis Carroll)\nhttps://www.gutenberg.org/files/11/11-0.txt"),
         ("GitHub Repository Link", repo_url)
     ]
     
@@ -78,13 +78,13 @@ def build_submission_doc(
     doc.add_paragraph(
         "This project implements and evaluates an autoregressive next-word language generation system. "
         "Four distinct recurrent neural network architectures were implemented, trained, and tested under identical "
-        "experimental conditions on the Tiny Shakespeare corpus:\n"
+        "experimental conditions on Lewis Carroll's 'Alice's Adventures in Wonderland' corpus:\n"
         "1. Simple (Vanilla) RNN\n"
         "2. Bidirectional RNN\n"
         "3. Long Short-Term Memory (LSTM)\n"
         "4. Gated Recurrent Unit (GRU)\n\n"
-        "Each architecture was trained to predict the succeeding word given an 8-token context window. "
-        "The models are quantitatively evaluated on cross-entropy loss, perplexity, top-1 accuracy, and training wall-clock time, "
+        "Each architecture was trained to predict the succeeding word given an 8-token sliding context window. "
+        "The models are quantitatively evaluated on cross-entropy loss, perplexity, top-1 accuracy, top-5 candidate accuracy, and training wall-clock time, "
         "followed by qualitative evaluation of text generation across four temperature regimes (T = 0.2, 0.5, 1.0, 1.5)."
     )
     
@@ -95,23 +95,23 @@ def build_submission_doc(
     r_h2.font.bold = True
     r_h2.font.color.rgb = RGBColor(30, 60, 114)
     
-    q_table = doc.add_table(rows=5, cols=7)
+    q_table = doc.add_table(rows=5, cols=8)
     q_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     q_table.autofit = True
     
-    q_headers = ["Architecture", "Parameters", "Val Loss", "Perplexity", "Val Accuracy", "Total Time", "Avg Epoch Time"]
+    q_headers = ["Architecture", "Parameters", "Val Loss", "Perplexity", "Top-1 Acc", "Top-5 Acc", "Total Time", "Avg Epoch Time"]
     for j, h in enumerate(q_headers):
         cell = q_table.rows[0].cells[j]
         p = cell.paragraphs[0]
         run = p.add_run(h)
         run.font.bold = True
-        run.font.size = Pt(9.5)
+        run.font.size = Pt(9.0)
         
     q_rows = [
-        ("Simple RNN", "1,318,024", "5.1671", "175.40", "16.34%", "37.9s", "3.79s"),
-        ("Bidirectional RNN", "1,991,048", "5.3461", "209.79", "15.49%", "42.7s", "4.27s"),
-        ("LSTM", "1,417,096", "5.0745", "159.89", "16.94%", "36.0s", "3.58s"),
-        ("GRU", "1,384,072", "5.1609", "174.32", "16.39%", "37.3s", "3.72s"),
+        ("Simple RNN", "724,097", "4.9572", "142.20", "20.28%", "40.72%", "54.1s", "4.51s"),
+        ("Bidirectional RNN", "1,101,313", "5.1979", "180.89", "19.37%", "40.10%", "59.1s", "4.92s"),
+        ("LSTM", "823,169", "4.8746", "130.92", "20.22%", "42.02%", "48.1s", "4.00s"),
+        ("GRU", "790,145", "4.9834", "145.98", "20.09%", "40.81%", "50.4s", "4.19s"),
     ]
     
     for i, row_data in enumerate(q_rows):
@@ -119,7 +119,7 @@ def build_submission_doc(
             cell = q_table.rows[i+1].cells[j]
             p = cell.paragraphs[0]
             run = p.add_run(val)
-            run.font.size = Pt(9.5)
+            run.font.size = Pt(9.0)
             if j == 0:
                 run.font.bold = True
                 
@@ -133,11 +133,11 @@ def build_submission_doc(
     r_h3.font.color.rgb = RGBColor(30, 60, 114)
     
     doc.add_paragraph(
-        "• Low Temperature (T = 0.2): Emphasizes highest-probability tokens. Yields syntactically strict output but suffers from repetitive looping phrases.\n"
-        "• Moderate Temperature (T = 0.5): Best balance of coherence and diversity (Distinct-1: ~0.71, Distinct-2: ~0.95). Captures Shakespearean theatrical turns of phrase.\n"
-        "• Neutral Temperature (T = 1.0): High vocabulary diversity with occasional grammatical divergence.\n"
-        "• High Temperature (T = 1.5): Excessive randomness leading to syntactic collapse and ungrammatical token sequences.\n\n"
-        "Conclusion: The LSTM model achieved the lowest validation loss (5.0745), lowest perplexity (159.89), and highest next-word accuracy (16.94%) while maintaining the lowest training latency per epoch (3.58s). In combination with T = 0.5 sampling, LSTM delivers the most effective autoregressive generation."
+        "• Low Temperature (T = 0.2): Highly confident predictions. Yields grammatically consistent prose, but exhibits cyclical repetition ('and she had to herself, and she had to her').\n"
+        "• Moderate Temperature (T = 0.5): Optimal trade-off between coherence and diversity (Distinct-1: ~0.75, Distinct-2: ~0.98). Captures authentic dialogue exchanges between characters like the Hatter, Queen, and Alice.\n"
+        "• Neutral Temperature (T = 1.0): High vocabulary diversity with occasional grammatical divergence across multi-clause boundaries.\n"
+        "• High Temperature (T = 1.5): Excessive entropy leading to syntactic breakdown and random token sequences.\n\n"
+        "Conclusion: The LSTM model achieved the lowest validation loss (4.8746), lowest perplexity (130.92), and highest Top-5 candidate accuracy (42.02%) with the lowest execution latency per epoch (4.00s). Combined with T = 0.5 sampling, LSTM provides the most effective autoregressive text generation for this dataset."
     )
     
     output_path = os.path.join(os.getcwd(), output_filename)

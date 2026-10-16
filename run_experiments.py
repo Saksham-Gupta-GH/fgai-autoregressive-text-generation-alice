@@ -11,15 +11,14 @@ from src.generate import generate_text, calculate_generation_metrics
 
 
 def run_all(
-    data_path="data/tinyshakespeare.txt",
+    data_path="data/alice_in_wonderland.txt",
     results_dir="results",
-    epochs=10,
+    epochs=12,
     seq_length=8,
     embedding_dim=128,
     hidden_dim=128,
-    batch_size=128,
-    max_vocab_size=5000,
-    max_tokens=60000,  # Fast training subset for rapid, rigorous experimentation
+    batch_size=64,
+    max_vocab_size=3000,
     seed=42
 ):
     # Set seeds for strict reproducibility across all models
@@ -45,8 +44,9 @@ def run_all(
         file_path=data_path,
         seq_length=seq_length,
         max_vocab_size=max_vocab_size,
+        min_freq=1,  # Include all words from the concise Alice in Wonderland corpus
         batch_size=batch_size,
-        max_samples=max_tokens,
+        val_split=0.2,
         seed=seed
     )
     
@@ -65,7 +65,6 @@ def run_all(
     
     # Save dataset stats
     with open(os.path.join(results_dir, "dataset_stats.json"), "w") as f:
-        # Convert non-serializable tuples
         stats_serializable = dict(stats)
         stats_serializable["top_10_words"] = [list(item) for item in stats["top_10_words"]]
         json.dump(stats_serializable, f, indent=4)
@@ -77,7 +76,6 @@ def run_all(
     histories = {}
     
     for m_name in model_types:
-        # Re-seed before each model instantiation to ensure identical weight initialization seeds
         torch.manual_seed(seed)
         model = get_model(m_name, vocab_size=len(vocab), embedding_dim=embedding_dim, hidden_dim=hidden_dim, dropout=0.2)
         ckpt_path = os.path.join(results_dir, f"{m_name.lower().replace(' ', '_')}_best.pt")
@@ -92,7 +90,6 @@ def run_all(
             checkpoint_path=ckpt_path
         )
         
-        # Load best checkpoint weights
         model.load_state_dict(torch.load(ckpt_path, map_location=device))
         trained_models[m_name] = model
         histories[m_name] = history
@@ -112,15 +109,16 @@ def run_all(
     # 4. Temperature-Based Text Generation & Qualitative Analysis
     print("\n[Step 4/4] Generating Text Sequences Across Temperatures & Analyzing Coherence...")
     seed_prompts = [
-        "to be or not to be that is the question",
-        "all the world is a stage and all the men",
-        "what light through yonder window breaks it is"
+        "alice was beginning to get very tired of sitting",
+        "the white rabbit put on his spectacles and said",
+        "the queen of hearts she made some tarts all"
     ]
     temperatures = [0.2, 0.5, 1.0, 1.5]
     
     samples_report = []
     samples_report.append("=" * 80)
     samples_report.append("AUTOREGRESSIVE TEXT GENERATION - TEMPERATURE INFLUENCE ANALYSIS")
+    samples_report.append("DATASET: ALICE'S ADVENTURES IN WONDERLAND")
     samples_report.append("=" * 80 + "\n")
     
     generation_summary = {}

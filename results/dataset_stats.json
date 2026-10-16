@@ -1,50 +1,50 @@
 {
-    "total_characters": 1115394,
-    "total_tokens": 250175,
-    "total_lines": 40000,
-    "unique_raw_tokens": 12380,
-    "vocab_size": 5000,
-    "avg_words_per_line": 6.254375,
+    "total_characters": 144015,
+    "total_tokens": 31841,
+    "total_lines": 3351,
+    "unique_raw_tokens": 2687,
+    "vocab_size": 2689,
+    "avg_words_per_line": 9.501939719486721,
     "top_10_words": [
         [
             ",",
-            19846
-        ],
-        [
-            ":",
-            10316
-        ],
-        [
-            ".",
-            7885
+            2427
         ],
         [
             "the",
-            6287
+            1643
+        ],
+        [
+            ".",
+            986
         ],
         [
             "and",
-            5690
+            871
         ],
         [
             "to",
-            4902
+            729
+        ],
+        [
+            "a",
+            632
+        ],
+        [
+            "it",
+            592
+        ],
+        [
+            "she",
+            549
         ],
         [
             "i",
-            4664
+            523
         ],
         [
             "of",
-            3759
-        ],
-        [
-            ";",
-            3628
-        ],
-        [
-            "you",
-            3149
+            514
         ]
     ]
 }

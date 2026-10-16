@@ -76,7 +76,7 @@ def create_notebook():
                 "metadata": {},
                 "outputs": [],
                 "source": [
-                    "DATA_PATH = '../data/tinyshakespeare.txt' if os.path.exists('../data/tinyshakespeare.txt') else 'data/tinyshakespeare.txt'\n",
+                    "DATA_PATH = '../data/alice_in_wonderland.txt' if os.path.exists('../data/alice_in_wonderland.txt') else 'data/alice_in_wonderland.txt'\n",
                     "\n",
                     "with open(DATA_PATH, 'r', encoding='utf-8') as f:\n",
                     "    raw_text = f.read()\n",
@@ -121,7 +121,7 @@ def create_notebook():
                     "            return idx\n",
                     "        return self.word2idx[word]\n",
                     "\n",
-                    "    def build_from_words(self, words, min_freq=2, max_vocab_size=5000):\n",
+                    "    def build_from_words(self, words, min_freq=1, max_vocab_size=3000):\n",
                     "        counter = Counter(words)\n",
                     "        most_common = counter.most_common(max_vocab_size - len(self.word2idx))\n",
                     "        for word, count in most_common:\n",
@@ -138,7 +138,7 @@ def create_notebook():
                     "        return [self.idx2word.get(idx, self.unk_token) for idx in indices]\n",
                     "\n",
                     "vocab = Vocabulary()\n",
-                    "vocab.build_from_words(tokens, min_freq=2, max_vocab_size=5000)\n",
+                    "vocab.build_from_words(tokens, min_freq=1, max_vocab_size=3000)\n",
                     "print(f\"Vocabulary Size: {len(vocab):,} unique words (including <pad>, <unk>)\")"
                 ]
             },
@@ -146,7 +146,7 @@ def create_notebook():
                 "cell_type": "markdown",
                 "metadata": {},
                 "source": [
-                    "### 2.2 Zipf's Law Word Frequency Distribution Plot"
+                    "### 2.2 Word Frequency Distribution Plot"
                 ]
             },
             {
@@ -162,7 +162,7 @@ def create_notebook():
                     "plt.figure(figsize=(12, 4))\n",
                     "plt.bar(words, counts, color='#2b5c8f')\n",
                     "plt.xticks(rotation=60, ha='right')\n",
-                    "plt.title(\"Top 30 Most Frequent Words in Shakespeare Corpus\")\n",
+                    "plt.title(\"Top 30 Most Frequent Words in Alice in Wonderland Corpus\")\n",
                     "plt.ylabel(\"Frequency\")\n",
                     "plt.grid(axis='y', linestyle='--', alpha=0.5)\n",
                     "plt.tight_layout()\n",
@@ -183,10 +183,9 @@ def create_notebook():
                 "outputs": [],
                 "source": [
                     "SEQ_LENGTH = 8\n",
-                    "BATCH_SIZE = 128\n",
-                    "SAMPLE_LIMIT = 60000  # Subset for fast & reproducible training\n",
+                    "BATCH_SIZE = 64\n",
                     "\n",
-                    "encoded_tokens = vocab.encode(tokens[:SAMPLE_LIMIT])\n",
+                    "encoded_tokens = vocab.encode(tokens)\n",
                     "\n",
                     "class TextSequenceDataset(Dataset):\n",
                     "    def __init__(self, token_indices, seq_length=8):\n",
@@ -446,6 +445,29 @@ def create_notebook():
                     "    return ' '.join(gen_words)\n",
                     "\n",
                     "print(\"Generation function ready.\")"
+                ]
+            },
+            {
+                "cell_type": "markdown",
+                "metadata": {},
+                "source": [
+                    "### 6.1 Interactive Sample Generations Across Temperatures"
+                ]
+            },
+            {
+                "cell_type": "code",
+                "execution_count": None,
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "seed = 'alice was beginning to get very tired of sitting'\n",
+                    "print(f\"Seed: '{seed}'\\n\")\n",
+                    "if 'trained_models' in locals() and 'LSTM' in trained_models:\n",
+                    "    for t in [0.2, 0.5, 1.0, 1.5]:\n",
+                    "        sample = generate(trained_models['LSTM'], seed, max_tokens=25, temperature=t)\n",
+                    "        print(f\"[T = {t:3.1f}] -> {sample}\\n\")\n",
+                    "else:\n",
+                    "    print(\"Models available via saved checkpoints in results/\")"
                 ]
             }
         ],

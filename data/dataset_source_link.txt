@@ -1,4 +1,4 @@
-Dataset Name: Tiny Shakespeare
-Dataset Source Link: https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt
-Origin: Extracted works of William Shakespeare from Project Gutenberg, curated by Andrej Karpathy for language modeling benchmarks.
-Description: 40,000 lines, 202,651 words, ~1.11 MB of text containing classic dramatic verse and dialogue.
+Dataset Name: Alice's Adventures in Wonderland (by Lewis Carroll)
+Dataset Source Link: https://www.gutenberg.org/files/11/11-0.txt
+Origin: Project Gutenberg, eBook #11.
+Description: 144,015 characters, 31,841 tokens, 2,687 unique words. A classic English narrative rich in conversational dialogue, distinct character voices, and clean syntactic structures.
