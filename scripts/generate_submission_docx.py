@@ -13,7 +13,7 @@ from reportlab.lib import colors
 def build_submission_docx(
     student_name="Saksham Gupta",
     reg_num="230911186",
-    repo_url="https://github.com/sakshamgupta/autoregressive-text-generation-fgai",
+    repo_url="https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice",
     output_filename="SakshamGupta_230911186_FGAI_Assignment2.docx"
 ):
     doc = Document()
@@ -177,12 +177,13 @@ def build_submission_docx(
     r_h4.font.color.rgb = RGBColor(30, 60, 114)
     
     doc.add_paragraph(
-        "• LSTM achieves top performance across all quantitative evaluation criteria: lowest validation loss (3.9903, PPL 54.07), "
+        "• LSTM edges ahead across evaluation metrics: lowest validation loss (3.9903, PPL 54.07), "
         "highest validation top-1 accuracy (21.87%), and highest held-out test top-1 accuracy (23.29%) and top-5 accuracy (47.23%).\n"
-        "• GRU follows closely in second place, achieving 20.55% validation and 22.53% test top-1 accuracy while utilizing fewer parameters (1,061,652).\n"
+        "• GRU performs closely behind in second place, achieving 20.55% validation and 22.53% test top-1 accuracy while utilizing 11% fewer parameters (1,061,652 vs. 1,193,236). Simple RNN remains competitive in loss (4.0741, PPL 58.80).\n"
+        "• Statistical Evaluation & Single-Seed Limitation: While all models were trained with SEED=42 to enforce strictly identical conditions, the 0.045 cross-entropy delta between LSTM and GRU falls within typical single-run variance. Multi-seed runs (3–5 seeds) with mean ± standard deviation reporting are recommended for production-scale validation.\n"
         "• Bidirectional RNN: By concatenating forward final state h_n[-2] and backward final state h_n[-1], BiRNN correctly encodes the complete input context. "
         "However, with 1,262,868 parameters it exhibits earlier overfitting (peaking at epoch 2) compared to causal unidirectional models.\n"
-        "• Sampling Strategy: T = 0.5 provides the best empirical balance between lexical diversity (Distinct-1: ~0.68) and low phrase repetition (trigram repetition under 5%)."
+        "• Sampling Strategy: T = 0.5 provides the optimal empirical balance between lexical diversity (Distinct-1: 0.60–0.73) and phrase stability, achieving low trigram repetition across models (LSTM: 5.0%, GRU: 0.0%, BiRNN: 1.0%, Simple RNN: 6.1%)."
     )
     
     output_path = os.path.join(os.getcwd(), output_filename)
@@ -194,7 +195,7 @@ def build_submission_docx(
 def build_submission_pdf(
     student_name="Saksham Gupta",
     reg_num="230911186",
-    repo_url="https://github.com/sakshamgupta/autoregressive-text-generation-fgai",
+    repo_url="https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice",
     output_filename="SakshamGupta_230911186_FGAI_Assignment2.pdf"
 ):
     pdf_path = os.path.join(os.getcwd(), output_filename)
@@ -286,12 +287,12 @@ def build_submission_pdf(
     # Section 4
     story.append(Paragraph("4. Conclusion & Model Comparison", h1_style))
     story.append(Paragraph(
-        "• <b>LSTM</b> achieves top performance across all quantitative metrics: lowest validation loss (3.9903, PPL 54.07), "
+        "• <b>LSTM edges ahead</b> across quantitative evaluation metrics: lowest validation loss (3.9903, PPL 54.07), "
         "highest validation top-1 accuracy (21.87%), and highest held-out test top-1 accuracy (23.29%) and top-5 accuracy (47.23%).<br/>"
-        "• <b>GRU</b> follows closely in second place, achieving 20.55% validation and 22.53% test top-1 accuracy with fewer parameters (1,061,652).<br/>"
-        "• <b>Bidirectional RNN:</b> By concatenating forward final state h_n[-2] and backward final state h_n[-1], BiRNN correctly encodes the complete input context. "
-        "However, with 1,262,868 parameters it exhibits earlier overfitting (peaking at epoch 2) compared to causal unidirectional models.<br/>"
-        "• <b>Sampling Strategy:</b> T = 0.5 provides the best empirical balance between lexical diversity (Distinct-1: ~0.68) and low phrase repetition (trigram repetition under 5%).",
+        "• <b>GRU</b> performs closely behind in second place, achieving 20.55% validation and 22.53% test top-1 accuracy with 11% fewer parameters (1,061,652 vs. 1,193,236). Simple RNN remains competitive (Val Loss 4.0741).<br/>"
+        "• <b>Single-Seed Limitation:</b> Experiments were run under SEED=42 for strict controlled comparison; the 0.045 loss delta between LSTM and GRU falls within typical single-run variance. Multi-seed evaluation (3–5 seeds) is recommended for production benchmarking.<br/>"
+        "• <b>Bidirectional RNN:</b> Concatenating forward final state h_n[-2] and backward final state h_n[-1] feeds complete context to the classifier, but its 1,262,868 parameters overfit by epoch 2 (val loss 4.2804).<br/>"
+        "• <b>Sampling Strategy:</b> T = 0.5 delivers the optimal empirical balance between diversity (Distinct-1: 0.60–0.73) and phrase stability, maintaining low repetition across models (LSTM 5.0%, GRU 0.0%, BiRNN 1.0%, Simple RNN 6.1%).",
         body_style
     ))
 

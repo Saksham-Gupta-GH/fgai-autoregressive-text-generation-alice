@@ -16,7 +16,7 @@ def create_notebook():
                     "**Student Details:**\n",
                     "- **Name:** Saksham Gupta\n",
                     "- **Registration Number:** 230911186\n",
-                    "- **Repository:** `https://github.com/sakshamgupta/autoregressive-text-generation-fgai`\n",
+                    "- **Repository:** `https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice`\n",
                     "\n",
                     "---\n",
                     "### Assignment Objectives\n",
@@ -314,7 +314,13 @@ def create_notebook():
                     "    def forward(self, x):\n",
                     "        embeds = self.embedding(x)\n",
                     "        out, h_n = self.gru(embeds)\n",
-                    "        return self.fc(self.dropout(out[:, -1, :]))"
+                    "        return self.fc(self.dropout(out[:, -1, :]))\n",
+                    "\n",
+                    "# Instantiate each architecture to verify layers and parameter count\n",
+                    "for model_cls, name in [(SimpleRNNLM, 'Simple RNN'), (BiRNNLM, 'Bidirectional RNN'), (LSTMLM, 'LSTM'), (GRULM, 'GRU')]:\n",
+                    "    m = model_cls(vocab_size=len(vocab), embedding_dim=256, hidden_dim=256, dropout=0.25)\n",
+                    "    params = sum(p.numel() for p in m.parameters() if p.requires_grad)\n",
+                    "    print(f'Instantiated {name:<18}: {params:,} parameters')"
                 ]
             },
             {

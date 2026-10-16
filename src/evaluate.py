@@ -174,11 +174,26 @@ def format_cross_model_temperature_table(generation_summary, save_dir="results")
     rows = ""
     csv_rows = []
     
-    descriptions = {
-        0.2: "Conservative, high confidence, prone to phrase repetition",
-        0.5: "Optimal trade-off: high lexical diversity with fluent phrasing",
-        1.0: "High vocabulary variety; occasional grammatical drift",
-        1.5: "High entropy, syntactic fragmentation, loss of coherence"
+    model_temp_descriptions = {
+        ("Simple RNN", 0.2): "Repetitive phrasing loops; repeats 'cauldron of the door' motif",
+        ("Simple RNN", 0.5): "Moderate fluency with local repetition ('door that makes the world would not')",
+        ("Simple RNN", 1.0): "High lexical variety; syntactic drift across longer clauses",
+        ("Simple RNN", 1.5): "Excessive entropy; severe syntactic breakdown and ungrammatical token salad",
+        
+        ("Bidirectional RNN", 0.2): "Severe looping traps; enters 6-word cycle 'and the moral of course'",
+        ("Bidirectional RNN", 0.5): "Lively dialogue phrasing ('cried the pigeon, i don t think you know'); zero loops",
+        ("Bidirectional RNN", 1.0): "Rich character vocabulary; clauses fragment over multi-word spans",
+        ("Bidirectional RNN", 1.5): "High disorder; random lexicon emission without coherent syntactic bindings",
+        
+        ("LSTM", 0.2): "Strict syntax; repeats dominant character motifs ('queen s argument was')",
+        ("LSTM", 0.5): "Optimal narrative coherence; fluent story prose ('the march hare said in a hurry')",
+        ("LSTM", 1.0): "Imaginative lexical combinations ('way of soup'); slight clause drift",
+        ("LSTM", 1.5): "Entropy collapse; erratic word sequencing ('face high before without more pig')",
+        
+        ("GRU", 0.2): "Extreme phrase trapping (52.5% repetition); loops on 'and she tried to herself'",
+        ("GRU", 0.5): "Clean conversational fluency with zero repetition loops ('said the cat... went on')",
+        ("GRU", 1.0): "Diverse lexicon; minor grammatical degradation in dialogue tags",
+        ("GRU", 1.5): "Unconstrained random sampling; complete loss of semantic and syntactic thread"
     }
     
     for key, metrics_list in generation_summary.items():
@@ -191,7 +206,7 @@ def format_cross_model_temperature_table(generation_summary, save_dir="results")
         avg_d2 = np.mean([m["distinct_2"] for m in metrics_list])
         avg_tri = np.mean([m["trigram_repeat_rate"] for m in metrics_list])
         max_loop = max([m["longest_loop"] for m in metrics_list])
-        desc = descriptions.get(temp, "Standard sampling")
+        desc = model_temp_descriptions.get((model_name, temp), "Model-specific generation")
         
         rows += (f"| **{model_name}** | {temp:3.1f} | {avg_d1:.3f} | {avg_d2:.3f} | "
                  f"{avg_tri:.3f} | {max_loop} words | {desc} |\n")

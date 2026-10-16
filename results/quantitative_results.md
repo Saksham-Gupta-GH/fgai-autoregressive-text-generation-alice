@@ -12,19 +12,19 @@
 
 | Architecture | Temp (T) | Distinct-1 (Unigrams) | Distinct-2 (Bigrams) | Trigram Repetition Rate | Longest Loop | Empirical Behaviour |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Simple RNN** | 0.2 | 0.571 | 0.716 | 0.202 | 0 words | Conservative, high confidence, prone to phrase repetition |
-| **Simple RNN** | 0.5 | 0.600 | 0.833 | 0.061 | 0 words | Optimal trade-off: high lexical diversity with fluent phrasing |
-| **Simple RNN** | 1.0 | 0.867 | 0.990 | 0.000 | 0 words | High vocabulary variety; occasional grammatical drift |
-| **Simple RNN** | 1.5 | 0.914 | 1.000 | 0.000 | 0 words | High entropy, syntactic fragmentation, loss of coherence |
-| **Bidirectional RNN** | 0.2 | 0.581 | 0.804 | 0.121 | 6 words | Conservative, high confidence, prone to phrase repetition |
-| **Bidirectional RNN** | 0.5 | 0.714 | 0.931 | 0.010 | 0 words | Optimal trade-off: high lexical diversity with fluent phrasing |
-| **Bidirectional RNN** | 1.0 | 0.867 | 1.000 | 0.000 | 0 words | High vocabulary variety; occasional grammatical drift |
-| **Bidirectional RNN** | 1.5 | 0.943 | 1.000 | 0.000 | 0 words | High entropy, syntactic fragmentation, loss of coherence |
-| **LSTM** | 0.2 | 0.571 | 0.765 | 0.121 | 0 words | Conservative, high confidence, prone to phrase repetition |
-| **LSTM** | 0.5 | 0.667 | 0.902 | 0.050 | 0 words | Optimal trade-off: high lexical diversity with fluent phrasing |
-| **LSTM** | 1.0 | 0.857 | 1.000 | 0.000 | 0 words | High vocabulary variety; occasional grammatical drift |
-| **LSTM** | 1.5 | 0.895 | 1.000 | 0.000 | 0 words | High entropy, syntactic fragmentation, loss of coherence |
-| **GRU** | 0.2 | 0.343 | 0.412 | 0.525 | 6 words | Conservative, high confidence, prone to phrase repetition |
-| **GRU** | 0.5 | 0.733 | 0.931 | 0.000 | 0 words | Optimal trade-off: high lexical diversity with fluent phrasing |
-| **GRU** | 1.0 | 0.848 | 0.980 | 0.000 | 0 words | High vocabulary variety; occasional grammatical drift |
-| **GRU** | 1.5 | 0.914 | 1.000 | 0.000 | 0 words | High entropy, syntactic fragmentation, loss of coherence |
+| **Simple RNN** | 0.2 | 0.571 | 0.716 | 0.202 | 0 words | Repetitive phrasing loops; repeats 'cauldron of the door' motif |
+| **Simple RNN** | 0.5 | 0.600 | 0.833 | 0.061 | 0 words | Moderate fluency with local repetition ('door that makes the world would not') |
+| **Simple RNN** | 1.0 | 0.867 | 0.990 | 0.000 | 0 words | High lexical variety; syntactic drift across longer clauses |
+| **Simple RNN** | 1.5 | 0.914 | 1.000 | 0.000 | 0 words | Excessive entropy; severe syntactic breakdown and ungrammatical token salad |
+| **Bidirectional RNN** | 0.2 | 0.581 | 0.804 | 0.121 | 6 words | Severe looping traps; enters 6-word cycle 'and the moral of course' |
+| **Bidirectional RNN** | 0.5 | 0.714 | 0.931 | 0.010 | 0 words | Lively dialogue phrasing ('cried the pigeon, i don t think you know'); zero loops |
+| **Bidirectional RNN** | 1.0 | 0.867 | 1.000 | 0.000 | 0 words | Rich character vocabulary; clauses fragment over multi-word spans |
+| **Bidirectional RNN** | 1.5 | 0.943 | 1.000 | 0.000 | 0 words | High disorder; random lexicon emission without coherent syntactic bindings |
+| **LSTM** | 0.2 | 0.571 | 0.765 | 0.121 | 0 words | Strict syntax; repeats dominant character motifs ('queen s argument was') |
+| **LSTM** | 0.5 | 0.667 | 0.902 | 0.050 | 0 words | Optimal narrative coherence; fluent story prose ('the march hare said in a hurry') |
+| **LSTM** | 1.0 | 0.857 | 1.000 | 0.000 | 0 words | Imaginative lexical combinations ('way of soup'); slight clause drift |
+| **LSTM** | 1.5 | 0.895 | 1.000 | 0.000 | 0 words | Entropy collapse; erratic word sequencing ('face high before without more pig') |
+| **GRU** | 0.2 | 0.343 | 0.412 | 0.525 | 6 words | Extreme phrase trapping (52.5% repetition); loops on 'and she tried to herself' |
+| **GRU** | 0.5 | 0.733 | 0.931 | 0.000 | 0 words | Clean conversational fluency with zero repetition loops ('said the cat... went on') |
+| **GRU** | 1.0 | 0.848 | 0.980 | 0.000 | 0 words | Diverse lexicon; minor grammatical degradation in dialogue tags |
+| **GRU** | 1.5 | 0.914 | 1.000 | 0.000 | 0 words | Unconstrained random sampling; complete loss of semantic and syntactic thread |

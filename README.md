@@ -8,7 +8,7 @@
 - **Registration Number:** 230911186
 - **Assignment Title:** Foundations of Generative AI (ICT4403) – Assignment 2
 - **System Title:** Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's *Alice's Adventures in Wonderland* using Simple RNN, Bidirectional RNN, LSTM, and GRU
-- **GitHub Repository Link:** [https://github.com/sakshamgupta/autoregressive-text-generation-fgai](https://github.com/sakshamgupta/autoregressive-text-generation-fgai)
+- **GitHub Repository Link:** [https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice](https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice)
 
 ---
 
@@ -101,8 +101,8 @@ Logits -> Next-Word Probability Distribution
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/sakshamgupta/autoregressive-text-generation-fgai.git
-cd autoregressive-text-generation-fgai
+git clone https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice.git
+cd fgai-autoregressive-text-generation-alice
 
 # Install dependencies
 pip install -r requirements.txt
@@ -123,7 +123,7 @@ jupyter notebook notebooks/text_generation_assignment2.ipynb
 
 ## 5. Quantitative Results & Evaluation
 
-All four models were trained for 8 epochs on Apple Silicon MPS. Because recurrent models on small corpora begin overfitting after several epochs (train loss drops toward ~1.0–2.0 while validation loss plateaus), **we report best-epoch validation metrics alongside held-out test set performance**:
+All four models were trained for 8 epochs on Apple Silicon MPS. Because recurrent models on small corpora begin overfitting after several epochs (train loss drops toward ~1.4–2.6 while validation loss plateaus), **we report best-epoch validation metrics alongside held-out test set performance**:
 
 ### Model Comparison Table (Best-Epoch & Test Set)
 | Architecture | Trainable Parameters | Best Epoch | Best Val Loss | Best Val PPL | Val Top-1 Acc | Val Top-5 Acc | Test Loss | Test Top-1 Acc | Test Top-5 Acc | Total Time (s) |
@@ -159,22 +159,22 @@ We evaluated all four architectures across three distinct seed prompts at four t
 ### Cross-Model Temperature Metrics Table (Averaged Over Seeds)
 | Architecture | Temp (T) | Distinct-1 (Unigrams) | Distinct-2 (Bigrams) | Trigram Repetition Rate | Longest Loop | Empirical Quality Assessment |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Simple RNN** | 0.2 | 0.571 | 0.716 | 20.2% | 0 words | Conservative, high confidence, prone to phrase repetition |
-| **Simple RNN** | 0.5 | 0.600 | 0.833 | 6.1% | 0 words | Optimal trade-off: high lexical diversity with fluent phrasing |
-| **Simple RNN** | 1.0 | 0.867 | 0.990 | 0.0% | 0 words | High vocabulary variety; occasional grammatical drift |
-| **Simple RNN** | 1.5 | 0.914 | 1.000 | 0.0% | 0 words | High entropy, syntactic fragmentation, loss of coherence |
-| **Bidirectional RNN** | 0.2 | 0.581 | 0.804 | 12.1% | 6 words | Conservative, high confidence, prone to phrase repetition |
-| **Bidirectional RNN** | 0.5 | 0.714 | 0.931 | 1.0% | 0 words | Optimal trade-off: high lexical diversity with fluent phrasing |
-| **Bidirectional RNN** | 1.0 | 0.867 | 1.000 | 0.0% | 0 words | High vocabulary variety; occasional grammatical drift |
-| **Bidirectional RNN** | 1.5 | 0.943 | 1.000 | 0.0% | 0 words | High entropy, syntactic fragmentation, loss of coherence |
-| **LSTM** | 0.2 | 0.571 | 0.765 | 12.1% | 0 words | Conservative, high confidence, prone to phrase repetition |
-| **LSTM** | **0.5** | **0.667** | **0.902** | **5.0%** | **0 words** | **Optimal empirical trade-off: high lexical diversity with fluent phrasing** |
-| **LSTM** | 1.0 | 0.857 | 1.000 | 0.0% | 0 words | High vocabulary variety; occasional grammatical drift |
-| **LSTM** | 1.5 | 0.895 | 1.000 | 0.0% | 0 words | High entropy, syntactic fragmentation, loss of coherence |
-| **GRU** | 0.2 | 0.343 | 0.412 | 52.5% | 6 words | Conservative, high confidence, prone to phrase repetition loops |
-| **GRU** | 0.5 | 0.733 | 0.931 | 0.0% | 0 words | Optimal trade-off: high lexical diversity with fluent phrasing |
-| **GRU** | 1.0 | 0.848 | 0.980 | 0.0% | 0 words | High vocabulary variety; occasional grammatical drift |
-| **GRU** | 1.5 | 0.914 | 1.000 | 0.0% | 0 words | High entropy, syntactic fragmentation, loss of coherence |
+| **Simple RNN** | 0.2 | 0.571 | 0.716 | 20.2% | 0 words | Repetitive phrasing loops; repeats 'cauldron of the door' motif |
+| **Simple RNN** | 0.5 | 0.600 | 0.833 | 6.1% | 0 words | Moderate fluency with local repetition ('door that makes the world would not') |
+| **Simple RNN** | 1.0 | 0.867 | 0.990 | 0.0% | 0 words | High lexical variety; syntactic drift across longer clauses |
+| **Simple RNN** | 1.5 | 0.914 | 1.000 | 0.0% | 0 words | Excessive entropy; severe syntactic breakdown and ungrammatical token salad |
+| **Bidirectional RNN** | 0.2 | 0.581 | 0.804 | 12.1% | 6 words | Severe looping traps; enters 6-word cycle 'and the moral of course' |
+| **Bidirectional RNN** | 0.5 | 0.714 | 0.931 | 1.0% | 0 words | Lively dialogue phrasing ('cried the pigeon, i don t think you know'); zero loops |
+| **Bidirectional RNN** | 1.0 | 0.867 | 1.000 | 0.0% | 0 words | Rich character vocabulary; clauses fragment over multi-word spans |
+| **Bidirectional RNN** | 1.5 | 0.943 | 1.000 | 0.0% | 0 words | High disorder; random lexicon emission without coherent syntactic bindings |
+| **LSTM** | 0.2 | 0.571 | 0.765 | 12.1% | 0 words | Strict syntax; repeats dominant character motifs ('queen s argument was') |
+| **LSTM** | **0.5** | **0.667** | **0.902** | **5.0%** | **0 words** | **Optimal narrative coherence; fluent story prose ('the march hare said in a hurry')** |
+| **LSTM** | 1.0 | 0.857 | 1.000 | 0.0% | 0 words | Imaginative lexical combinations ('way of soup'); slight clause drift |
+| **LSTM** | 1.5 | 0.895 | 1.000 | 0.0% | 0 words | Entropy collapse; erratic word sequencing ('face high before without more pig') |
+| **GRU** | 0.2 | 0.343 | 0.412 | 52.5% | 6 words | Extreme phrase trapping (52.5% repetition); loops on 'and she tried to herself' |
+| **GRU** | 0.5 | 0.733 | 0.931 | 0.0% | 0 words | Clean conversational fluency with zero repetition loops ('said the cat... went on') |
+| **GRU** | 1.0 | 0.848 | 0.980 | 0.0% | 0 words | Diverse lexicon; minor grammatical degradation in dialogue tags |
+| **GRU** | 1.5 | 0.914 | 1.000 | 0.0% | 0 words | Unconstrained random sampling; complete loss of semantic and syntactic thread |
 
 ---
 
@@ -194,12 +194,14 @@ We evaluated all four architectures across three distinct seed prompts at four t
 
 ## 8. Conclusion: Model Comparison & Justification
 
-1. **LSTM Achieves Top Performance Across All Metrics**:
-   - **LSTM** achieves the best validation loss (**3.9903**), lowest perplexity (**54.07**), highest validation Top-1 accuracy (**21.87%**), and highest test-set Top-1 accuracy (**23.29%**) and Top-5 accuracy (**47.23%**).
-   - **GRU** follows closely with **20.55%** validation Top-1 and **22.53%** test-set Top-1 accuracy, with a lower parameter count (1,061,652).
-   - Both gated architectures decisively outperform Simple RNN and BiRNN by maintaining stable gradient flow and gating past context effectively.
-2. **Bidirectional RNN Analysis**:
+1. **LSTM Edges Ahead, with GRU Performing Closely Behind**:
+   - **LSTM** achieves the best validation loss (**3.9903**), lowest perplexity (**54.07**), and highest held-out test Top-1 accuracy (**23.29%**) and Top-5 accuracy (**47.23%**).
+   - **GRU** performs closely behind with **20.55%** validation Top-1 and **22.53%** test Top-1 accuracy, while utilizing 11% fewer parameters (**1,061,652** vs. 1,193,236).
+   - **Simple RNN** remains competitive in loss (**4.0741**) and perplexity (**58.80**), though slightly trailing in Top-1 accuracy (**19.73%** validation, **20.80%** test).
+   - **Statistical Evaluation & Single-Seed Limitation:** While all models were trained with `SEED=42` to enforce strict controlled comparability, the 0.045 cross-entropy margin between LSTM (3.990) and GRU (4.035) falls within standard single-run variance. For production-scale benchmarking, running 3–5 seeds with mean ± standard deviation reporting is recommended to confirm whether the performance gap achieves statistical significance.
+2. **Bidirectional RNN Inductive Trade-off**:
    - Concatenating the forward final state $h_n[-2]$ and backward final state $h_n[-1]$ properly feeds the full sequence context to the classifier.
-   - However, BiRNN's 1.26M parameters cause it to overfit earlier (validation loss peaks at epoch 2 at 4.2804). For causal text generation, the extra backward parameters provide limited inductive advantage compared to causal gated units.
-3. **Sampling Strategy**:
-   - $T = 0.5$ represents the **best empirical trade-off** between lexical diversity (Distinct-1: ~0.67) and low phrase repetition (trigram repetition rate under 5%). $T = 0.2$ results in repetitive phrase traps, while $T = 1.5$ degrades into random token sampling.
+   - However, BiRNN's 1.26M parameters cause it to overfit earlier (validation loss peaks at epoch 2 at 4.2804). For causal word-level autoregressive generation, the extra backward parameters provide limited inductive advantage compared to causal gated units.
+3. **Sampling Temperature & Empirical Coherence**:
+   - $T = 0.5$ represents the **optimal empirical trade-off** between lexical diversity (Distinct-1: ~0.60–0.73) and phrase stability, achieving low trigram repetition across architectures: **LSTM (5.0%)**, **GRU (0.0%)**, **BiRNN (1.0%)**, and **Simple RNN (6.1%)**.
+   - Lower temperatures ($T = 0.2$) trigger severe repetition loops (GRU reaches 52.5% repetition, looping on *"and she tried to herself"*), while high temperatures ($T = 1.5$) cause syntactic collapse into ungrammatical token salad.
