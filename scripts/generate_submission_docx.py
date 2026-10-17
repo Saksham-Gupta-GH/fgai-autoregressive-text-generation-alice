@@ -60,7 +60,7 @@ def build_submission_docx(
     run_title = title.add_run("FOUNDATIONS OF GENERATIVE AI (ICT4403)")
     run_title.font.size = Pt(16)
     run_title.font.bold = True
-    run_title.font.color.rgb = RGBColor(30, 60, 114)
+    run_title.font.color.rgb = RGBColor(0, 0, 0)
     
     sub = doc.add_paragraph()
     sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -110,7 +110,7 @@ def build_submission_docx(
     r_h1 = h1.add_run("1. System Overview & Problem Statement")
     r_h1.font.size = Pt(13)
     r_h1.font.bold = True
-    r_h1.font.color.rgb = RGBColor(30, 60, 114)
+    r_h1.font.color.rgb = RGBColor(0, 0, 0)
     
     doc.add_paragraph(
         "This project implements, evaluates, and analyzes an autoregressive next-word language generation system. "
@@ -129,7 +129,7 @@ def build_submission_docx(
     r_h2 = h2.add_run("2. Quantitative Evaluation Summary (Best Epoch & Test Set)")
     r_h2.font.size = Pt(13)
     r_h2.font.bold = True
-    r_h2.font.color.rgb = RGBColor(30, 60, 114)
+    r_h2.font.color.rgb = RGBColor(0, 0, 0)
     
     q_table = doc.add_table(rows=5, cols=9)
     q_table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -166,7 +166,7 @@ def build_submission_docx(
     r_h3 = h3.add_run("3. Cross-Model Temperature Analysis (Averaged Over Models and Seed Prompts, n = 3 per cell)")
     r_h3.font.size = Pt(13)
     r_h3.font.bold = True
-    r_h3.font.color.rgb = RGBColor(30, 60, 114)
+    r_h3.font.color.rgb = RGBColor(0, 0, 0)
     
     t_table = doc.add_table(rows=5, cols=6)
     t_table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -203,7 +203,7 @@ def build_submission_docx(
     r_h4 = h4.add_run("4. Conclusion & Model Comparison")
     r_h4.font.size = Pt(13)
     r_h4.font.bold = True
-    r_h4.font.color.rgb = RGBColor(30, 60, 114)
+    r_h4.font.color.rgb = RGBColor(0, 0, 0)
     
     doc.add_paragraph(
         "• LSTM edges ahead across next-word prediction metrics: lowest validation loss (3.9903, PPL 54.07), "
@@ -233,9 +233,9 @@ def build_submission_pdf(
     doc = SimpleDocTemplate(pdf_path, pagesize=letter, leftMargin=36, rightMargin=36, topMargin=24, bottomMargin=24)
     
     styles = getSampleStyleSheet()
-    title_style = ParagraphStyle('DocTitle', parent=styles['Heading1'], fontSize=13, leading=16, textColor=colors.HexColor('#1e3c72'), alignment=1, spaceAfter=2)
+    title_style = ParagraphStyle('DocTitle', parent=styles['Heading1'], fontSize=13, leading=16, textColor=colors.black, alignment=1, spaceAfter=2)
     sub_style = ParagraphStyle('DocSub', parent=styles['Normal'], fontSize=9, leading=12, fontName='Helvetica-Oblique', alignment=1, spaceAfter=6)
-    h1_style = ParagraphStyle('SecH1', parent=styles['Heading2'], fontSize=10, leading=13, textColor=colors.HexColor('#1e3c72'), spaceBefore=5, spaceAfter=3)
+    h1_style = ParagraphStyle('SecH1', parent=styles['Heading2'], fontSize=10, leading=13, textColor=colors.black, spaceBefore=5, spaceAfter=3)
     body_style = ParagraphStyle('Body', parent=styles['Normal'], fontSize=7.5, leading=10, spaceAfter=4)
     table_text = ParagraphStyle('TableT', parent=styles['Normal'], fontSize=7.5, leading=9.5)
     table_head = ParagraphStyle('TableH', parent=styles['Normal'], fontSize=7.5, leading=9.5, fontName='Helvetica-Bold')
