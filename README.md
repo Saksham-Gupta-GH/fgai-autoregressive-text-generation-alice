@@ -229,7 +229,8 @@ Consistency was assessed qualitatively across generated passages:
 ```
 fgai-autoregressive-text-generation-alice/
 ├── LICENSE                                       # MIT License
-├── SakshamGupta_230911186_FGAI_Assignment2.pdf   # 1-Page LMS Submission PDF
+├── SakshamGupta_230911186_FGAI_Assignment2.pdf   # 1-Page LMS Submission PDF (Compiled via LaTeX)
+├── SakshamGupta_230911186_FGAI_Assignment2.tex   # Academic LaTeX Source Document
 ├── SakshamGupta_230911186_FGAI_Assignment2.docx  # Word Document with Metadata
 ├── README.md                                     # Project README
 ├── requirements.txt                              # Required dependencies
