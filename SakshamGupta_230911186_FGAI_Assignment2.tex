@@ -1,41 +1,33 @@
-\documentclass[10pt,letterpaper]{article}
+\documentclass[12pt,letterpaper]{article}
 
-\usepackage[top=0.55in,bottom=0.55in,left=0.65in,right=0.65in]{geometry}
-\usepackage{mathptmx} % Times Roman academic font
+\usepackage[top=1.5in,bottom=1.5in,left=1.0in,right=1.0in]{geometry}
+\usepackage{mathptmx} % Times Roman
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage[table]{xcolor}
-\usepackage{enumitem}
-\usepackage[hyphens]{url}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
 
-% Colors
-\definecolor{tableheadbg}{RGB}{240, 243, 246}
+% Color definitions
 \definecolor{tablealtbg}{RGB}{248, 249, 250}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{4pt}
 
 \begin{document}
 
-% Institution & Course Header
+\vspace*{0.4in}
+
 \begin{center}
-  {\fontsize{14pt}{17pt}\selectfont \textbf{FOUNDATIONS OF GENERATIVE AI (ICT4403)}}\\[3pt]
-  {\fontsize{11pt}{14pt}\selectfont \textbf{Assignment 2: Autoregressive Text Generation System}}\\[2pt]
-  {\fontsize{9.5pt}{12pt}\selectfont \textit{Submission Document \& GitHub Repository Verification Sheet}}
+  {\fontsize{18pt}{22pt}\selectfont \textbf{Foundations of Generative AI (ICT4403)}}\\[8pt]
+  {\fontsize{14pt}{18pt}\selectfont \textbf{Assignment 2: Autoregressive Text Generation System}}\\[6pt]
+  {\fontsize{12pt}{15pt}\selectfont \textit{Step 3: Share the GitHub Repository Link}}
 \end{center}
 
-\vspace{6pt}
+\vspace{36pt}
 
-% Section 1: Required Submission Details
-{\fontsize{10.5pt}{13pt}\selectfont \textbf{1. Required Submission Details (Step 3)}}\par
-\vspace{1pt}
-
-% Metadata Table matching Step 3 verbatim
 \begin{center}
-\renewcommand{\arraystretch}{1.3}
-\small
+\renewcommand{\arraystretch}{1.8}
+\fontsize{11pt}{15pt}\selectfont
 \begin{tabularx}{\linewidth}{|>{\hsize=0.72\hsize\bfseries}X|>{\hsize=1.28\hsize}X|}
 \hline
 \rowcolor{tablealtbg}
@@ -46,41 +38,9 @@ Assignment Title & Foundations of Generative AI (ICT4403) --- Assignment 2 \\ \h
 Title of the Developed Autoregressive Text-Generation System & Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's \textit{Alice's Adventures in Wonderland} using Simple RNN, Bidirectional RNN, LSTM, and GRU \\ \hline
 \rowcolor{tablealtbg}
 Name and Link of the Dataset Used & Alice's Adventures in Wonderland (Lewis Carroll, Project Gutenberg eBook \#11)\newline
-\textbf{Dataset Link:} \href{https://www.gutenberg.org/files/11/11-0.txt}{https://www.gutenberg.org/files/11/11-0.txt} \\ \hline
-GitHub Repository Link & \textbf{Repository Link:} \href{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice}{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice} \\ \hline
+\href{https://www.gutenberg.org/files/11/11-0.txt}{https://www.gutenberg.org/files/11/11-0.txt} \\ \hline
+GitHub Repository Link & \href{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice}{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice} \\ \hline
 \end{tabularx}
-\end{center}
-
-\vspace{4pt}
-
-% Section 2: Repository Contents & Architecture Overview
-{\fontsize{10.5pt}{13pt}\selectfont \textbf{2. GitHub Repository Structure \& Verified Deliverables (Step 2)}}\par
-\vspace{1pt}
-
-All implementation code, pre-trained model checkpoints, interactive notebooks, plots, and experimental data are hosted in the public GitHub repository above in strict compliance with the assignment guidelines:
-
-\begin{itemize}[leftmargin=*,itemsep=2.5pt,topsep=1pt,parsep=0pt]
-  \item \textbf{Complete Source Implementation (\texttt{src/}):} Modular PyTorch implementation containing \texttt{preprocessing.py} (chronological 80/10/10 split, train-only vocabulary fitting with \texttt{min\_freq=2}), \texttt{models.py} (Simple RNN, BiRNN with $[h_n[-2], h_n[-1]]$ state concatenation, LSTM, and GRU), \texttt{train.py} (training loop with validation checkpointing), \texttt{evaluate.py} (loss, perplexity, Top-1/Top-5 accuracy), and \texttt{generate.py} (temperature sampling, Distinct-1/2, trigram repetition metrics).
-  \item \textbf{Interactive Jupyter Notebook (\texttt{notebooks/text\_generation\_assignment2.ipynb}):} Complete, fully executed notebook with all 11 cells containing data preparation, model training progress, evaluation plots, and generated text outputs.
-  \item \textbf{Automated End-to-End Pipeline (\texttt{run\_experiments.py}):} Single-command reproduction script executing the full experimental workflow: preprocessing, training, evaluation, plotting, and generation.
-  \item \textbf{Empirical Results \& Visualizations (\texttt{results/}):} Tabular CSV reports, generated sample logs across temperatures ($T \in \{0.2, 0.5, 1.0, 1.5\}$), and high-resolution comparison plots (\texttt{loss\_curves.png}, \texttt{perplexity\_comparison.png}, \texttt{accuracy\_comparison.png}, etc.).
-  \item \textbf{Comprehensive Technical Report (\texttt{README.md}):} Complete report covering problem formulation, dataset characteristics, architecture details, experimental protocol, full evaluation tables, temperature analysis, and model justification.
-\end{itemize}
-
-\vspace{4pt}
-
-% Section 3: Summary of Key Experimental Findings
-{\fontsize{10.5pt}{13pt}\selectfont \textbf{3. Summary of Key Experimental Findings}}\par
-\vspace{1pt}
-
-\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=1pt,parsep=0pt]
-  \item \textbf{Best Performing Model:} \textbf{LSTM} achieved the strongest next-word prediction performance (Best Val Loss: \textbf{3.9903}, Val Perplexity: \textbf{54.07}, Held-Out Test Top-1 Accuracy: \textbf{23.29\%}, Test Top-5 Accuracy: \textbf{47.23\%}), with \textbf{GRU} performing closely behind (Val Loss: \textbf{4.0353}, Test Top-1: \textbf{22.53\%}) with 11\% fewer parameters.
-  \item \textbf{Sampling Temperature Optimization:} Temperature $T = 0.5$ demonstrated the optimal empirical trade-off between lexical diversity (Distinct-1: 0.60--0.73) and structural coherence, eliminating repetition loops while maintaining fluent narrative dialogue tags.
-\end{itemize}
-
-\vspace{6pt}
-\begin{center}
-  \footnotesize \textit{Submitted in fulfillment of Steps 3 and 4 of the Assignment 2 submission procedure for ICT4403.}
 \end{center}
 
 \end{document}

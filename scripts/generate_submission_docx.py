@@ -49,36 +49,29 @@ def build_submission_docx(
     
     # Margins
     for section in doc.sections:
-        section.top_margin = Inches(0.75)
-        section.bottom_margin = Inches(0.75)
-        section.left_margin = Inches(0.8)
-        section.right_margin = Inches(0.8)
+        section.top_margin = Inches(1.2)
+        section.bottom_margin = Inches(1.2)
+        section.left_margin = Inches(1.0)
+        section.right_margin = Inches(1.0)
         
     # Title
     title = doc.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run_title = title.add_run("FOUNDATIONS OF GENERATIVE AI (ICT4403)")
-    run_title.font.size = Pt(15)
+    run_title = title.add_run("Foundations of Generative AI (ICT4403)")
+    run_title.font.size = Pt(18)
     run_title.font.bold = True
     run_title.font.color.rgb = RGBColor(0, 0, 0)
     
     sub = doc.add_paragraph()
     sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run_sub1 = sub.add_run("Assignment 2: Autoregressive Text Generation System\n")
-    run_sub1.font.size = Pt(12)
+    run_sub1.font.size = Pt(14)
     run_sub1.font.bold = True
-    run_sub2 = sub.add_run("Submission Document & GitHub Repository Verification Sheet")
-    run_sub2.font.size = Pt(10)
+    run_sub2 = sub.add_run("Step 3: Share the GitHub Repository Link")
+    run_sub2.font.size = Pt(12)
     run_sub2.font.italic = True
     
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
-    
-    # Section 1: Required Details
-    h1 = doc.add_heading(level=1)
-    r_h1 = h1.add_run("1. Required Submission Details (Step 3)")
-    r_h1.font.size = Pt(11.5)
-    r_h1.font.bold = True
-    r_h1.font.color.rgb = RGBColor(0, 0, 0)
+    doc.add_paragraph().paragraph_format.space_after = Pt(24)
     
     # Metadata Table
     table = doc.add_table(rows=6, cols=2)
@@ -90,90 +83,33 @@ def build_submission_docx(
         ("Registration Number", reg_num, None),
         ("Assignment Title", "Foundations of Generative AI (ICT4403) — Assignment 2", None),
         ("Title of the Developed Autoregressive Text-Generation System", "Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's Alice's Adventures in Wonderland using Simple RNN, Bidirectional RNN, LSTM, and GRU", None),
-        ("Name and Link of the Dataset Used", "Alice's Adventures in Wonderland (Lewis Carroll, Project Gutenberg eBook #11)\nDataset Link: ", "https://www.gutenberg.org/files/11/11-0.txt"),
-        ("GitHub Repository Link", "Repository Link: ", repo_url)
+        ("Name and Link of the Dataset Used", "Alice's Adventures in Wonderland (Lewis Carroll, Project Gutenberg eBook #11)\n", "https://www.gutenberg.org/files/11/11-0.txt"),
+        ("GitHub Repository Link", "", repo_url)
     ]
     
     for i, (k, text_prefix, link_url) in enumerate(meta_rows):
         row = table.rows[i]
         c0 = row.cells[0]
         c1 = row.cells[1]
-        c0.width = Inches(2.5)
-        c1.width = Inches(4.4)
+        c0.width = Inches(2.6)
+        c1.width = Inches(4.2)
         
         p0 = c0.paragraphs[0]
+        p0.paragraph_format.space_before = Pt(6)
+        p0.paragraph_format.space_after = Pt(6)
         r0 = p0.add_run(k)
         r0.font.bold = True
-        r0.font.size = Pt(9.5)
+        r0.font.size = Pt(11)
         
         p1 = c1.paragraphs[0]
+        p1.paragraph_format.space_before = Pt(6)
+        p1.paragraph_format.space_after = Pt(6)
         if text_prefix:
             r1 = p1.add_run(text_prefix)
-            r1.font.size = Pt(9.5)
+            r1.font.size = Pt(11)
         if link_url:
             add_docx_hyperlink(p1, link_url, link_url)
             
-    doc.add_paragraph().paragraph_format.space_after = Pt(12)
-    
-    # Section 2: Repository Structure & Deliverables
-    h2 = doc.add_heading(level=1)
-    r_h2 = h2.add_run("2. GitHub Repository Structure & Verified Deliverables (Step 2)")
-    r_h2.font.size = Pt(11.5)
-    r_h2.font.bold = True
-    r_h2.font.color.rgb = RGBColor(0, 0, 0)
-    
-    p_repo_intro = doc.add_paragraph(
-        "All implementation code, pre-trained model checkpoints, interactive notebooks, plots, and experimental data "
-        "are hosted in the public GitHub repository above in strict compliance with the assignment guidelines:"
-    )
-    p_repo_intro.paragraph_format.space_after = Pt(4)
-    
-    items = [
-        ("Complete Source Implementation (src/): ", "Modular PyTorch implementation containing preprocessing.py (chronological 80/10/10 split, train-only vocabulary fitting with min_freq=2), models.py (Simple RNN, BiRNN with [h_n[-2], h_n[-1]] state concatenation, LSTM, and GRU), train.py (training loop with validation checkpointing), evaluate.py (loss, perplexity, Top-1/Top-5 accuracy), and generate.py (temperature sampling, Distinct-1/2, trigram repetition metrics)."),
-        ("Interactive Jupyter Notebook (notebooks/text_generation_assignment2.ipynb): ", "Complete, fully executed notebook with all 11 cells containing data preparation, model training progress, evaluation plots, and generated text outputs."),
-        ("Automated End-to-End Pipeline (run_experiments.py): ", "Single-command reproduction script executing the full experimental workflow: preprocessing, training, evaluation, plotting, and generation."),
-        ("Empirical Results & Visualizations (results/): ", "Tabular CSV reports, generated sample logs across temperatures (T ∈ {0.2, 0.5, 1.0, 1.5}), and high-resolution comparison plots (loss_curves.png, perplexity_comparison.png, accuracy_comparison.png, training_time_comparison.png)."),
-        ("Comprehensive Technical Report (README.md): ", "Complete report covering problem formulation, dataset characteristics, architecture details, experimental protocol, full evaluation tables, temperature analysis, and model justification.")
-    ]
-    
-    for prefix, body in items:
-        p_item = doc.add_paragraph(style='List Bullet')
-        p_item.paragraph_format.space_after = Pt(3)
-        r_pre = p_item.add_run(prefix)
-        r_pre.font.bold = True
-        r_pre.font.size = Pt(9)
-        r_b = p_item.add_run(body)
-        r_b.font.size = Pt(9)
-        
-    doc.add_paragraph().paragraph_format.space_after = Pt(8)
-    
-    # Section 3: Summary of Key Findings
-    h3 = doc.add_heading(level=1)
-    r_h3 = h3.add_run("3. Summary of Key Experimental Findings")
-    r_h3.font.size = Pt(11.5)
-    r_h3.font.bold = True
-    r_h3.font.color.rgb = RGBColor(0, 0, 0)
-    
-    findings = [
-        ("Best Performing Model: ", "LSTM achieved the strongest next-word prediction performance (Best Val Loss: 3.9903, Val Perplexity: 54.07, Held-Out Test Top-1 Accuracy: 23.29%, Test Top-5 Accuracy: 47.23%), with GRU performing closely behind (Val Loss: 4.0353, Test Top-1: 22.53%) with 11% fewer parameters."),
-        ("Sampling Temperature Optimization: ", "Temperature T = 0.5 demonstrated the optimal empirical trade-off between lexical diversity (Distinct-1: 0.60–0.73) and structural coherence, eliminating repetition loops while maintaining fluent narrative dialogue tags.")
-    ]
-    
-    for prefix, body in findings:
-        p_f = doc.add_paragraph(style='List Bullet')
-        p_f.paragraph_format.space_after = Pt(3)
-        r_p = p_f.add_run(prefix)
-        r_p.font.bold = True
-        r_p.font.size = Pt(9)
-        r_b = p_f.add_run(body)
-        r_b.font.size = Pt(9)
-        
-    p_footer = doc.add_paragraph()
-    p_footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r_foot = p_footer.add_run("Submitted in fulfillment of Steps 3 and 4 of the Assignment 2 submission procedure for ICT4403.")
-    r_foot.font.italic = True
-    r_foot.font.size = Pt(8.5)
-    
     output_path = os.path.join(os.getcwd(), output_filename)
     doc.save(output_path)
     print(f"Generated Word document at: {output_path}")
