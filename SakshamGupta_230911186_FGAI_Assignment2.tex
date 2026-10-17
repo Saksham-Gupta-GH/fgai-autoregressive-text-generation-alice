@@ -1,108 +1,86 @@
 \documentclass[10pt,letterpaper]{article}
 
-\usepackage[top=0.45in,bottom=0.45in,left=0.55in,right=0.55in]{geometry}
+\usepackage[top=0.55in,bottom=0.55in,left=0.65in,right=0.65in]{geometry}
 \usepackage{mathptmx} % Times Roman academic font
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage[table]{xcolor}
 \usepackage{enumitem}
+\usepackage[hyphens]{url}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
 
-% Color definitions
+% Colors
 \definecolor{tableheadbg}{RGB}{240, 243, 246}
 \definecolor{tablealtbg}{RGB}{248, 249, 250}
-\definecolor{bordergrey}{RGB}{210, 215, 220}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
-
-\newcommand{\sectiontitle}[1]{%
-  \vspace{4pt}%
-  {\fontsize{10.5pt}{12pt}\selectfont \textbf{#1}}\par
-  \vspace{1.5pt}%
-}
+\setlength{\parskip}{4pt}
 
 \begin{document}
 
-% Header Block
+% Institution & Course Header
 \begin{center}
-  {\fontsize{13pt}{15pt}\selectfont \textbf{FOUNDATIONS OF GENERATIVE AI (ICT4403)}}\\[2pt]
-  {\fontsize{10pt}{12pt}\selectfont \textit{Assignment 2: Autoregressive Text Generation System --- Comparative Study}}
+  {\fontsize{14pt}{17pt}\selectfont \textbf{FOUNDATIONS OF GENERATIVE AI (ICT4403)}}\\[3pt]
+  {\fontsize{11pt}{14pt}\selectfont \textbf{Assignment 2: Autoregressive Text Generation System}}\\[2pt]
+  {\fontsize{9.5pt}{12pt}\selectfont \textit{Submission Document \& GitHub Repository Verification Sheet}}
 \end{center}
-\vspace{-2pt}
 
-% Metadata Table
+\vspace{6pt}
+
+% Section 1: Required Submission Details
+{\fontsize{10.5pt}{13pt}\selectfont \textbf{1. Required Submission Details (Step 3)}}\par
+\vspace{1pt}
+
+% Metadata Table matching Step 3 verbatim
 \begin{center}
+\renewcommand{\arraystretch}{1.3}
 \small
-\begin{tabularx}{\linewidth}{|l|X|}
+\begin{tabularx}{\linewidth}{|>{\hsize=0.72\hsize\bfseries}X|>{\hsize=1.28\hsize}X|}
 \hline
 \rowcolor{tablealtbg}
-\textbf{Student Name} & Saksham Gupta \\ \hline
-\textbf{Registration Number} & 230911186 \\ \hline
+Student Name & Saksham Gupta \\ \hline
+Registration Number & 230911186 \\ \hline
 \rowcolor{tablealtbg}
-\textbf{Assignment Title} & Assignment 2 - Autoregressive Text Generation System \\ \hline
-\textbf{System Title} & Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's Alice in Wonderland using Simple RNN, BiRNN, LSTM, GRU \\ \hline
+Assignment Title & Foundations of Generative AI (ICT4403) --- Assignment 2 \\ \hline
+Title of the Developed Autoregressive Text-Generation System & Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's \textit{Alice's Adventures in Wonderland} using Simple RNN, Bidirectional RNN, LSTM, and GRU \\ \hline
 \rowcolor{tablealtbg}
-\textbf{Dataset \& Source} & Alice's Adventures in Wonderland (Lewis Carroll) \;\textbar\; \href{https://www.gutenberg.org/files/11/11-0.txt}{https://www.gutenberg.org/files/11/11-0.txt} \\ \hline
-\textbf{GitHub Repository} & \href{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice}{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice} \\ \hline
+Name and Link of the Dataset Used & Alice's Adventures in Wonderland (Lewis Carroll, Project Gutenberg eBook \#11)\newline
+\textbf{Dataset Link:} \href{https://www.gutenberg.org/files/11/11-0.txt}{https://www.gutenberg.org/files/11/11-0.txt} \\ \hline
+GitHub Repository Link & \textbf{Repository Link:} \href{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice}{https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice} \\ \hline
 \end{tabularx}
 \end{center}
-\vspace{-4pt}
 
-% Section 1
-\sectiontitle{1. System Overview \& Problem Statement}
-{\fontsize{8.5pt}{10.5pt}\selectfont
-Four recurrent neural language models (Simple RNN, BiRNN with forward-backward final state concatenation [$h_n[-2], h_n[-1]$], LSTM, and GRU) were trained under strictly controlled conditions on \textit{Alice's Adventures in Wonderland}. To eliminate data leakage, the corpus is partitioned chronologically (80\% Train, 10\% Val, 10\% Test) and the vocabulary (1,300 tokens, \texttt{min\_freq=2}) is fitted exclusively on training tokens. Context sequence length is 6 tokens. Held-out test set has an 11.17\% \texttt{<unk>} token rate.
-}\par
+\vspace{4pt}
 
-% Section 2
-\sectiontitle{2. Quantitative Evaluation Summary (Best Epoch \& Test Set)}
-\begin{center}
-\fontsize{8pt}{9.5pt}\selectfont
-\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l c c c c c c c c}
-\toprule
-\rowcolor{tableheadbg}
-\textbf{Architecture} & \textbf{Parameters} & \textbf{Best Ep} & \textbf{Val Loss} & \textbf{Val PPL} & \textbf{Val Top-1} & \textbf{Test Loss} & \textbf{Test Top-1} & \textbf{Test Top-5} \\
-\midrule
-Simple RNN & 798,484   & 4 & 4.0741 & 58.80 & 19.73\% & 4.1584 & 20.80\% & 45.28\% \\
-BiRNN      & 1,262,868 & 2 & 4.2804 & 72.27 & 18.66\% & 4.3192 & 18.47\% & 42.26\% \\
-\textbf{LSTM} & 1,193,236 & 5 & \textbf{3.9903} & \textbf{54.07} & \textbf{21.87\%} & \textbf{4.0576} & \textbf{23.29\%} & \textbf{47.23\%} \\
-GRU        & 1,061,652 & 3 & 4.0353 & 56.56 & 20.55\% & 4.0900 & 22.53\% & 46.51\% \\
-\bottomrule
-\end{tabular*}
-\end{center}
-\vspace{-6pt}
+% Section 2: Repository Contents & Architecture Overview
+{\fontsize{10.5pt}{13pt}\selectfont \textbf{2. GitHub Repository Structure \& Verified Deliverables (Step 2)}}\par
+\vspace{1pt}
 
-% Section 3
-\sectiontitle{3. Cross-Model Temperature Analysis (Averaged Over Models and Seed Prompts, $n = 3$ per cell)}
-\begin{center}
-\fontsize{8pt}{9.5pt}\selectfont
-\begin{tabularx}{\linewidth}{c c c c c X}
-\toprule
-\rowcolor{tableheadbg}
-\textbf{T} & \textbf{Distinct-1} & \textbf{Distinct-2} & \textbf{Trigram Repetition} & \textbf{Longest Loop} & \textbf{Empirical Quality Observation} \\
-\midrule
-\textbf{0.2} & 0.517 & 0.674 & 23.7\% & 0--6 words & Strict syntax; repetitive looping traps across models (GRU 52.5\%) \\
-\textbf{0.5} & 0.678 & 0.900 & 3.0\%  & 0 words    & Optimal empirical trade-off: high diversity with fluent story dialogue; LSTM and GRU comparable \\
-\textbf{1.0} & 0.855 & 0.992 & 0.0\%  & 0 words    & High lexical richness; slight syntactic drift across longer clauses \\
-\textbf{1.5} & 0.916 & 1.000 & 0.0\%  & 0 words    & High entropy; syntactic collapse into ungrammatical token sequences \\
-\bottomrule
-\end{tabularx}
-\end{center}
-\vspace{-6pt}
+All implementation code, pre-trained model checkpoints, interactive notebooks, plots, and experimental data are hosted in the public GitHub repository above in strict compliance with the assignment guidelines:
 
-% Section 4
-\sectiontitle{4. Conclusion \& Model Comparison}
-{\fontsize{8.5pt}{10.5pt}\selectfont
-\begin{itemize}[leftmargin=*,itemsep=1.5pt,topsep=0pt,parsep=0pt]
-  \item \textbf{LSTM vs. GRU \& UNK Nuance:} LSTM leads across next-word prediction metrics (Val Loss 3.9903, PPL 54.07, Test Top-1 23.29\%), with GRU performing closely behind (Val Loss 4.0353, Test Top-1 22.53\%) with 11\% fewer parameters. Test targets include 11.17\% \texttt{<unk>} tokens due to train-only vocabulary fitting.
-  \item \textbf{Qualitative Consistency \& Seed Origin:} Seed 1 comes from the training text, Seed 2 from held-out test text, and Seed 3 from validation text. Consistency was assessed qualitatively: at $T=0.5$, LSTM and GRU more frequently generate Carroll-style dialogue tags (`the march hare said'), though all models drift across multi-clause sequences without sustaining a persistent scene.
-  \item \textbf{Single-Seed Limitation \& BiRNN:} \texttt{SEED=42} ensures strict comparability; the 0.045 loss gap between LSTM and GRU falls within single-run variance margins. BiRNN's forward-backward state concatenation feeds complete context, but its 1,262,868 parameters overfit by epoch 2 (val loss 4.2804).
-  \item \textbf{Temperature Sampling:} $T = 0.5$ provides the optimal trade-off between lexical diversity (Distinct-1: 0.60--0.73) and phrase stability, achieving minimal trigram repetition (LSTM 5.0\%, GRU 0.0\%, BiRNN 1.0\%, Simple RNN 6.1\%).
+\begin{itemize}[leftmargin=*,itemsep=2.5pt,topsep=1pt,parsep=0pt]
+  \item \textbf{Complete Source Implementation (\texttt{src/}):} Modular PyTorch implementation containing \texttt{preprocessing.py} (chronological 80/10/10 split, train-only vocabulary fitting with \texttt{min\_freq=2}), \texttt{models.py} (Simple RNN, BiRNN with $[h_n[-2], h_n[-1]]$ state concatenation, LSTM, and GRU), \texttt{train.py} (training loop with validation checkpointing), \texttt{evaluate.py} (loss, perplexity, Top-1/Top-5 accuracy), and \texttt{generate.py} (temperature sampling, Distinct-1/2, trigram repetition metrics).
+  \item \textbf{Interactive Jupyter Notebook (\texttt{notebooks/text\_generation\_assignment2.ipynb}):} Complete, fully executed notebook with all 11 cells containing data preparation, model training progress, evaluation plots, and generated text outputs.
+  \item \textbf{Automated End-to-End Pipeline (\texttt{run\_experiments.py}):} Single-command reproduction script executing the full experimental workflow: preprocessing, training, evaluation, plotting, and generation.
+  \item \textbf{Empirical Results \& Visualizations (\texttt{results/}):} Tabular CSV reports, generated sample logs across temperatures ($T \in \{0.2, 0.5, 1.0, 1.5\}$), and high-resolution comparison plots (\texttt{loss\_curves.png}, \texttt{perplexity\_comparison.png}, \texttt{accuracy\_comparison.png}, etc.).
+  \item \textbf{Comprehensive Technical Report (\texttt{README.md}):} Complete report covering problem formulation, dataset characteristics, architecture details, experimental protocol, full evaluation tables, temperature analysis, and model justification.
 \end{itemize}
-}
+
+\vspace{4pt}
+
+% Section 3: Summary of Key Experimental Findings
+{\fontsize{10.5pt}{13pt}\selectfont \textbf{3. Summary of Key Experimental Findings}}\par
+\vspace{1pt}
+
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=1pt,parsep=0pt]
+  \item \textbf{Best Performing Model:} \textbf{LSTM} achieved the strongest next-word prediction performance (Best Val Loss: \textbf{3.9903}, Val Perplexity: \textbf{54.07}, Held-Out Test Top-1 Accuracy: \textbf{23.29\%}, Test Top-5 Accuracy: \textbf{47.23\%}), with \textbf{GRU} performing closely behind (Val Loss: \textbf{4.0353}, Test Top-1: \textbf{22.53\%}) with 11\% fewer parameters.
+  \item \textbf{Sampling Temperature Optimization:} Temperature $T = 0.5$ demonstrated the optimal empirical trade-off between lexical diversity (Distinct-1: 0.60--0.73) and structural coherence, eliminating repetition loops while maintaining fluent narrative dialogue tags.
+\end{itemize}
+
+\vspace{6pt}
+\begin{center}
+  \footnotesize \textit{Submitted in fulfillment of Steps 3 and 4 of the Assignment 2 submission procedure for ICT4403.}
+\end{center}
 
 \end{document}
