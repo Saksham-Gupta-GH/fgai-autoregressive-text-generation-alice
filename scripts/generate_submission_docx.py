@@ -207,9 +207,10 @@ def build_submission_docx(
     
     doc.add_paragraph(
         "• LSTM edges ahead across next-word prediction metrics: lowest validation loss (3.9903, PPL 54.07), "
-        "highest validation top-1 accuracy (21.87%), and highest held-out test top-1 accuracy (23.29%) and top-5 accuracy (47.23%).\n"
+        "highest validation top-1 accuracy (21.87%), and highest held-out test top-1 accuracy (23.29%) and top-5 accuracy (47.23%). "
+        "Held-out test set targets contain 11.17% <unk> tokens due to fitting vocabulary strictly on train tokens (min_freq=2); reported accuracies reflect classification over the full vocabulary including <unk>.\n"
         "• GRU performs closely behind in second place (Val Loss 4.0353, Test Top-1 22.53%) with 11% fewer parameters (1,061,652 vs. 1,193,236). Simple RNN remains competitive in loss (4.0741, PPL 58.80).\n"
-        "• For sequential generation, LSTM and GRU are comparable: GRU achieves 0.0% trigram repetition at T=0.5, while LSTM produces the most fluent story phrasing in our samples.\n"
+        "• Contextual Consistency & Generation Quality: Seed 1 evaluates canonical voice recall on opening text (train partition), while Seeds 2 & 3 test generalization on courtroom dialogue (test partition). At T=0.5, LSTM and GRU achieve superior contextual consistency, preserving Carroll's dialogue tags ('the march hare said', 'cried the queen') and entity pairings without drift. GRU achieves 0.0% trigram repetition at T=0.5, while LSTM produces the most fluent story phrasing in our samples.\n"
         "• Statistical Evaluation & Single-Seed Limitation: While all models were trained with SEED=42 to enforce strictly identical conditions, the 0.045 cross-entropy delta between LSTM and GRU falls within typical single-run variance. Multi-seed runs (3–5 seeds) with mean ± standard deviation reporting are recommended for production-scale validation.\n"
         "• Bidirectional RNN: By concatenating forward final state h_n[-2] and backward final state h_n[-1], BiRNN correctly encodes the complete input context. "
         "However, with 1,262,868 parameters it exhibits earlier overfitting (peaking at epoch 2) compared to causal unidirectional models.\n"
@@ -265,8 +266,9 @@ def build_submission_pdf(
     # Section 1
     story.append(Paragraph("1. System Overview & Problem Statement", h1_style))
     story.append(Paragraph(
-        "Four recurrent neural language models (Simple RNN, BiRNN with forward-backward final state concatenation [h_n[-2], h_n[-1]], LSTM, and GRU) were trained under strictly controlled conditions on Alice's Adventures in Wonderland. "
-        "To eliminate data leakage, the corpus is partitioned chronologically (80% Train, 10% Val, 10% Test) and the vocabulary (1,300 tokens, min_freq=2) is fitted exclusively on training tokens. Context sequence length is 6 tokens.",
+        "Four recurrent neural language models (Simple RNN, BiRNN with forward-backward final state concatenation [h_n[-2], h_n[-1]], LSTM, and GRU) were trained "
+        "under strictly controlled conditions on Alice's Adventures in Wonderland. To eliminate data leakage, the corpus is partitioned chronologically (80% Train, 10% "
+        "Val, 10% Test) and the vocabulary (1,300 tokens, min_freq=2) is fitted exclusively on training tokens. Context sequence length is 6 tokens. Held-out test set has an 11.17% &lt;unk&gt; token rate.",
         body_style
     ))
 
@@ -292,13 +294,13 @@ def build_submission_pdf(
     # Section 3
     story.append(Paragraph("3. Cross-Model Temperature Analysis (Averaged Over Models and Seed Prompts, n = 3 per cell)", h1_style))
     t_data = [
-        [Paragraph(h, table_head) for h in ["Temperature", "Distinct-1", "Distinct-2", "Trigram Repetition", "Longest Loop", "Empirical Quality Observation"]],
-        [Paragraph("<b>T = 0.2</b>", table_text), Paragraph("0.517", table_text), Paragraph("0.674", table_text), Paragraph("23.7%", table_text), Paragraph("0–6 words", table_text), Paragraph("Strict syntax; repetitive looping traps across models (GRU 52.5%)", table_text)],
-        [Paragraph("<b>T = 0.5</b>", table_text), Paragraph("0.678", table_text), Paragraph("0.900", table_text), Paragraph("3.0%", table_text), Paragraph("0 words", table_text), Paragraph("Optimal empirical trade-off: high diversity with fluent story dialogue; LSTM and GRU comparable", table_text)],
-        [Paragraph("<b>T = 1.0</b>", table_text), Paragraph("0.855", table_text), Paragraph("0.992", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High lexical richness; slight syntactic drift across longer clauses", table_text)],
-        [Paragraph("<b>T = 1.5</b>", table_text), Paragraph("0.916", table_text), Paragraph("1.000", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High entropy; syntactic collapse into ungrammatical token sequences", table_text)],
+        [Paragraph(h, table_head) for h in ["T", "Distinct-1", "Distinct-2", "Trigram Repetition", "Longest Loop", "Empirical Quality Observation"]],
+        [Paragraph("<b>0.2</b>", table_text), Paragraph("0.517", table_text), Paragraph("0.674", table_text), Paragraph("23.7%", table_text), Paragraph("0–6 words", table_text), Paragraph("Strict syntax; repetitive looping traps across models (GRU 52.5%)", table_text)],
+        [Paragraph("<b>0.5</b>", table_text), Paragraph("0.678", table_text), Paragraph("0.900", table_text), Paragraph("3.0%", table_text), Paragraph("0 words", table_text), Paragraph("Optimal empirical trade-off: high diversity with fluent story dialogue; LSTM and GRU comparable", table_text)],
+        [Paragraph("<b>1.0</b>", table_text), Paragraph("0.855", table_text), Paragraph("0.992", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High lexical richness; slight syntactic drift across longer clauses", table_text)],
+        [Paragraph("<b>1.5</b>", table_text), Paragraph("0.916", table_text), Paragraph("1.000", table_text), Paragraph("0.0%", table_text), Paragraph("0 words", table_text), Paragraph("High entropy; syntactic collapse into ungrammatical token sequences", table_text)],
     ]
-    t_table = Table(t_data, colWidths=[55, 52, 52, 70, 55, 256])
+    t_table = Table(t_data, colWidths=[35, 52, 52, 72, 55, 274])
     t_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#e9ecef')),
         ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cccccc')),
@@ -311,10 +313,10 @@ def build_submission_pdf(
     # Section 4
     story.append(Paragraph("4. Conclusion & Model Comparison", h1_style))
     story.append(Paragraph(
-        "• <b>LSTM and GRU Comparison:</b> LSTM edges ahead across prediction metrics (Val Loss 3.9903, PPL 54.07, Test Top-1 23.29%), with GRU performing closely behind (Val Loss 4.0353, Test Top-1 22.53%) while requiring 11% fewer parameters. Simple RNN remains competitive in loss (4.0741). For text generation, LSTM and GRU are comparable: GRU achieves 0.0% trigram repetition at T=0.5, while LSTM produces the most fluent story phrasing in our samples.<br/>"
-        "• <b>Single-Seed Limitation:</b> Experiments were run under SEED=42 for strict controlled comparison; the 0.045 loss delta between LSTM and GRU falls within typical single-run variance margins. Evaluating across 3–5 seeds with mean ± std is recommended for production-scale validation.<br/>"
-        "• <b>Bidirectional RNN:</b> Concatenating forward state h_n[-2] and backward state h_n[-1] feeds complete context to the classifier, but its 1,262,868 parameters overfit by epoch 2 (val loss 4.2804).<br/>"
-        "• <b>Temperature Sampling:</b> T = 0.5 provides the optimal trade-off between lexical diversity (Distinct-1: 0.60–0.73) and phrase stability, achieving low repetition across models (LSTM 5.0%, GRU 0.0%, BiRNN 1.0%, Simple RNN 6.1%).",
+        "• <b>LSTM vs. GRU & UNK Nuance:</b> LSTM leads across next-word prediction metrics (Val Loss 3.9903, PPL 54.07, Test Top-1 23.29%), with GRU performing closely behind (Val Loss 4.0353, Test Top-1 22.53%) with 11% fewer parameters. Test targets include 11.17% &lt;unk&gt; tokens due to train-only vocabulary fitting.<br/>"
+        "• <b>Contextual Consistency & Seed Generalization:</b> Seed 1 evaluates canonical voice recall on opening text (train partition), while Seeds 2 & 3 evaluate generalization on later trial scenes (test partition). At T=0.5, LSTM and GRU show superior contextual consistency, preserving Carroll's dialogue tags ('the march hare said') without drift.<br/>"
+        "• <b>Single-Seed Limitation & BiRNN:</b> SEED=42 ensures strict comparability; the 0.045 loss gap between LSTM and GRU falls within single-run variance margins. BiRNN's forward-backward state concatenation feeds complete context, but its 1,262,868 parameters overfit by epoch 2 (val loss 4.2804).<br/>"
+        "• <b>Temperature Sampling:</b> T = 0.5 provides the optimal trade-off between lexical diversity (Distinct-1: 0.60–0.73) and phrase stability, achieving minimal trigram repetition (LSTM 5.0%, GRU 0.0%, BiRNN 1.0%, Simple RNN 6.1%).",
         body_style
     ))
 
