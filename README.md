@@ -180,9 +180,9 @@ During autoregressive decoding, next-token probabilities are modulated by temper
 $$P(w_{t} = i) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$$
 
 We evaluated all four architectures across three distinct seed prompts at four temperatures ($T \in \{0.2, 0.5, 1.0, 1.5\}$):
-- **Seed 1 (Train Partition)**: *"alice was beginning to get very tired of sitting"* (Chapter 1 opening — tests canonical narrative voice recall).
-- **Seed 2 (Test Partition)**: *"the white rabbit put on his spectacles and said"* (Chapter 11 trial scene — tests unseen dialogic continuation).
-- **Seed 3 (Test Partition)**: *"the queen of hearts she made some tarts all"* (Chapter 11 courtroom verse — tests rhyming verse and entity consistency).
+- **Seed 1 (Training Text)**: *"alice was beginning to get very tired of sitting"* (Chapter 1 opening — tests training-set voice recall).
+- **Seed 2 (Held-out Test Text)**: *"the white rabbit put on his spectacles and said"* (Final chapter — tests continuation on unseen test text).
+- **Seed 3 (Validation Text)**: *"the queen of hearts she made some tarts all"* (Courtroom verse — tests continuation on validation text).
 
 All metrics are computed **strictly on newly generated tokens** (excluding the seed prompt) and averaged across seed prompts ($n = 3$ generations per cell):
 
@@ -221,8 +221,9 @@ All metrics are computed **strictly on newly generated tokens** (excluding the s
   > `"... face high before without more pig what fun minute! take alice what head together there upon hard history. it at generally mice not join. not the sentence altogether not was certainly succeeded"`
 
 ### Contextual Consistency Assessment
-- **Entity & Voice Consistency**: At $T=0.5$, LSTM maintains the highest contextual consistency: preserving Carroll's distinctive dialogue conventions (`said the duchess`, `the march hare said in a hurry`), character interactions, and Victorian narrative register without straying into out-of-domain entities.
-- **Generalization Across Train vs. Test Seeds**: On Seed 1 (train partition), all models exhibit smooth grammatical momentum. On Seeds 2 & 3 (test partition), Simple RNN and BiRNN experience occasional semantic drift, whereas LSTM and GRU robustly maintain thematic continuity (e.g., maintaining trial and tea party discourse).
+Consistency was assessed qualitatively across generated passages:
+- **Qualitative Observation**: At $T=0.5$, LSTM and GRU more frequently generate Carroll-style dialogue tags and Victorian vocabulary (e.g., *"the march hare said in a hurry"*), but all four recurrent models drift across multi-clause sequences and none sustain a consistent narrative scene (for instance, drifting between characters within a single sentence).
+- **Measurement Scope**: We did not compute a formal quantitative consistency metric; assessments are based on qualitative inspection of generated passages across temperatures and seeds.
 
 ---
 
@@ -233,6 +234,7 @@ All metrics are computed **strictly on newly generated tokens** (excluding the s
    - **GRU** performs closely behind with **20.55%** validation Top-1 and **22.53%** test Top-1 accuracy, while utilizing 11% fewer parameters (**1,061,652** vs. 1,193,236).
    - **Simple RNN** remains competitive in loss (**4.0741**) and perplexity (**58.80**), though slightly trailing in Top-1 accuracy (**19.73%** validation, **20.80%** test).
    - **Evaluation Nuance (<unk> Rate):** Held-out test targets include 11.17% `<unk>` tokens due to fitting vocabulary strictly on training tokens ($min\_freq=2$); reported accuracies evaluate next-word prediction across the complete 1,300-token space including `<unk>`.
+   - **Qualitative Consistency & Seed Origin:** Seed 1 comes from the training text, Seed 2 from held-out test text, and Seed 3 from validation text. Qualitative inspection shows that while LSTM and GRU at $T=0.5$ produce convincing local dialogue syntax, all models experience character and scene drift over extended token generation.
    - **Single-Seed Limitation ($S=42$):** While all models were trained with `SEED=42` to enforce strict controlled comparability, the 0.045 cross-entropy margin between LSTM (3.990) and GRU (4.035) falls within standard single-run variance. For production-scale benchmarking, running 3–5 seeds with mean ± standard deviation reporting is recommended.
 2. **Bidirectional RNN Inductive Trade-off**:
    - Concatenating the forward final state $h_n[-2]$ and backward final state $h_n[-1]$ properly feeds the full sequence context to the classifier.
@@ -275,7 +277,7 @@ fgai-autoregressive-text-generation-alice/
     ├── perplexity_comparison.png                 # Validation perplexity comparison chart
     ├── accuracy_comparison.png                   # Top-1 and Top-5 accuracy comparison
     ├── training_time_comparison.png              # Training duration wall-clock comparison
-    └── *_best.pt                                 # Saved PyTorch checkpoints (tracked on GitHub; reproducible via run_experiments.py)
+    └── *_best.pt                                 # Saved model checkpoints (reproduced via run_experiments.py)
 ```
 
 ### Assignment Brief Compliance Matrix (`IA2_ICT4403_FGAI.pdf`)
