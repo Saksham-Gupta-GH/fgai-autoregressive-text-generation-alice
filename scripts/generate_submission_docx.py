@@ -64,27 +64,24 @@ def build_submission_docx(
     
     sub = doc.add_paragraph()
     sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run_sub1 = sub.add_run("Assignment 2: Autoregressive Text Generation System\n")
-    run_sub1.font.size = Pt(14)
-    run_sub1.font.bold = True
-    run_sub2 = sub.add_run("Step 3: Share the GitHub Repository Link")
-    run_sub2.font.size = Pt(12)
-    run_sub2.font.italic = True
+    run_sub = sub.add_run("Assignment 2 – Submission Details")
+    run_sub.font.size = Pt(13)
     
-    doc.add_paragraph().paragraph_format.space_after = Pt(24)
+    doc.add_paragraph().paragraph_format.space_after = Pt(20)
     
-    # Metadata Table
-    table = doc.add_table(rows=6, cols=2)
+    # Metadata Table (7 Rows matching friend's structure)
+    table = doc.add_table(rows=7, cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = False
     
     meta_rows = [
-        ("Student Name", student_name, None),
-        ("Registration Number", reg_num, None),
-        ("Assignment Title", "Foundations of Generative AI (ICT4403) — Assignment 2", None),
-        ("Title of the Developed Autoregressive Text-Generation System", "Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's Alice's Adventures in Wonderland using Simple RNN, Bidirectional RNN, LSTM, and GRU", None),
-        ("Name and Link of the Dataset Used", "Alice's Adventures in Wonderland (Lewis Carroll, Project Gutenberg eBook #11)\n", "https://www.gutenberg.org/files/11/11-0.txt"),
-        ("GitHub Repository Link", "", repo_url)
+        ("Student name", student_name, None),
+        ("Registration number", reg_num, None),
+        ("Assignment title", "Foundations of Generative AI (ICT4403) – Assignment 2", None),
+        ("Title of the developed autoregressive text-generation system", "Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's Alice's Adventures in Wonderland using Simple RNN, Bidirectional RNN, LSTM, and GRU", None),
+        ("Dataset name", "Alice's Adventures in Wonderland by Lewis Carroll (Project Gutenberg eBook #11)", None),
+        ("Dataset link", "", "https://www.gutenberg.org/files/11/11-0.txt"),
+        ("GitHub repository link", "", repo_url)
     ]
     
     for i, (k, text_prefix, link_url) in enumerate(meta_rows):
@@ -95,18 +92,18 @@ def build_submission_docx(
         c1.width = Inches(4.2)
         
         p0 = c0.paragraphs[0]
-        p0.paragraph_format.space_before = Pt(6)
-        p0.paragraph_format.space_after = Pt(6)
+        p0.paragraph_format.space_before = Pt(5)
+        p0.paragraph_format.space_after = Pt(5)
         r0 = p0.add_run(k)
         r0.font.bold = True
-        r0.font.size = Pt(11)
+        r0.font.size = Pt(10.5)
         
         p1 = c1.paragraphs[0]
-        p1.paragraph_format.space_before = Pt(6)
-        p1.paragraph_format.space_after = Pt(6)
+        p1.paragraph_format.space_before = Pt(5)
+        p1.paragraph_format.space_after = Pt(5)
         if text_prefix:
             r1 = p1.add_run(text_prefix)
-            r1.font.size = Pt(11)
+            r1.font.size = Pt(10.5)
         if link_url:
             add_docx_hyperlink(p1, link_url, link_url)
             
