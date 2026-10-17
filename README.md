@@ -1,36 +1,15 @@
 # Foundations of Generative AI (ICT4403) — Assignment 2
 ## Autoregressive Next-Word Prediction & Multi-Temperature Text Generation System: Comparative Study of Simple RNN, Bidirectional RNN, LSTM, and GRU
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Corpus](https://img.shields.io/badge/Dataset-Alice's%20Adventures%20in%20Wonderland-4A90E2)](https://www.gutenberg.org/files/11/11-0.txt)
-[![LMS Deliverable](https://img.shields.io/badge/LMS%20Deliverable-1--Page%20Verified%20PDF-brightgreen)](SakshamGupta_230911186_FGAI_Assignment2.pdf)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
 ---
 
-### Student & Submission Metadata
-| Field | Value |
-| :--- | :--- |
-| **Student Name** | Saksham Gupta |
-| **Registration Number** | 230911186 |
-| **Assignment Title** | Foundations of Generative AI (ICT4403) – Assignment 2 |
-| **System Title** | Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's *Alice's Adventures in Wonderland* using Simple RNN, Bidirectional RNN, LSTM, and GRU |
-| **Dataset Name & Source** | *Alice's Adventures in Wonderland* (Lewis Carroll) — [Project Gutenberg #11](https://www.gutenberg.org/files/11/11-0.txt) |
-| **GitHub Repository Link** | [https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice](https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice) |
-
----
-
-## Table of Contents
-- [1. Problem Statement & Objectives](#1-problem-statement--objectives)
-- [2. Dataset Description & Source Link](#2-dataset-description--source-link)
-- [3. Architecture Descriptions](#3-architecture-descriptions)
-- [4. Execution Steps & Dependencies](#4-execution-steps--dependencies)
-- [5. Quantitative Results & Evaluation](#5-quantitative-results--evaluation)
-- [6. Cross-Model Temperature Analysis](#6-cross-model-temperature-analysis)
-- [7. Qualitative Generation Examples](#7-qualitative-generation-examples)
-- [8. Conclusion: Model Comparison & Justification](#8-conclusion-model-comparison--justification)
-- [9. Repository Organization & LMS Deliverable Checklist](#9-repository-organization--lms-deliverable-checklist)
+### Student Details
+- **Student Name:** Saksham Gupta
+- **Registration Number:** 230911186
+- **Assignment Title:** Foundations of Generative AI (ICT4403) – Assignment 2
+- **System Title:** Comparative Word-Level Autoregressive Text Generation on Lewis Carroll's *Alice's Adventures in Wonderland* using Simple RNN, Bidirectional RNN, LSTM, and GRU
+- **Dataset Name & Source:** *Alice's Adventures in Wonderland* (Lewis Carroll) — [Project Gutenberg #11](https://www.gutenberg.org/files/11/11-0.txt)
+- **GitHub Repository Link:** [https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice](https://github.com/Saksham-Gupta-GH/fgai-autoregressive-text-generation-alice)
 
 ---
 
@@ -40,15 +19,15 @@ Autoregressive language modeling estimates the joint probability of a sequence o
 $$P(w_1, w_2, \dots, w_T) = \prod_{t=1}^T P(w_t \mid w_1, \dots, w_{t-1})$$
 
 The core objectives of this assignment are:
-1. **Dataset Preprocessing & Strict Leakage Prevention**: Preprocess Lewis Carroll's **Alice's Adventures in Wonderland**, implement a **chronological contiguous split** (80% Train, 10% Validation, 10% Test) rather than random window shuffling (which leaks overlapping tokens), and fit vocabulary **strictly on training tokens**.
+1. **Dataset Preprocessing & Split**: Preprocess Lewis Carroll's **Alice's Adventures in Wonderland**, implement a contiguous chronological split (80% Train, 10% Validation, 10% Test) rather than random window shuffling (which leaks overlapping tokens across splits), and fit vocabulary strictly on training tokens (`min_freq=2`).
 2. **Model Implementations in PyTorch**: Construct four recurrent neural architectures:
    - **Simple RNN** (Vanilla Elman recurrent network)
-   - **Bidirectional RNN** (BiRNN, properly concatenating forward and backward final hidden states `[h_n[-2], h_n[-1]]`)
+   - **Bidirectional RNN** (BiRNN, concatenating forward and backward final hidden states `[h_n[-2], h_n[-1]]`)
    - **LSTM** (Long Short-Term Memory with forget, input, and output gates)
    - **GRU** (Gated Recurrent Unit with reset and update gates)
-3. **Controlled & Comparable Experimental Conditions**: Train all four models under identical conditions (same random seed, 256 embedding dimensions, 256 hidden units, sequence length 6, dropout 0.25, Adam optimizer, learning rate 0.001, batch size 64, and gradient clipping at 1.0).
-4. **Rigorous Evaluation**: Track training and validation learning curves, record **best-epoch validation checkpoints** (to account for overfitting gaps), and evaluate best models on an unseen test set for Cross-Entropy Loss, Perplexity ($\exp(\mathcal{L})$), Top-1 Accuracy, and Top-5 Candidate Accuracy.
-5. **Cross-Model Temperature Analysis**: Sample text across four temperature regimes ($T \in \{0.2, 0.5, 1.0, 1.5\}$) from multiple seed prompts, evaluating Distinct-1, Distinct-2, and Trigram Repetition Rate strictly on newly generated tokens.
+3. **Consistent Experimental Conditions**: Train all four models under identical settings (same random seed $S=42$, 256 embedding dimensions, 256 hidden units, sequence length 6, dropout 0.25, Adam optimizer, learning rate 0.001, batch size 64, and gradient clipping at 1.0).
+4. **Evaluation**: Track training and validation learning curves, save best-epoch validation checkpoints, and evaluate models on the held-out test set for Cross-Entropy Loss, Perplexity ($\exp(\mathcal{L})$), Top-1 Accuracy, and Top-5 Accuracy.
+5. **Temperature Analysis**: Sample text across four temperature settings ($T \in \{0.2, 0.5, 1.0, 1.5\}$) from three seed prompts, evaluating Distinct-1, Distinct-2, and Trigram Repetition Rate on newly generated tokens.
 
 ---
 
@@ -240,21 +219,20 @@ Consistency was assessed qualitatively across generated passages:
    - Concatenating the forward final state $h_n[-2]$ and backward final state $h_n[-1]$ properly feeds the full sequence context to the classifier.
    - However, BiRNN's 1.26M parameters cause it to overfit earlier (validation loss peaks at epoch 2 at 4.2804). For causal word-level autoregressive generation, the extra backward parameters provide limited inductive advantage compared to causal gated units.
 3. **Sampling Temperature & Empirical Coherence**:
-   - $T = 0.5$ represents the **optimal empirical trade-off** between lexical diversity (Distinct-1: ~0.60–0.73) and phrase stability, achieving low trigram repetition across architectures: **LSTM (5.0%)**, **GRU (0.0%)**, **BiRNN (1.0%)**, and **Simple RNN (6.1%)**.
+   - $T = 0.5$ provides the most practical balance between lexical diversity (Distinct-1: ~0.60–0.73) and phrase stability, achieving low trigram repetition across architectures: **LSTM (5.0%)**, **GRU (0.0%)**, **BiRNN (1.0%)**, and **Simple RNN (6.1%)**.
    - Lower temperatures ($T = 0.2$) trigger severe repetition loops (GRU reaches 52.5% repetition, looping on *"and she tried to herself"*), while high temperatures ($T = 1.5$) cause syntactic collapse into ungrammatical token salad.
 
 ---
 
-## 9. Repository Organization & LMS Deliverable Checklist
+## 9. Repository Layout
 
-### Repository Directory Layout
 ```
 fgai-autoregressive-text-generation-alice/
 ├── LICENSE                                       # MIT License
-├── SakshamGupta_230911186_FGAI_Assignment2.pdf   # Step 4 & 5: Verified 1-Page LMS Submission PDF
-├── SakshamGupta_230911186_FGAI_Assignment2.docx  # Step 3: Complete Word Document with Metadata
-├── README.md                                     # Step 2: Comprehensive Technical Study
-├── requirements.txt                              # Required dependencies (torch, numpy, matplotlib, etc.)
+├── SakshamGupta_230911186_FGAI_Assignment2.pdf   # 1-Page LMS Submission PDF
+├── SakshamGupta_230911186_FGAI_Assignment2.docx  # Word Document with Metadata
+├── README.md                                     # Project README
+├── requirements.txt                              # Required dependencies
 ├── run_experiments.py                            # Fully automated end-to-end experiment pipeline
 ├── data/
 │   ├── alice_in_wonderland.txt                   # Gutenberg eBook #11 source text
@@ -279,18 +257,3 @@ fgai-autoregressive-text-generation-alice/
     ├── training_time_comparison.png              # Training duration wall-clock comparison
     └── *_best.pt                                 # Saved model checkpoints (reproduced via run_experiments.py)
 ```
-
-### Assignment Brief Compliance Matrix (`IA2_ICT4403_FGAI.pdf`)
-| Brief Section | Requirement Description | Implementation / Deliverable in this Repo | Status |
-| :--- | :--- | :--- | :---: |
-| **Task (i)** | Dataset characteristics, preprocessing, input-target sequences, train 4 models | Contiguous 80/10/10 split, train-only vocab (1,300 tokens), sequence length 6; Simple RNN, BiRNN, LSTM, GRU trained | ✅ Complete |
-| **Task (ii)** | Quantitative (Loss, PPL, Acc, Time) & Qualitative (coherence, diversity, repetition) | Best Val & Test Loss, PPL, Top-1/Top-5 Acc, Training Time; Distinct-1/2, Trigram Repetition, Longest Loop | ✅ Complete |
-| **Task (iii)** | Text generation across $\ge 3$ temperatures ($T \in \{0.2, 0.5, 1.0, 1.5\}$), model justification | Evaluated across 4 temperatures on identical seed prompts; LSTM/GRU trade-offs analyzed | ✅ Complete |
-| **Step 1** | Program executes correctly and reproduces results | Fully reproducible via `python3 run_experiments.py` with fixed random seed ($S=42$) | ✅ Complete |
-| **Step 2.1** | Clear and relevant GitHub repository name | `fgai-autoregressive-text-generation-alice` (public repository) | ✅ Complete |
-| **Step 2.2** | Implementation as Notebook (.ipynb) or .py source files with results, plots, samples | Both modular `src/` + `run_experiments.py` AND fully-executed `notebooks/text_generation_assignment2.ipynb` | ✅ Complete |
-| **Step 2.3** | Provide correct source link for dataset | Verified link in README, `data/dataset_source_link.txt`, Word doc, and PDF | ✅ Complete |
-| **Step 2.4** | README containing all 8 mandatory sections | Covers all 8 rubric sections plus directory structure & compliance matrix | ✅ Complete |
-| **Step 3** | Word document: `YourName_RegNum_FGAI_Assignment2.docx` with required metadata | `SakshamGupta_230911186_FGAI_Assignment2.docx` with all 6 required fields and clickable links | ✅ Complete |
-| **Step 4** | Convert Word document to PDF format | `SakshamGupta_230911186_FGAI_Assignment2.pdf` generated and verified | ✅ Complete |
-| **Step 5** | Upload final PDF file to LMS before deadline | PDF strictly formatted to **1 single page** with all required tables, ready for LMS upload | ✅ Ready |
